@@ -120,9 +120,9 @@
         </div>
     </div>
 
-    <div class="glass-panel rounded-3xl border border-gray-800/80 divide-y divide-gray-800/60 overflow-hidden shadow-2xl">
+    <div class="divide-y divide-gray-800/80 border-t border-b border-gray-800/80">
         @foreach($topCharts as $index => $chartSong)
-            <a href="{{ route('songs.show-nested', ['artistSlug' => $chartSong->artist->slug, 'songSlug' => $chartSong->slug]) }}" class="flex items-center justify-between p-3.5 sm:p-4 hover:bg-gray-800/50 transition duration-200 group">
+            <a href="{{ route('songs.show-nested', ['artistSlug' => $chartSong->artist->slug, 'songSlug' => $chartSong->slug]) }}" class="flex items-center justify-between py-4 px-2 hover:bg-gray-900/40 transition duration-200 group">
                 <div class="flex items-center space-x-3.5 sm:space-x-5 min-w-0">
                     <!-- Rank Number -->
                     <span class="w-6 text-center font-black text-base sm:text-lg font-mono text-gray-400 group-hover:text-emerald-400 transition shrink-0">
