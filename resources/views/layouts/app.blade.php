@@ -7,9 +7,9 @@
 
     @php
         $siteName = \App\Models\Setting::get('site_name', 'Gusii Lyrics');
-        $siteLogo = \App\Models\Setting::get('site_logo', '');
-        $favicon = \App\Models\Setting::get('favicon', '');
-        $defaultSeoTitle = \App\Models\Setting::get('seo_title', 'Gusii Lyrics - Ekegusii Song Lyrics Vault');
+        $siteLogo = \App\Models\Setting::get('site_logo', '/images/logo.png');
+        $favicon = \App\Models\Setting::get('favicon', '/images/favicon.png');
+        $defaultSeoTitle = \App\Models\Setting::get('seo_title', 'Gusii Lyrics - Ekegusii Song Lyrics');
         $defaultSeoDesc = \App\Models\Setting::get('seo_description', 'Read official Ekegusii lyrics and stream songs on Spotify & YouTube.');
         $defaultKeywords = \App\Models\Setting::get('seo_keywords', 'Ekegusii lyrics, Kisii music');
         $gaId = \App\Models\Setting::get('google_analytics_id', '');
@@ -40,7 +40,8 @@
 
     <!-- Favicon -->
     @if($favicon)
-        <link rel="icon" href="{{ $favicon }}" type="image/x-icon">
+        <link rel="icon" href="{{ $favicon }}" type="image/png">
+        <link rel="apple-touch-icon" href="{{ $favicon }}">
     @endif
 
     <!-- Google Fonts -->
@@ -102,17 +103,19 @@
     <header class="glass-nav sticky top-0 z-40 px-4 sm:px-6 lg:px-8 py-3.5 border-b border-gray-800/80">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <!-- Brand Logo -->
-            <a href="{{ route('home') }}" class="flex items-center space-x-3">
+            <a href="{{ route('home') }}" class="flex items-center">
                 @if($siteLogo)
-                    <img src="{{ $siteLogo }}" alt="{{ $siteName }}" class="h-9 w-auto rounded-lg">
+                    <img src="{{ $siteLogo }}" alt="{{ $siteName }}" class="h-10 sm:h-11 w-auto object-contain">
                 @else
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-slate-950 font-black text-base shadow-lg shadow-emerald-500/20">
-                        G
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-slate-950 font-black text-base shadow-lg shadow-emerald-500/20">
+                            G
+                        </div>
+                        <span class="text-lg sm:text-xl font-extrabold text-white tracking-tight">
+                            Gusii<span class="text-gradient-emerald">Lyrics</span>
+                        </span>
                     </div>
                 @endif
-                <span class="text-lg sm:text-xl font-extrabold text-white tracking-tight">
-                    Gusii<span class="text-gradient-emerald">Lyrics</span>
-                </span>
             </a>
 
             <!-- Desktop Nav Links -->

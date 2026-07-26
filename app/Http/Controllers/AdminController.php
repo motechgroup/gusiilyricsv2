@@ -504,8 +504,8 @@ class AdminController extends Controller
     {
         $settings = [
             'site_name' => Setting::get('site_name', 'Gusii Lyrics'),
-            'site_logo' => Setting::get('site_logo', ''),
-            'favicon' => Setting::get('favicon', ''),
+            'site_logo' => Setting::get('site_logo', '/images/logo.png'),
+            'favicon' => Setting::get('favicon', '/images/favicon.png'),
             'seo_title' => Setting::get('seo_title', 'Gusii Lyrics - Ekegusii Song Lyrics'),
             'seo_description' => Setting::get('seo_description', 'Discover Ekegusii lyrics and stream links.'),
             'seo_keywords' => Setting::get('seo_keywords', 'Ekegusii lyrics, Kisii songs'),
