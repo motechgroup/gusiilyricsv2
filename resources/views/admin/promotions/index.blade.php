@@ -17,37 +17,37 @@
         </button>
     </div>
 
-    <!-- Campaign Analytics Overview Grid -->
+    <!-- Campaign Analytics Overview Grid (Un-enclosed) -->
     <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <div class="glass-panel p-5 rounded-2xl border border-gray-800 text-center space-y-1">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-gray-800 text-center space-y-1">
             <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Total Campaigns</span>
             <div class="text-2xl font-extrabold text-white font-mono">{{ number_format($stats['total_campaigns']) }}</div>
         </div>
 
-        <div class="glass-panel p-5 rounded-2xl border border-emerald-500/30 text-center space-y-1">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-emerald-500/30 text-center space-y-1">
             <span class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Active Promoted Songs</span>
             <div class="text-2xl font-extrabold text-emerald-400 font-mono">{{ number_format($stats['active_campaigns']) }}</div>
         </div>
 
-        <div class="glass-panel p-5 rounded-2xl border border-rose-500/30 text-center space-y-1">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-rose-500/30 text-center space-y-1">
             <span class="text-[10px] text-rose-400 font-bold uppercase tracking-wider">Total Promo Views</span>
             <div class="text-2xl font-extrabold text-white font-mono">{{ number_format($stats['total_views']) }}</div>
         </div>
 
-        <div class="glass-panel p-5 rounded-2xl border border-cyan-500/30 text-center space-y-1">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-cyan-500/30 text-center space-y-1">
             <span class="text-[10px] text-cyan-400 font-bold uppercase tracking-wider">Stream Link Clicks</span>
             <div class="text-2xl font-extrabold text-white font-mono">{{ number_format($stats['total_clicks']) }}</div>
         </div>
 
-        <div class="glass-panel p-5 rounded-2xl border border-amber-500/30 text-center space-y-1 col-span-2 lg:col-span-1">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-amber-500/30 text-center space-y-1 col-span-2 lg:col-span-1">
             <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Campaign Revenue</span>
             <div class="text-2xl font-extrabold text-amber-300 font-mono">KES {{ number_format($stats['total_budget']) }}</div>
         </div>
     </div>
 
-    <!-- Campaigns List Table Card -->
-    <div class="glass-panel rounded-3xl border border-gray-800 overflow-hidden shadow-2xl space-y-4">
-        <div class="p-6 border-b border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <!-- Campaigns List Table (Un-enclosed) -->
+    <div class="space-y-4">
+        <div class="pb-2 border-b border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <h3 class="text-sm font-bold text-white uppercase tracking-wider">Promoted Music Campaigns</h3>
 
             <!-- Filter Status -->
@@ -155,7 +155,7 @@
         </div>
 
         @if($promotions->hasPages())
-            <div class="p-4 border-t border-gray-800">
+            <div class="pt-4 border-t border-gray-800/80">
                 {{ $promotions->links() }}
             </div>
         @endif
