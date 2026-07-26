@@ -12,21 +12,22 @@
         </div>
     </div>
 
-    <div class="glass-panel rounded-3xl overflow-hidden border border-gray-800">
+    <!-- Corrections Table (Completely Un-enclosed) -->
+    <div class="overflow-x-auto">
         <table class="w-full text-left text-xs text-gray-300">
             <thead class="bg-gray-950 text-gray-400 font-bold uppercase tracking-wider border-b border-gray-800">
                 <tr>
-                    <th class="p-4">Target Song</th>
-                    <th class="p-4">Type</th>
-                    <th class="p-4">Details</th>
-                    <th class="p-4">Submitted By</th>
-                    <th class="p-4 text-right">Actions</th>
+                    <th class="py-3 px-4">Target Song</th>
+                    <th class="py-3 px-4">Type</th>
+                    <th class="py-3 px-4">Details</th>
+                    <th class="py-3 px-4">Submitted By</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-800">
-                @foreach($corrections as $cor)
-                    <tr class="hover:bg-gray-800/40">
-                        <td class="p-4 font-bold text-white">
+            <tbody class="divide-y divide-gray-800/80">
+                @forelse($corrections as $cor)
+                    <tr class="hover:bg-gray-900/40 transition">
+                        <td class="py-4 px-4 font-bold text-white">
                             @if($cor->song)
                                 <a href="{{ route('songs.show', $cor->song->slug) }}" target="_blank" class="hover:text-emerald-400">
                                     {{ $cor->song->title }}
@@ -35,10 +36,10 @@
                                 <span class="text-gray-500">Deleted Song</span>
                             @endif
                         </td>
-                        <td class="p-4 font-mono text-emerald-400">{{ $cor->correction_type }}</td>
-                        <td class="p-4 max-w-xs leading-relaxed font-mono">{{ $cor->details }}</td>
-                        <td class="p-4 text-gray-400 font-mono">{{ $cor->visitor_name ?? 'Anonymous' }}</td>
-                        <td class="p-4 text-right space-x-2">
+                        <td class="py-4 px-4 font-mono text-emerald-400">{{ $cor->correction_type }}</td>
+                        <td class="py-4 px-4 max-w-xs leading-relaxed font-mono">{{ $cor->details }}</td>
+                        <td class="py-4 px-4 text-gray-400 font-mono">{{ $cor->visitor_name ?? 'Anonymous' }}</td>
+                        <td class="py-4 px-4 text-right space-x-2">
                             <form method="POST" action="{{ route('admin.corrections.status', $cor->id) }}" class="inline">
                                 @csrf
                                 <input type="hidden" name="status" value="reviewed">
@@ -48,14 +49,22 @@
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="5" class="py-8 text-center text-gray-500 text-xs">
+                            No lyric correction reports submitted yet.
+                        </td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
 
-    <div class="mt-6">
-        {{ $corrections->links() }}
-    </div>
+    @if($corrections->hasPages())
+        <div class="pt-4 border-t border-gray-800/80">
+            {{ $corrections->links() }}
+        </div>
+    @endif
 
 </div>
 @endsection
