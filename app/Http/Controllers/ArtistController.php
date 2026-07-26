@@ -40,7 +40,7 @@ class ArtistController extends Controller
             $query->orderBy('name', 'asc');
         }
 
-        $artists = $query->paginate(12)->withQueryString();
+        $artists = $query->paginate(15)->withQueryString();
         $selectedLetter = strtoupper($request->get('letter', ''));
         $selectedSort = $sort;
 
