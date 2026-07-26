@@ -19,7 +19,7 @@
     </div>
 
     <!-- Formatting Toolbar & Editor Form -->
-    <form method="POST" action="{{ route('pages.update', $page['slug']) }}" class="space-y-4">
+    <form method="POST" action="{{ route('admin.pages.update', $page['slug']) }}" class="space-y-4">
         @csrf
         @method('PUT')
 

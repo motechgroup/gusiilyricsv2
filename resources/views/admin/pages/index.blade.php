@@ -46,7 +46,7 @@
                             {{ $p['updated_at'] }}
                         </td>
                         <td class="py-4 px-4 text-right space-x-2">
-                            <a href="{{ route('pages.edit', $p['slug']) }}" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs shadow-md transition inline-flex items-center gap-1">
+                            <a href="{{ route('admin.pages.edit', $p['slug']) }}" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs shadow-md transition inline-flex items-center gap-1">
                                 <span>✏️ Edit Page Content</span>
                             </a>
                             <a href="{{ $p['url'] }}" target="_blank" class="px-3 py-2 rounded-xl bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white font-bold text-xs border border-gray-800 transition inline-flex items-center gap-1">
