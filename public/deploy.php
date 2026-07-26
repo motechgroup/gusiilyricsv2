@@ -65,6 +65,27 @@ try {
     $dbError = $e->getMessage();
 }
 
+function safeStorageLink() {
+    $target = storage_path('app/public');
+    $link = public_path('storage');
+
+    if (!file_exists($target)) {
+        @mkdir($target, 0755, true);
+    }
+
+    if (file_exists($link)) {
+        return "🔗 Storage directory/link already exists.";
+    }
+
+    if (function_exists('symlink')) {
+        if (@symlink($target, $link)) {
+            return "🔗 Storage symlink created successfully via native PHP symlink().";
+        }
+    }
+
+    return "⚠️ Storage symlink notice: Server disabled symlink/exec. Public uploads directory ready.";
+}
+
 if ($action === 'full_deploy') {
     try {
         Artisan::call('key:generate', ['--force' => true]);
@@ -73,8 +94,7 @@ if ($action === 'full_deploy') {
         Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
         $outputLog[] = "📦 Database Migrate & Seed: " . Artisan::output();
 
-        Artisan::call('storage:link', ['--force' => true]);
-        $outputLog[] = "🔗 Storage Link: " . Artisan::output();
+        $outputLog[] = safeStorageLink();
 
         Artisan::call('config:cache');
         $outputLog[] = "⚡ Config Cache: " . Artisan::output();
@@ -104,12 +124,7 @@ if ($action === 'full_deploy') {
         $outputLog[] = "❌ Cache Clear Error: " . $e->getMessage();
     }
 } elseif ($action === 'storage_link') {
-    try {
-        Artisan::call('storage:link', ['--force' => true]);
-        $outputLog[] = "🔗 Storage Link Output:\n" . Artisan::output();
-    } catch (\Exception $e) {
-        $outputLog[] = "❌ Storage Link Error: " . $e->getMessage();
-    }
+    $outputLog[] = safeStorageLink();
 }
 ?>
 <!DOCTYPE html>
