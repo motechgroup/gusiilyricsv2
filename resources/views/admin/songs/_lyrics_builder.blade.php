@@ -22,7 +22,7 @@
     <!-- Interactive Block Builder UI Canvas -->
     <div id="lyricsBuilderContainer" class="space-y-4">
         <!-- Quick Add Section Badges Bar -->
-        <div class="p-3.5 rounded-2xl bg-gray-950/80 border border-gray-800/80 space-y-2">
+        <div class="space-y-2 py-2">
             <span class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400 block">
                 ➕ Quick Add Lyrics Block / Stanza
             </span>
