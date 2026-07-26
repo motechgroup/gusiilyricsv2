@@ -12,8 +12,16 @@ use App\Http\Controllers\SongController;
 use App\Http\Controllers\VisitorActionController;
 use Illuminate\Support\Facades\Route;
 
-// SEO Crawlability Routes (Googlebot & Search Engines)
-Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('seo.sitemap');
+use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\CategoryController;
+
+// SEO Crawlability Routes (Multi-file XML Sitemaps & Robots.txt)
+Route::get('/sitemap.xml', [SeoController::class, 'indexSitemap'])->name('seo.sitemap');
+Route::get('/sitemap-pages.xml', [SeoController::class, 'pagesSitemap'])->name('seo.sitemap.pages');
+Route::get('/sitemap-categories.xml', [SeoController::class, 'categoriesSitemap'])->name('seo.sitemap.categories');
+Route::get('/sitemap-artists.xml', [SeoController::class, 'artistsSitemap'])->name('seo.sitemap.artists');
+Route::get('/sitemap-albums.xml', [SeoController::class, 'albumsSitemap'])->name('seo.sitemap.albums');
+Route::get('/sitemap-songs.xml', [SeoController::class, 'songsSitemap'])->name('seo.sitemap.songs');
 Route::get('/robots.txt', [SeoController::class, 'robots'])->name('seo.robots');
 
 // M-Pesa Callback Endpoint (Exempt from CSRF)
@@ -22,11 +30,33 @@ Route::post('/api/mpesa/callback', [MpesaController::class, 'callback'])->name('
 // Public Pages (With TrackVisitor Analytics Middleware)
 Route::middleware(\App\Http\Middleware\TrackVisitor::class)->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/songs', [SongController::class, 'index'])->name('songs.index');
+
+    // Clean PRD SEO Route Architecture
+    Route::get('/lyrics', [SongController::class, 'index'])->name('songs.index');
+    Route::get('/songs', [SongController::class, 'index']);
+    Route::get('/lyrics/{artistSlug}/{songSlug}', [SongController::class, 'showNested'])->name('songs.show-nested');
     Route::get('/songs/{slug}', [SongController::class, 'show'])->name('songs.show');
+
     Route::get('/artists', [ArtistController::class, 'index'])->name('artists.index');
     Route::get('/artists/{slug}', [ArtistController::class, 'show'])->name('artists.show');
-    
+
+    Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
+    Route::get('/albums/{slug}', [AlbumController::class, 'show'])->name('albums.show');
+
+    Route::get('/genres', [CategoryController::class, 'genresIndex'])->name('genres.index');
+    Route::get('/genres/{slug}', [CategoryController::class, 'genreShow'])->name('categories.genre');
+
+    // PRD SEO Landing Categories
+    Route::get('/top-gusii-songs', [CategoryController::class, 'topGusiiSongs'])->name('categories.top-100');
+    Route::get('/latest-songs', [CategoryController::class, 'latestSongs'])->name('categories.latest');
+    Route::get('/gospel', [CategoryController::class, 'gospel'])->name('categories.gospel');
+    Route::get('/love-songs', [CategoryController::class, 'loveSongs'])->name('categories.love-songs');
+    Route::get('/traditional', [CategoryController::class, 'traditional'])->name('categories.traditional');
+    Route::get('/wedding-songs', [CategoryController::class, 'weddingSongs'])->name('categories.wedding');
+    Route::get('/most-viewed-songs', [CategoryController::class, 'mostViewed'])->name('categories.most-viewed');
+    Route::get('/trending-artists', [CategoryController::class, 'trendingArtists'])->name('categories.trending-artists');
+    Route::get('/new-releases', [CategoryController::class, 'latestSongs'])->name('categories.new-releases');
+
     // Dedicated Public Legal Pages
     Route::get('/terms', [LegalPageController::class, 'terms'])->name('pages.terms');
     Route::get('/privacy', [LegalPageController::class, 'privacy'])->name('pages.privacy');

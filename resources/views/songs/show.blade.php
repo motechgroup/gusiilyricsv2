@@ -5,25 +5,62 @@
 
 @section('content')
 
-<!-- Safe Google Rich Search Snippet JSON-LD Schema -->
+<!-- Google Rich Search Snippet JSON-LD Schemas -->
 @php
     $schemaData = [
         '@context' => 'https://schema.org',
-        '@type' => 'MusicComposition',
+        '@type' => 'MusicRecording',
         'name' => $song->title,
-        'composer' => [
+        'byArtist' => [
             '@type' => 'MusicGroup',
             'name' => $song->artist->name
         ],
-        'lyrics' => [
-            '@type' => 'Lyrics',
-            'text' => substr($song->lyrics_raw, 0, 500)
-        ],
-        'url' => url()->current()
+        'inAlbum' => $song->album ? [
+            '@type' => 'MusicAlbum',
+            'name' => $song->album->title
+        ] : null,
+        'genre' => $song->genre->name ?? 'Ekegusii Music',
+        'datePublished' => $song->release_year ?: $song->created_at->format('Y'),
+        'image' => $song->cover_art_url,
+        'url' => $song->seo_url
+    ];
+
+    $breadcrumbSchema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'BreadcrumbList',
+        'itemListElement' => [
+            [
+                '@type' => 'ListItem',
+                'position' => 1,
+                'name' => 'Home',
+                'item' => url('/')
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 2,
+                'name' => 'Artists',
+                'item' => route('artists.index')
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 3,
+                'name' => $song->artist->name,
+                'item' => route('artists.show', $song->artist->slug)
+            ],
+            [
+                '@type' => 'ListItem',
+                'position' => 4,
+                'name' => $song->title . ' Lyrics',
+                'item' => $song->seo_url
+            ]
+        ]
     ];
 @endphp
 <script type="application/ld+json">
-{!! json_encode($schemaData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+{!! json_encode(array_filter($schemaData), JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
 </script>
 
 <!-- Spotify Single Track Blended Hero Header -->
@@ -33,13 +70,16 @@
     <div class="absolute inset-0 bg-gradient-to-t from-[#090d16] via-[#090d16]/70 to-transparent"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <!-- Back Navigation -->
-        <div class="mb-6">
-            <a href="{{ route('songs.index') }}" class="text-xs font-semibold text-gray-300 hover:text-emerald-400 inline-flex items-center gap-1.5 transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                <span>Back to Lyrics Vault</span>
-            </a>
-        </div>
+        <!-- Visible Breadcrumb Trail -->
+        <nav class="mb-6 flex items-center gap-2 text-xs text-gray-300 font-medium">
+            <a href="{{ route('home') }}" class="hover:text-emerald-400">Home</a>
+            <span>&gt;</span>
+            <a href="{{ route('artists.index') }}" class="hover:text-emerald-400">Artists</a>
+            <span>&gt;</span>
+            <a href="{{ route('artists.show', $song->artist->slug) }}" class="hover:text-emerald-400">{{ $song->artist->name }}</a>
+            <span>&gt;</span>
+            <span class="text-emerald-400 font-bold">{{ $song->title }} Lyrics</span>
+        </nav>
 
         <div class="flex flex-col sm:flex-row items-center sm:items-end gap-6 sm:gap-8 text-center sm:text-left">
             

@@ -25,6 +25,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('location')->default('Kisii, Kenya');
+            $table->string('origin')->nullable()->default('Kisii County, Kenya');
+            $table->string('active_years')->nullable()->default('2010 - Present');
+            $table->string('label')->nullable()->default('Independent / Gusii Music');
+            $table->string('website')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('instagram')->nullable();
+            $table->string('youtube')->nullable();
+            $table->string('spotify')->nullable();
             $table->text('bio')->nullable();
             $table->string('image')->nullable();
             $table->boolean('is_featured')->default(false);
@@ -38,6 +46,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('cover_image')->nullable();
             $table->integer('release_year')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
 
@@ -49,6 +58,11 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('lyrics_raw');
+            $table->text('description')->nullable();
+            $table->text('song_meaning')->nullable();
+            $table->string('song_credits')->nullable();
+            $table->string('language')->default('Ekegusii');
+            $table->integer('release_year')->nullable();
             $table->text('english_translation')->nullable();
             $table->text('swahili_translation')->nullable();
             $table->string('spotify_url')->nullable();

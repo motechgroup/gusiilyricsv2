@@ -67,24 +67,44 @@ class SongController extends Controller
 
     public function show($slug)
     {
+        $song = Song::with('artist')->where('slug', $slug)->firstOrFail();
+        return redirect()->to($song->seo_url, 301);
+    }
+
+    public function showNested($artistSlug, $songSlug)
+    {
         $song = Song::with(['artist', 'album', 'genre'])
-            ->where('slug', $slug)
-            ->firstOrFail();
+            ->where('slug', $songSlug)
+            ->whereHas('artist', function ($q) use ($artistSlug) {
+                $q->where('slug', $artistSlug);
+            })
+            ->first();
+
+        // Fallback search if artist slug mismatch
+        if (!$song) {
+            $song = Song::with(['artist', 'album', 'genre'])
+                ->where('slug', $songSlug)
+                ->firstOrFail();
+        }
 
         // Increment view count quietly
         $song->increment('views_count');
 
-        // Related songs by same artist or genre
-        $relatedSongs = Song::with('artist')
+        // More songs from same artist
+        $artistSongs = Song::with('artist')
+            ->where('artist_id', $song->artist_id)
             ->where('id', '!=', $song->id)
-            ->where(function ($q) use ($song) {
-                $q->where('artist_id', $song->artist_id)
-                    ->orWhere('genre_id', $song->genre_id);
-            })
             ->take(6)
             ->get();
 
-        return view('songs.show', compact('song', 'relatedSongs'));
+        // Related songs by genre
+        $relatedSongs = Song::with('artist')
+            ->where('id', '!=', $song->id)
+            ->where('genre_id', $song->genre_id)
+            ->take(6)
+            ->get();
+
+        return view('songs.show', compact('song', 'artistSongs', 'relatedSongs'));
     }
 
     public function like($id)

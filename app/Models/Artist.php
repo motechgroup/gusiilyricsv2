@@ -14,6 +14,14 @@ class Artist extends Model
         'name',
         'slug',
         'location',
+        'origin',
+        'active_years',
+        'label',
+        'website',
+        'facebook',
+        'instagram',
+        'youtube',
+        'spotify',
         'bio',
         'image',
         'is_featured',
@@ -25,7 +33,7 @@ class Artist extends Model
 
     public function songs(): HasMany
     {
-        return $table = $this->hasMany(Song::class);
+        return $this->hasMany(Song::class);
     }
 
     public function albums(): HasMany

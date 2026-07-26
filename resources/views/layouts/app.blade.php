@@ -81,6 +81,20 @@
     @if($adsenseCode)
         {!! $adsenseCode !!}
     @endif
+    <!-- WebSite Sitelinks Search Box JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+      "{{ '@context' }}": "https://schema.org",
+      "@type": "WebSite",
+      "name": "GusiiLyrics",
+      "url": "{{ url('/') }}",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "{{ url('/songs') }}?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
 </head>
 <body class="bg-[#090d16] text-gray-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-slate-950">
 
@@ -158,7 +172,10 @@
     </main>
 
     <!-- Footer Ad Banner Spot -->
-    @if(isset($footerAd) && $footerAd)
+    @php
+        $footerAd = \App\Models\SiteAd::getAdForSpot('footer');
+    @endphp
+    @if($footerAd)
         <div class="max-w-7xl mx-auto px-4 mt-8 text-center">
             @if($footerAd->type === 'image' && $footerAd->image_path)
                 <a href="{{ $footerAd->target_url ?? '#' }}" target="_blank" rel="noopener" class="inline-block max-w-full">
@@ -213,11 +230,17 @@
                 @endif
             </div>
 
-            <div class="flex flex-wrap items-center justify-center md:justify-end space-x-6 gap-y-2">
-                <a href="{{ route('donate') }}" class="hover:text-emerald-400">Donate Page</a>
-                <a href="{{ route('advertise') }}" class="hover:text-emerald-400">Advertise With Us</a>
-                <a href="{{ route('pages.terms') }}" class="hover:text-emerald-400">Terms of Service</a>
-                <a href="{{ route('pages.privacy') }}" class="hover:text-emerald-400">Privacy Policy</a>
+            <div class="flex flex-wrap items-center justify-center md:justify-end space-x-4 sm:space-x-6 gap-y-2 text-xs">
+                <a href="{{ route('categories.top-100') }}" class="hover:text-emerald-400">Top 100 Songs</a>
+                <a href="{{ route('categories.gospel') }}" class="hover:text-emerald-400">Gospel Songs</a>
+                <a href="{{ route('categories.traditional') }}" class="hover:text-emerald-400">Traditional</a>
+                <a href="{{ route('categories.love-songs') }}" class="hover:text-emerald-400">Love Songs</a>
+                <a href="{{ route('categories.wedding') }}" class="hover:text-emerald-400">Wedding Songs</a>
+                <a href="{{ route('albums.index') }}" class="hover:text-emerald-400">Albums</a>
+                <a href="{{ route('donate') }}" class="hover:text-emerald-400">Donate</a>
+                <a href="{{ route('advertise') }}" class="hover:text-emerald-400">Advertise</a>
+                <a href="{{ route('pages.terms') }}" class="hover:text-emerald-400">Terms</a>
+                <a href="{{ route('pages.privacy') }}" class="hover:text-emerald-400">Privacy</a>
             </div>
         </div>
     </footer>

@@ -18,6 +18,11 @@ class Song extends Model
         'title',
         'slug',
         'lyrics_raw',
+        'description',
+        'song_meaning',
+        'song_credits',
+        'language',
+        'release_year',
         'english_translation',
         'swahili_translation',
         'spotify_url',
@@ -36,6 +41,7 @@ class Song extends Model
         'is_trending' => 'boolean',
         'views_count' => 'integer',
         'likes_count' => 'integer',
+        'release_year' => 'integer',
     ];
 
     public function artist(): BelongsTo
@@ -73,6 +79,14 @@ class Song extends Model
         }
 
         return 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80';
+    }
+
+    public function getSeoUrlAttribute(): string
+    {
+        if ($this->artist) {
+            return url('/lyrics/' . $this->artist->slug . '/' . $this->slug);
+        }
+        return route('songs.show', $this->slug);
     }
 
     public function getYoutubeEmbedUrlAttribute(): ?string
