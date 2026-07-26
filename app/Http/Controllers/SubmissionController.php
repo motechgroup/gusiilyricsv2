@@ -27,6 +27,6 @@ class SubmissionController extends Controller
 
         Submission::create($validated);
 
-        return redirect()->back()->with('success', 'Ebaora mno! Thank you for contributing lyrics to the Gusii community. Your submission has been received and is under review.');
+        return redirect()->back()->with('success', 'Mbuya Mono! Thank you for contributing lyrics to the Gusii community. Your submission has been received and is under review.');
     }
 }

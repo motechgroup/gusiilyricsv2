@@ -17,8 +17,8 @@
         </div>
     </div>
 
-    <!-- Inquiries Table -->
-    <div class="glass-panel rounded-3xl border border-gray-800 overflow-hidden shadow-2xl">
+    <!-- Inquiries Table (Un-enclosed) -->
+    <div class="rounded-2xl border border-gray-800/80 bg-gray-950/60 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-gray-300">
                 <thead class="bg-gray-950 text-gray-400 uppercase tracking-wider text-[10px] border-b border-gray-800">

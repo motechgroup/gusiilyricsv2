@@ -34,7 +34,7 @@ class AdvertisementController extends Controller
 
         AdInquiry::create($validated);
 
-        return redirect()->back()->with('success', 'Ebaora Mno! Your advertisement inquiry has been received. Our team will contact you shortly to review your ad campaign.');
+        return redirect()->back()->with('success', 'Mbuya Mono! Your advertisement inquiry has been received. Our team will contact you shortly to review your ad campaign.');
     }
 
     public function showPromoteMusic()
@@ -101,6 +101,6 @@ class AdvertisementController extends Controller
             'status' => 'pending',
         ]);
 
-        return redirect()->back()->with('success', 'Ebaora Mno! Your music promotion request has been received. Our team will review your release and contact you via Email / WhatsApp shortly!');
+        return redirect()->back()->with('success', 'Mbuya Mono! Your music promotion request has been received. Our team will review your release and contact you via Email / WhatsApp shortly!');
     }
 }

@@ -16,38 +16,38 @@
         </button>
     </div>
 
-    <!-- Revenue Summary Cards -->
+    <!-- Revenue Summary Cards (Un-enclosed) -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="glass-panel p-5 rounded-2xl border border-emerald-500/30">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-emerald-500/30">
             <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Total KES Collected</div>
             <div class="text-3xl font-black text-white mt-2">KES {{ number_format($totals['total_kes'], 2) }}</div>
             <span class="text-[10px] text-gray-400 mt-1 block">M-Pesa & Local Contributions</span>
         </div>
 
-        <div class="glass-panel p-5 rounded-2xl border border-indigo-500/30">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-indigo-500/30">
             <div class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider">Total USD Collected</div>
             <div class="text-3xl font-black text-white mt-2">${{ number_format($totals['total_usd'], 2) }}</div>
             <span class="text-[10px] text-gray-400 mt-1 block">Stripe Global Contributions</span>
         </div>
 
-        <div class="glass-panel p-5 rounded-2xl border border-gray-800">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-gray-800">
             <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider">Completed Donations</div>
             <div class="text-3xl font-black text-white mt-2">{{ $totals['count_completed'] }}</div>
             <span class="text-[10px] text-gray-400 mt-1 block">Verified Transactions</span>
         </div>
 
-        <div class="glass-panel p-5 rounded-2xl border border-amber-500/30">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-amber-500/30">
             <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wider">Pending Verification</div>
             <div class="text-3xl font-black text-white mt-2">{{ $totals['count_pending'] }}</div>
             <span class="text-[10px] text-gray-400 mt-1 block">Awaiting Confirmation</span>
         </div>
     </div>
 
-    <!-- Filters & Table -->
+    <!-- Filters & Table (Un-enclosed) -->
     <div class="space-y-4">
         
         <!-- Filter Bar -->
-        <form method="GET" action="{{ route('admin.donations.index') }}" class="glass-panel p-4 rounded-2xl flex flex-wrap gap-4 items-center justify-between">
+        <form method="GET" action="{{ route('admin.donations.index') }}" class="p-4 rounded-2xl bg-gray-950/80 border border-gray-800 flex flex-wrap gap-4 items-center justify-between">
             <div class="flex items-center gap-3">
                 <select name="gateway" class="px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs">
                     <option value="">All Payment Gateways</option>
@@ -74,7 +74,7 @@
         </form>
 
         <!-- Donations Table -->
-        <div class="glass-panel rounded-3xl overflow-hidden border border-gray-800">
+        <div class="rounded-2xl overflow-hidden border border-gray-800/80 bg-gray-950/60">
             <table class="w-full text-left text-xs text-gray-300">
                 <thead class="bg-gray-950 text-gray-400 font-bold uppercase tracking-wider border-b border-gray-800">
                     <tr>

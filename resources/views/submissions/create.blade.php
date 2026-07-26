@@ -70,7 +70,7 @@
             <!-- Submit Button -->
             <div class="pt-4">
                 <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-bold text-base shadow-xl shadow-emerald-500/25 transition active:scale-98">
-                    Ebaora Mno! Submit Lyrics to Library
+                    Mbuya Mono! Submit Lyrics to Library
                 </button>
             </div>
 

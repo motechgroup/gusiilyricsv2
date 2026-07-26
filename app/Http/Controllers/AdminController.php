@@ -832,7 +832,7 @@ class AdminController extends Controller
         ]);
 
         try {
-            Mail::raw("Ebaora Mno!\n\nThis is an official SMTP test email sent from Gusii Lyrics Vault.\n\nSMTP Host: {$host}\nSMTP Port: {$port}\nSender Address: {$fromAddress}\nTimestamp: " . now()->toDateTimeString() . "\n\nIf you received this message, your SMTP email dispatcher is operating perfectly!", function ($message) use ($recipient, $fromAddress, $fromName) {
+            Mail::raw("Mbuya Mono!\n\nThis is an official SMTP test email sent from Gusii Lyrics Vault.\n\nSMTP Host: {$host}\nSMTP Port: {$port}\nSender Address: {$fromAddress}\nTimestamp: " . now()->toDateTimeString() . "\n\nIf you received this message, your SMTP email dispatcher is operating perfectly!", function ($message) use ($recipient, $fromAddress, $fromName) {
                 $message->to($recipient)
                     ->from($fromAddress, $fromName)
                     ->subject('Gusii Lyrics - SMTP Test Email Connection');
