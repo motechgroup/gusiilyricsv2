@@ -21,7 +21,7 @@
 
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Email Address <span class="text-rose-500">*</span></label>
-                <input type="email" name="email" required placeholder="editor@gusiilylrics.com" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+                <input type="email" name="email" required placeholder="editor@gusiilyrics.com" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
             </div>
 
             <div>

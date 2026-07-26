@@ -17,12 +17,12 @@ class GusiiLyricsSeeder extends Seeder
     {
         // 1. Users
         User::updateOrCreate(
-            ['email' => 'admin@gusiilylrics.com'],
+            ['email' => 'admin@gusiilyrics.com'],
             ['name' => 'Super Admin', 'password' => Hash::make('admin123'), 'role' => 'admin']
         );
 
         User::updateOrCreate(
-            ['email' => 'editor@gusiilylrics.com'],
+            ['email' => 'editor@gusiilyrics.com'],
             ['name' => 'Gusii Lyrics Editor', 'password' => Hash::make('editor123'), 'role' => 'editor']
         );
 

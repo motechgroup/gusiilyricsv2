@@ -21,7 +21,7 @@
             @csrf
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Email Address</label>
-                <input type="email" name="email" required placeholder="admin@gusiilylrics.com" value="{{ old('email') }}" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+                <input type="email" name="email" required placeholder="admin@gusiilyrics.com" value="{{ old('email') }}" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
             </div>
 
             <div>
@@ -36,8 +36,8 @@
 
         <div class="p-3 rounded-xl bg-gray-950 border border-gray-800 text-[11px] text-gray-400 space-y-1">
             <p class="font-bold text-emerald-400">Default Demo Credentials:</p>
-            <p>• Super Admin: <code class="text-gray-200">admin@gusiilylrics.com</code> / <code class="text-gray-200">admin123</code></p>
-            <p>• Editor: <code class="text-gray-200">editor@gusiilylrics.com</code> / <code class="text-gray-200">editor123</code></p>
+            <p>• Super Admin: <code class="text-gray-200">admin@gusiilyrics.com</code> / <code class="text-gray-200">admin123</code></p>
+            <p>• Editor: <code class="text-gray-200">editor@gusiilyrics.com</code> / <code class="text-gray-200">editor123</code></p>
         </div>
     </div>
 </div>

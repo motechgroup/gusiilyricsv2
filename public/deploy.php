@@ -1,7 +1,7 @@
 <?php
 /**
  * Shared Hosting Browser Deployment & Maintenance Tool for GusiiLyrics.com
- * Access via: https://gusiilylrics.com/deploy.php?secret=deploy123
+ * Access via: https://gusiilyrics.com/deploy.php?secret=deploy123
  */
 
 define('LARAVEL_START', microtime(true));
