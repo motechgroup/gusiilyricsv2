@@ -6,88 +6,87 @@
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
 
-    <!-- Header Banner -->
+    <!-- Header Banner (No Badge, Green & Gold Gradient Title) -->
     <div class="text-center space-y-3">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wider">
-            <svg class="w-3.5 h-3.5 fill-current text-rose-400" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            Platform Heritage Preservation
-        </span>
-        <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Support <span class="text-gradient-emerald">Gusii Lyrics</span>
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+            Support <span class="bg-gradient-to-r from-emerald-400 via-amber-300 to-emerald-400 bg-clip-text text-transparent">Gusii Lyrics</span>
         </h1>
         <p class="text-gray-300 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Select an amount below to receive an M-Pesa PIN push prompt on your phone!
+            Select a donation amount below to choose your payment option (M-Pesa or Card/Stripe).
         </p>
     </div>
 
-    <!-- Preset Amount Selection Card -->
-    <div class="glass-panel p-6 sm:p-10 rounded-3xl border border-emerald-500/30 space-y-6 text-center shadow-2xl">
-        <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400">
-            Select Donation Amount (KES)
+    <!-- Un-enclosed Preset Amount Selection Section -->
+    <div class="space-y-6 text-center py-4">
+        <label class="block text-xs font-bold uppercase tracking-wider text-amber-400 font-mono">
+            Choose Donation Amount (KES)
         </label>
         
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3.5 max-w-3xl mx-auto">
             @foreach($presetAmounts as $amt)
-                <button type="button" onclick="openPhoneModalForAmount('{{ $amt }}')" class="px-4 py-4 rounded-2xl bg-gray-900 hover:bg-emerald-500 hover:text-slate-950 text-white font-mono font-black text-base border border-gray-800 transition duration-200 active:scale-95 shadow-md">
+                <button type="button" onclick="selectDonationAmount('{{ $amt }}')" class="px-4 py-4 rounded-2xl bg-gray-950/90 hover:bg-gradient-to-r hover:from-emerald-500 hover:to-amber-400 text-white hover:text-slate-950 font-mono font-black text-base border border-emerald-500/30 hover:border-amber-400 transition-all duration-200 active:scale-95 shadow-lg">
                     KES {{ number_format($amt) }}
                 </button>
             @endforeach
         </div>
 
-        <div class="pt-4 border-t border-gray-800/80 max-w-md mx-auto space-y-3">
-            <label class="block text-xs text-gray-400 font-mono">Or enter a custom amount:</label>
+        <div class="pt-4 max-w-md mx-auto space-y-3">
+            <label class="block text-xs text-gray-400 font-mono">Or enter custom amount:</label>
             <div class="flex gap-2">
-                <input type="number" id="customAmountInput" placeholder="Enter amount e.g. 500" class="flex-grow px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-sm focus:outline-none focus:border-emerald-500">
-                <button onclick="triggerCustomAmountModal()" class="px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs shrink-0 transition">
+                <input type="number" id="customAmountInput" placeholder="Enter amount e.g. 500" class="flex-grow px-4 py-3 bg-gray-950 border border-emerald-500/40 rounded-xl text-white font-mono text-sm focus:outline-none focus:border-amber-400">
+                <button onclick="triggerCustomAmountChoice()" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-black text-xs shrink-0 transition shadow-lg">
                     Donate &rarr;
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Alternative Gateways Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Manual M-Pesa Paybill / Till Card -->
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-gray-800 space-y-3 text-xs font-mono text-gray-300">
-            <h3 class="text-sm font-bold text-white font-sans flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                Manual M-Pesa Buy Goods & Paybill
-            </h3>
-            @if($settings['mpesa_till'])
-                <p>Buy Goods Till: <strong class="text-emerald-400 text-base select-all">{{ $settings['mpesa_till'] }}</strong></p>
-            @endif
-            @if($settings['mpesa_paybill'])
-                <p>Paybill / Shortcode: <strong class="text-white select-all">{{ $settings['mpesa_paybill'] }}</strong></p>
-            @endif
+    <!-- Payment Gateways Official Logo Badges (Managed from Admin Settings, No Cards) -->
+    <div class="pt-8 border-t border-gray-800/80">
+        <div class="text-center mb-6">
+            <span class="text-xs font-bold uppercase tracking-widest text-gray-400 font-mono">Supported Payment Partners</span>
         </div>
 
-        <!-- Stripe Card Gateway -->
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-indigo-500/30 space-y-3 flex flex-col justify-between">
-            <div>
-                <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                    <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    Stripe Credit Card / Apple Pay
-                </h3>
-                <p class="text-xs text-gray-400 mt-1">Pay with Visa, Mastercard, or Apple Pay globally.</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-14">
+            <!-- Official M-PESA Logo & Till Details -->
+            <div class="flex items-center gap-4 text-left">
+                <div class="px-4 py-2 rounded-2xl bg-[#00a651]/10 border border-[#00a651]/40 flex items-center justify-center shrink-0">
+                    <span class="text-[#00a651] font-black text-xl tracking-tighter">M-PESA</span>
+                </div>
+                <div class="text-xs font-mono text-gray-300 space-y-0.5">
+                    @if($settings['mpesa_till'])
+                        <div>Buy Goods Till: <strong class="text-emerald-400 text-sm font-bold select-all">{{ $settings['mpesa_till'] }}</strong></div>
+                    @endif
+                    @if($settings['mpesa_paybill'])
+                        <div>Paybill: <strong class="text-white font-bold select-all">{{ $settings['mpesa_paybill'] }}</strong></div>
+                    @endif
+                </div>
             </div>
 
-            @if($settings['stripe_url'])
-                <a href="{{ $settings['stripe_url'] }}" target="_blank" class="w-full text-center py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs transition">
-                    Pay with Card via Stripe &rarr;
-                </a>
-            @endif
+            <div class="hidden sm:block w-px h-10 bg-gray-800"></div>
+
+            <!-- Official Stripe Logo & Card Details -->
+            <div class="flex items-center gap-4 text-left">
+                <div class="px-4 py-2 rounded-2xl bg-[#635bff]/10 border border-[#635bff]/40 flex items-center justify-center shrink-0">
+                    <span class="text-[#635bff] font-black text-xl tracking-tight">stripe</span>
+                </div>
+                <div class="text-xs text-gray-300 space-y-0.5">
+                    <div class="font-bold text-white">Credit / Debit Card</div>
+                    <div class="text-[11px] text-gray-400">Visa, Mastercard & Apple Pay</div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Recent Supporters Wall -->
-    <div class="space-y-4">
+    <!-- Recent Verified Supporters Wall -->
+    <div class="space-y-4 pt-6 border-t border-gray-800/80">
         <h2 class="text-xl font-extrabold text-white text-center">Recent Verified Supporters</h2>
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
             @forelse($recentDonations as $don)
-                <div class="glass-panel p-4 rounded-2xl border border-gray-800 text-center space-y-1">
+                <div class="p-4 rounded-2xl bg-gray-950/80 border border-gray-800/80 text-center space-y-1">
                     <div class="text-2xl">❤️</div>
                     <h4 class="font-bold text-white text-xs truncate">{{ $don->donor_name ?? 'Anonymous' }}</h4>
-                    <span class="text-[11px] font-mono text-emerald-400 font-bold block">{{ $don->currency }} {{ number_format($don->amount) }}</span>
+                    <span class="text-[11px] font-mono text-amber-400 font-bold block">{{ $don->currency }} {{ number_format($don->amount) }}</span>
                 </div>
             @empty
                 <div class="col-span-full text-center py-6 text-xs text-gray-500">Be the first supporter featured here!</div>
@@ -97,20 +96,114 @@
 
 </div>
 
+<!-- Payment Option Choice Modal -->
+<div id="paymentChoiceModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-amber-400/40 shadow-2xl space-y-6 max-w-md w-full relative">
+        <button onclick="closePaymentChoiceModal()" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-white text-xl font-bold">&times;</button>
+
+        <div class="text-center space-y-1">
+            <h3 class="text-xl font-extrabold text-white">Choose Payment Method</h3>
+            <p class="text-xs text-gray-300">Donation Amount: <strong id="choiceModalAmountText" class="text-amber-400 font-mono text-sm">KES 0</strong></p>
+        </div>
+
+        <div class="space-y-3 pt-2">
+            <!-- Option 1: M-Pesa STK Push -->
+            <button onclick="openMpesaPhoneForm()" class="w-full p-4 rounded-2xl bg-[#00a651]/15 hover:bg-[#00a651]/25 border border-[#00a651]/50 text-left flex items-center justify-between group transition">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-[#00a651] text-white flex items-center justify-center font-black text-sm">
+                        M
+                    </div>
+                    <div>
+                        <h4 class="font-extrabold text-white text-sm group-hover:text-[#00a651] transition">M-Pesa Express / STK Push</h4>
+                        <p class="text-[11px] text-gray-400">Receive PIN prompt directly on phone</p>
+                    </div>
+                </div>
+                <span class="text-gray-400 group-hover:text-white font-bold">&rarr;</span>
+            </button>
+
+            <!-- Option 2: Stripe / Card -->
+            @if($settings['stripe_url'])
+                <a id="stripeChoiceBtn" href="{{ $settings['stripe_url'] }}" target="_blank" class="w-full p-4 rounded-2xl bg-[#635bff]/15 hover:bg-[#635bff]/25 border border-[#635bff]/50 text-left flex items-center justify-between group transition block">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-[#635bff] text-white flex items-center justify-center font-black text-sm">
+                            S
+                        </div>
+                        <div>
+                            <h4 class="font-extrabold text-white text-sm group-hover:text-[#635bff] transition">Stripe Card & Apple Pay</h4>
+                            <p class="text-[11px] text-gray-400">Pay with Visa, Mastercard, Apple Pay</p>
+                        </div>
+                    </div>
+                    <span class="text-gray-400 group-hover:text-white font-bold">&rarr;</span>
+                </a>
+            @endif
+        </div>
+    </div>
+</div>
+
+<!-- M-Pesa STK Push Phone Input Form Modal -->
+<div id="mpesaPhoneModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-emerald-500/40 shadow-2xl space-y-5 max-w-md w-full relative">
+        <button onclick="closeMpesaPhoneModal()" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-white text-xl font-bold">&times;</button>
+
+        <div class="text-center space-y-1">
+            <span class="px-3 py-1 rounded-full bg-[#00a651]/20 text-[#00a651] text-[10px] font-bold uppercase tracking-wider font-mono">M-Pesa Express</span>
+            <h3 class="text-xl font-extrabold text-white">Enter Safaricom Phone Number</h3>
+            <p class="text-xs text-gray-300">Amount: <strong id="mpesaFormAmountText" class="text-emerald-400 font-mono">KES 0</strong></p>
+        </div>
+
+        <form method="POST" action="{{ route('donate.stk-push') }}" class="space-y-4 text-xs">
+            @csrf
+            <input type="hidden" name="amount" id="stkAmountInput" value="500">
+
+            <div>
+                <label class="block font-bold text-gray-300 mb-1">M-Pesa Phone Number *</label>
+                <input type="text" name="phone" required placeholder="e.g. 0712345678 or 254712345678" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-sm focus:outline-none focus:border-emerald-500">
+            </div>
+
+            <div>
+                <label class="block font-bold text-gray-300 mb-1">Your Name (Optional)</label>
+                <input type="text" name="donor_name" placeholder="e.g. Fenny Kerubo" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
+            </div>
+
+            <button type="submit" class="w-full py-3.5 rounded-xl bg-[#00a651] hover:bg-emerald-400 text-slate-950 font-black text-xs shadow-lg transition">
+                📱 Send M-Pesa PIN Prompt &rarr;
+            </button>
+        </form>
+    </div>
+</div>
+
 <script>
-    function openPhoneModalForAmount(amt) {
-        setModalAmount(amt);
-        openDonateModal();
+    let selectedAmount = 500;
+
+    function selectDonationAmount(amt) {
+        selectedAmount = amt;
+        document.getElementById('choiceModalAmountText').textContent = 'KES ' + Number(amt).toLocaleString();
+        document.getElementById('mpesaFormAmountText').textContent = 'KES ' + Number(amt).toLocaleString();
+        document.getElementById('stkAmountInput').value = amt;
+
+        document.getElementById('paymentChoiceModal').classList.remove('hidden');
     }
 
-    function triggerCustomAmountModal() {
+    function triggerCustomAmountChoice() {
         const val = document.getElementById('customAmountInput').value;
         if (!val || val <= 0) {
             alert('Please enter a valid donation amount.');
             return;
         }
-        setModalAmount(val);
-        openDonateModal();
+        selectDonationAmount(val);
+    }
+
+    function closePaymentChoiceModal() {
+        document.getElementById('paymentChoiceModal').classList.add('hidden');
+    }
+
+    function openMpesaPhoneForm() {
+        document.getElementById('paymentChoiceModal').classList.add('hidden');
+        document.getElementById('mpesaPhoneModal').classList.remove('hidden');
+    }
+
+    function closeMpesaPhoneModal() {
+        document.getElementById('mpesaPhoneModal').classList.add('hidden');
     }
 </script>
 @endsection
