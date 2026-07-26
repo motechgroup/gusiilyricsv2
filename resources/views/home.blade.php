@@ -114,9 +114,9 @@
 @endphp
 @if($homepageMidAd)
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8 text-center">
-        @if($homepageMidAd->type === 'custom' && $homepageMidAd->image_path)
-            <a href="{{ $homepageMidAd->target_url }}" target="_blank" class="inline-block max-w-full overflow-hidden rounded-2xl border border-emerald-500/30 shadow-2xl transition transform hover:scale-[1.01]">
-                <img src="{{ $homepageMidAd->image_url }}" alt="{{ $homepageMidAd->title }}" class="max-w-full h-auto rounded-2xl mx-auto">
+        @if(($homepageMidAd->type === 'custom' || $homepageMidAd->type === 'image') && $homepageMidAd->image_path)
+            <a href="{{ $homepageMidAd->target_url }}" target="_blank" class="inline-block w-full max-w-4xl mx-auto overflow-hidden rounded-2xl border border-emerald-500/30 shadow-2xl transition transform hover:scale-[1.01]">
+                <img src="{{ $homepageMidAd->image_url }}" alt="{{ $homepageMidAd->title }}" class="w-full h-auto max-h-36 sm:max-h-44 object-contain rounded-2xl mx-auto">
             </a>
         @elseif($homepageMidAd->code_script)
             <div class="inline-block max-w-full overflow-hidden rounded-2xl border border-gray-800 bg-gray-950 p-2">
@@ -231,9 +231,9 @@
     @endphp
     @if($homepageBottomAd)
         <div class="my-8 text-center">
-            @if($homepageBottomAd->type === 'custom' && $homepageBottomAd->image_path)
-                <a href="{{ $homepageBottomAd->target_url }}" target="_blank" class="inline-block max-w-full overflow-hidden rounded-2xl border border-emerald-500/30 shadow-2xl transition transform hover:scale-[1.01]">
-                    <img src="{{ $homepageBottomAd->image_url }}" alt="{{ $homepageBottomAd->title }}" class="max-w-full h-auto rounded-2xl mx-auto">
+            @if(($homepageBottomAd->type === 'custom' || $homepageBottomAd->type === 'image') && $homepageBottomAd->image_path)
+                <a href="{{ $homepageBottomAd->target_url }}" target="_blank" class="inline-block w-full max-w-4xl mx-auto overflow-hidden rounded-2xl border border-emerald-500/30 shadow-2xl transition transform hover:scale-[1.01]">
+                    <img src="{{ $homepageBottomAd->image_url }}" alt="{{ $homepageBottomAd->title }}" class="w-full h-auto max-h-36 sm:max-h-44 object-contain rounded-2xl mx-auto">
                 </a>
             @elseif($homepageBottomAd->code_script)
                 <div class="inline-block max-w-full overflow-hidden rounded-2xl border border-gray-800 bg-gray-950 p-2">

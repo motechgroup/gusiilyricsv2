@@ -175,8 +175,8 @@
         @if($headerAd)
             <div class="max-w-7xl mx-auto px-4 mt-4 text-center">
                 @if(($headerAd->type === 'custom' || $headerAd->type === 'image') && $headerAd->image_path)
-                    <a href="{{ $headerAd->target_url ?? '#' }}" target="_blank" rel="noopener" class="inline-block max-w-full">
-                        <img src="{{ $headerAd->image_url }}" alt="{{ $headerAd->title }}" class="max-h-24 w-auto rounded-2xl border border-emerald-500/30 shadow-xl mx-auto">
+                    <a href="{{ $headerAd->target_url ?? '#' }}" target="_blank" rel="noopener" class="inline-block w-full max-w-4xl mx-auto transition transform hover:scale-[1.01]">
+                        <img src="{{ $headerAd->image_url }}" alt="{{ $headerAd->title }}" class="w-full h-auto max-h-24 sm:max-h-28 object-contain rounded-2xl border border-emerald-500/30 shadow-xl mx-auto">
                     </a>
                 @elseif($headerAd->code_script)
                     <div class="inline-block max-w-full">
