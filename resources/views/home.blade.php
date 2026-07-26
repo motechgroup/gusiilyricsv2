@@ -194,7 +194,7 @@
             Support <span class="bg-gradient-to-r from-emerald-400 via-amber-300 to-emerald-400 bg-clip-text text-transparent">Gusii Lyrics</span>
         </h2>
         <p class="text-xs text-gray-300 max-w-xl mx-auto leading-relaxed">
-            Help us keep Ekegusii song lyrics active, preserved, and free for fans worldwide. Donate easily via M-Pesa or Card/Stripe.
+            Help us keep Gusii Lyrics active, preserved, and free for fans worldwide. Donate easily via M-Pesa or Card/Stripe.
         </p>
         <div>
             <a href="{{ route('donate') }}" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-black text-xs shadow-lg shadow-amber-400/20 transition transform hover:-translate-y-0.5 inline-block">

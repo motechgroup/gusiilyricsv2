@@ -311,7 +311,7 @@
     <div class="rounded-3xl p-6 sm:p-8 bg-gray-950/80 border border-amber-400/40 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
         <div>
             <h4 class="text-lg font-black text-white">Enjoying reading lyrics? Support <span class="text-amber-400">Gusii Lyrics</span></h4>
-            <p class="text-xs text-gray-300 mt-0.5">Your support helps keep Ekegusii song lyrics online and free for everyone.</p>
+            <p class="text-xs text-gray-300 mt-0.5">Your support helps keep Gusiilyrics online and free for everyone.</p>
         </div>
         <a href="{{ route('donate') }}" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-black text-xs shadow-lg shadow-amber-400/20 shrink-0 transition transform hover:scale-105 inline-block">
             ❤️ Support / Donate &rarr;
