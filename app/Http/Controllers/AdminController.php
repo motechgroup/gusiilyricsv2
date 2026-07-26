@@ -700,15 +700,39 @@ class AdminController extends Controller
     public function testSmtp(Request $request)
     {
         $request->validate(['recipient' => 'required|email']);
-        $recipient = $request->recipient;
+        $recipient = trim($request->recipient);
+
+        // Dynamically set mailer configurations from stored database settings
+        $mailer = Setting::get('mail_mailer', 'smtp');
+        $host = Setting::get('mail_host', '127.0.0.1');
+        $port = Setting::get('mail_port', '587');
+        $username = Setting::get('mail_username', '');
+        $password = Setting::get('mail_password', '');
+        $encryption = Setting::get('mail_encryption', 'tls');
+        $fromAddress = Setting::get('mail_from_address', 'info@gusiilyrics.com');
+        $fromName = Setting::get('mail_from_name', 'Gusii Lyrics');
+
+        config([
+            'mail.default' => $mailer,
+            'mail.mailers.smtp.transport' => 'smtp',
+            'mail.mailers.smtp.host' => $host,
+            'mail.mailers.smtp.port' => (int)$port,
+            'mail.mailers.smtp.username' => $username,
+            'mail.mailers.smtp.password' => $password,
+            'mail.mailers.smtp.scheme' => ($encryption === 'null' || empty($encryption)) ? null : $encryption,
+            'mail.from.address' => $fromAddress,
+            'mail.from.name' => $fromName,
+        ]);
 
         try {
-            Mail::send('emails.test-smtp', ['recipient' => $recipient], function ($message) use ($recipient) {
-                $message->to($recipient)->subject('Gusii Lyrics - SMTP Test Email Connection');
+            Mail::raw("Ebaora Mno!\n\nThis is an official SMTP test email sent from Gusii Lyrics Vault.\n\nSMTP Host: {$host}\nSMTP Port: {$port}\nSender Address: {$fromAddress}\nTimestamp: " . now()->toDateTimeString() . "\n\nIf you received this message, your SMTP email dispatcher is operating perfectly!", function ($message) use ($recipient, $fromAddress, $fromName) {
+                $message->to($recipient)
+                    ->from($fromAddress, $fromName)
+                    ->subject('Gusii Lyrics - SMTP Test Email Connection');
             });
 
-            return redirect()->back()->with('success', "SMTP Connection Successful! Test email dispatched to {$recipient}.");
-        } catch (\Exception $e) {
+            return redirect()->back()->with('success', "SMTP Test Successful! Test email dispatched to {$recipient}.");
+        } catch (\Throwable $e) {
             return redirect()->back()->with('error', "SMTP Connection Failed: " . $e->getMessage());
         }
     }
