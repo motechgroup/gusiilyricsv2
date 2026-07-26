@@ -18,12 +18,6 @@
         <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
             Get your Ekegusii song lyrics indexed on the #1 Gusii music platform, featured on our home page charts, and distributed across our social & partner network.
         </p>
-
-        <div class="pt-4">
-            <button onclick="document.getElementById('promoteFormModal').classList.remove('hidden')" class="px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-extrabold text-sm shadow-xl shadow-emerald-500/20 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
-                <span>🚀 Submit Song Lyrics for Promotion</span>
-            </button>
-        </div>
     </div>
 
     <!-- Live Social Reach & Audience Stats Grid -->
