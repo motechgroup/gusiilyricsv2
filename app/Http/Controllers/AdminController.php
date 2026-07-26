@@ -328,6 +328,47 @@ class AdminController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'Staff account deleted.');
     }
 
+    // --- Profile Management ---
+    public function profileIndex()
+    {
+        $user = Auth::user();
+        return view('admin.profile.index', compact('user'));
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+        ]);
+
+        $user->update($validated);
+
+        return redirect()->back()->with('success', 'Profile information updated successfully!');
+    }
+
+    public function passwordUpdate(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'current_password' => 'required|string',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->withErrors(['current_password' => 'Current password does not match our records.']);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->back()->with('success', 'Account password updated successfully!');
+    }
+
     // --- Song CRUD ---
     public function songsIndex(Request $request)
     {

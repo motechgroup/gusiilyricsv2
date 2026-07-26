@@ -47,17 +47,20 @@
 
             <!-- User Badge Profile -->
             @if(Auth::check())
-                <div class="p-3 rounded-2xl bg-gray-900/90 border border-gray-800/80 flex items-center gap-3">
-                    <div class="w-9 h-9 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm">
+                <a href="{{ route('admin.profile.index') }}" class="p-3 rounded-2xl bg-gray-900/90 hover:bg-gray-800/90 border border-gray-800/80 flex items-center gap-3 transition group">
+                    <div class="w-9 h-9 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-sm group-hover:scale-105 transition">
                         {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                     </div>
                     <div class="min-w-0 flex-1">
-                        <h4 class="text-xs font-bold text-white truncate">{{ Auth::user()->name }}</h4>
+                        <div class="flex items-center justify-between">
+                            <h4 class="text-xs font-bold text-white group-hover:text-emerald-400 truncate transition">{{ Auth::user()->name }}</h4>
+                            <span class="text-[10px] text-gray-500 group-hover:text-emerald-400">⚙️</span>
+                        </div>
                         <span class="inline-block text-[9px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.5 rounded {{ Auth::user()->isAdmin() ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30' }}">
                             {{ Auth::user()->isAdmin() ? 'Super Admin' : 'Editor' }}
                         </span>
                     </div>
-                </div>
+                </a>
             @endif
 
             <!-- Navigation Links List -->

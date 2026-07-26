@@ -124,6 +124,11 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->name(
     Route::get('/corrections', [AdminController::class, 'correctionsIndex'])->name('corrections.index');
     Route::post('/corrections/{id}/status', [AdminController::class, 'correctionsUpdateStatus'])->name('corrections.status');
 
+    // Staff/Admin User Self Profile Management
+    Route::get('/profile', [AdminController::class, 'profileIndex'])->name('profile.index');
+    Route::put('/profile', [AdminController::class, 'profileUpdate'])->name('profile.update');
+    Route::put('/profile/password', [AdminController::class, 'passwordUpdate'])->name('profile.password');
+
     // Super Admin Exclusives (Site Settings, Ad Inquiries, Pages Manager, Analytics Page, Donations Manager & Staff Accounts)
     Route::middleware(\App\Http\Middleware\SuperAdminOnly::class)->group(function () {
         Route::get('/analytics', [AdminController::class, 'analyticsIndex'])->name('analytics.index');
