@@ -184,7 +184,7 @@
     </div>
 
     <!-- Music Genres & Categories Section -->
-    <div class="pt-8 border-t border-gray-800/80 space-y-6">
+    <div class="py-10 border-t border-gray-800/80 space-y-6">
         <div class="flex items-center justify-between">
             <div>
                 <h2 class="text-2xl font-extrabold text-white tracking-tight">
@@ -195,7 +195,7 @@
             <a href="{{ route('songs.index') }}" class="text-xs font-semibold text-emerald-400 hover:underline">View All Lyrics &rarr;</a>
         </div>
 
-        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6">
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 py-4">
             @forelse($genres as $genre)
                 <a href="{{ route('songs.index', ['genre' => $genre->slug]) }}" class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gray-950/90 hover:bg-gray-900 border border-gray-800/80 hover:border-emerald-500/50 flex flex-col items-center justify-center text-center p-3 group transition duration-300 shadow-md shrink-0">
                     <span class="text-2xl sm:text-3xl block group-hover:scale-110 transition-transform mb-1">{{ $genre->icon ?: '🎵' }}</span>
@@ -207,23 +207,17 @@
         </div>
     </div>
 
-    <!-- Promote Your Music CTA Section (Un-enclosed) -->
-    <div class="pt-10 border-t border-gray-800/80">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-6 py-6 px-2">
-            <div class="space-y-2 text-center md:text-left max-w-2xl">
-                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider">
-                    ⚡ Are you a Gusii Music Artist?
-                </span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                    Promote Your Music to <span class="text-gradient-emerald">Thousands of Fans</span>
-                </h2>
-                <p class="text-xs text-gray-300 leading-relaxed">
-                    Get your songs featured at the top of Gusii Lyrics homepage, index pages, and search results. Drive streaming plays, video views, and grow your fanbase across Kisii, Nyamira, and the diaspora.
-                </p>
-            </div>
-
-            <div class="flex items-center gap-3 shrink-0">
-                <a href="{{ route('promote-music') }}" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5">
+    <!-- Promote Your Music CTA Section (Un-enclosed & Centered) -->
+    <div class="py-10 border-t border-gray-800/80">
+        <div class="flex flex-col items-center text-center max-w-2xl mx-auto space-y-4">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                Promote Your Music to <span class="text-gradient-emerald">Thousands of Fans</span>
+            </h2>
+            <p class="text-xs text-gray-300 leading-relaxed">
+                Get your songs featured at the top of Gusii Lyrics homepage, index pages, and search results. Drive streaming plays, video views, and grow your fanbase across Kisii, Nyamira, and the diaspora.
+            </p>
+            <div class="pt-2">
+                <a href="{{ route('promote-music') }}" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5 inline-block">
                     🚀 Promote Your Music Now
                 </a>
             </div>
