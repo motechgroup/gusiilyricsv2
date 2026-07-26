@@ -35,15 +35,23 @@ class SiteAd extends Model
 
     public static function getAdForSpot(string $spot): ?self
     {
-        $ad = static::where('placement_spot', $spot)
-            ->where('is_active', true)
-            ->inRandomOrder()
-            ->first();
+        try {
+            if (!\Illuminate\Support\Facades\Schema::hasTable('site_ads')) {
+                return null;
+            }
 
-        if ($ad) {
-            $ad->increment('impressions_count');
+            $ad = static::where('placement_spot', $spot)
+                ->where('is_active', true)
+                ->inRandomOrder()
+                ->first();
+
+            if ($ad) {
+                $ad->increment('impressions_count');
+            }
+
+            return $ad;
+        } catch (\Throwable $e) {
+            return null;
         }
-
-        return $ad;
     }
 }

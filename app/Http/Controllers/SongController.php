@@ -90,10 +90,16 @@ class SongController extends Controller
         // Increment view count quietly
         $song->increment('views_count');
 
-        // Increment campaign views for active music promotions
-        \App\Models\MusicPromotion::where('song_id', $song->id)
-            ->where('status', 'active')
-            ->increment('campaign_views');
+        // Increment campaign views for active music promotions safely
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('music_promotions')) {
+                \App\Models\MusicPromotion::where('song_id', $song->id)
+                    ->where('status', 'active')
+                    ->increment('campaign_views');
+            }
+        } catch (\Throwable $e) {
+            // Catch safely if table does not exist yet on production database
+        }
 
         // More songs from same artist
         $artistSongs = Song::with('artist')
