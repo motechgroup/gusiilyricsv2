@@ -8,8 +8,9 @@
 
     <!-- Header Banner -->
     <div class="text-center space-y-3">
-        <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wider">
-            ❤️ Platform Heritage Preservation
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wider">
+            <svg class="w-3.5 h-3.5 fill-current text-rose-400" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            Platform Heritage Preservation
         </span>
         <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
             Support <span class="text-gradient-emerald">Gusii Lyrics</span>
@@ -48,7 +49,10 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Manual M-Pesa Paybill / Till Card -->
         <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-gray-800 space-y-3 text-xs font-mono text-gray-300">
-            <h3 class="text-sm font-bold text-white font-sans">💚 Manual M-Pesa Buy Goods & Paybill</h3>
+            <h3 class="text-sm font-bold text-white font-sans flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                Manual M-Pesa Buy Goods & Paybill
+            </h3>
             @if($settings['mpesa_till'])
                 <p>Buy Goods Till: <strong class="text-emerald-400 text-base select-all">{{ $settings['mpesa_till'] }}</strong></p>
             @endif
@@ -60,7 +64,10 @@
         <!-- Stripe Card Gateway -->
         <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-indigo-500/30 space-y-3 flex flex-col justify-between">
             <div>
-                <h3 class="text-sm font-bold text-white">💳 Stripe Credit Card / Apple Pay</h3>
+                <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                    <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    Stripe Credit Card / Apple Pay
+                </h3>
                 <p class="text-xs text-gray-400 mt-1">Pay with Visa, Mastercard, or Apple Pay globally.</p>
             </div>
 

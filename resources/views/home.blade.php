@@ -168,7 +168,9 @@
 <!-- Support Banner -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
     <div class="glass-panel p-8 rounded-3xl border border-amber-500/30 text-center space-y-4">
-        <div class="text-3xl">❤️</div>
+        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto text-amber-400">
+            <svg class="w-6 h-6 fill-current text-rose-500" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
         <h2 class="text-2xl font-extrabold text-white">Support Gusii Lyrics</h2>
         <p class="text-xs text-gray-300 max-w-xl mx-auto leading-relaxed">
             Help us keep Gusii Lyrics active and free of intrusive pop-ups. Donate via M-Pesa or Stripe.
