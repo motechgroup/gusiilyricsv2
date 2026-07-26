@@ -5,10 +5,15 @@
 @section('content')
 <div class="max-w-4xl mx-auto space-y-8">
 
-    <div class="flex items-center justify-between pb-4 border-b border-gray-800">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-gray-800">
         <div>
             <h1 class="text-2xl font-extrabold text-white">Site Settings & Configurations</h1>
             <p class="text-xs text-gray-400 mt-1">Super Admin standalone setting cards. Save each setting section independently.</p>
+        </div>
+        <div>
+            <a href="{{ route('run-migrations') }}" target="_blank" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-extrabold text-xs shadow-lg transition inline-flex items-center gap-1.5">
+                ⚡ Run DB Migrations & Clear Cache
+            </a>
         </div>
     </div>
 
