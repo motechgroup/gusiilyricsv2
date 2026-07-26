@@ -33,6 +33,7 @@
                     <select name="placement_spot" required class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs">
                         <option value="header_top" {{ old('placement_spot', $ad->placement_spot) === 'header_top' ? 'selected' : '' }}>Header Top Banner (728x90 or 320x50 px)</option>
                         <option value="lyrics_above" {{ old('placement_spot', $ad->placement_spot) === 'lyrics_above' ? 'selected' : '' }}>Lyrics Page Above (728x90 or 468x60 px)</option>
+                        <option value="in_lyrics" {{ old('placement_spot', $ad->placement_spot) === 'in_lyrics' ? 'selected' : '' }}>In Between Verses / Chorus Lyrics Blocks (In-Article Responsive / 300x250 px)</option>
                         <option value="lyrics_below" {{ old('placement_spot', $ad->placement_spot) === 'lyrics_below' ? 'selected' : '' }}>Lyrics Page Below (728x90 or 468x60 px)</option>
                         <option value="sidebar" {{ old('placement_spot', $ad->placement_spot) === 'sidebar' ? 'selected' : '' }}>Sidebar / Content Spot (300x250 or 336x280 px)</option>
                         <option value="footer" {{ old('placement_spot', $ad->placement_spot) === 'footer' ? 'selected' : '' }}>Footer Spot (728x90 or 970x90 px)</option>

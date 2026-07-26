@@ -172,7 +172,12 @@
     <!-- Lyrics Above Ad Spot -->
     @php
         $lyricsAboveAd = \App\Models\SiteAd::getAdForSpot('lyrics_above');
+        $inLyricsAd = \App\Models\SiteAd::getAdForSpot('in_lyrics');
         $lyricsBelowAd = \App\Models\SiteAd::getAdForSpot('lyrics_below');
+        $adsenseCode = \App\Models\Setting::get('google_adsense_code', '');
+
+        // Split lyrics into stanzas / blocks by double line breaks
+        $lyricsBlocks = array_values(array_filter(preg_split('/\n\s*\n/', trim($song->lyrics_raw))));
     @endphp
 
     @if($lyricsAboveAd)
@@ -189,9 +194,51 @@
         </div>
     @endif
 
-    <!-- Lyrics Text Flow (Unselectable / Copy Protected) -->
-    <div class="lyrics-content no-copy unselectable space-y-4 text-base sm:text-xl text-gray-100 font-medium leading-relaxed whitespace-pre-line select-none font-sans">
-        {{ $song->lyrics_raw }}
+    <!-- Lyrics Text Flow Broken Into Stanzas With AdSense / Custom Banners In Between -->
+    <div class="space-y-6">
+        @foreach($lyricsBlocks as $index => $block)
+            <div class="lyrics-content no-copy unselectable text-base sm:text-xl text-gray-100 font-medium leading-relaxed whitespace-pre-line select-none font-sans bg-gray-950/40 p-4 sm:p-6 rounded-2xl border border-gray-800/40">
+                {!! trim($block) !!}
+            </div>
+
+            <!-- Insert AdSense / Custom Banner in-between stanzas (after 1st and 3rd blocks) -->
+            @if(($index === 0 || $index === 2) && $index < count($lyricsBlocks) - 1)
+                <div class="my-6 py-4 text-center border-y border-gray-800/60 bg-gray-950/60 rounded-2xl p-4 space-y-2">
+                    <span class="text-[9px] uppercase tracking-widest text-gray-500 font-mono block">Advertisement</span>
+                    @if($inLyricsAd)
+                        @if($inLyricsAd->type === 'image' && $inLyricsAd->image_path)
+                            <a href="{{ $inLyricsAd->target_url ?? '#' }}" target="_blank" rel="noopener" class="inline-block max-w-full">
+                                <img src="{{ $inLyricsAd->image_url }}" alt="{{ $inLyricsAd->title }}" class="max-h-28 sm:max-h-32 w-auto rounded-xl border border-gray-800 shadow-lg mx-auto">
+                            </a>
+                        @elseif($inLyricsAd->type === 'script' && $inLyricsAd->code_script)
+                            <div class="inline-block max-w-full overflow-hidden">
+                                {!! $inLyricsAd->code_script !!}
+                            </div>
+                        @endif
+                    @elseif($adsenseCode)
+                        <!-- Google AdSense In-Article Responsive Banner -->
+                        <ins class="adsbygoogle"
+                             style="display:block; text-align:center;"
+                             data-ad-layout="in-article"
+                             data-ad-format="fluid"
+                             data-ad-client="{{ $adsenseCode }}"
+                             data-ad-slot="1234567890"></ins>
+                        <script>
+                             (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    @else
+                        <!-- Promotional Music Banner -->
+                        <div class="p-4 rounded-xl bg-gradient-to-r from-emerald-950/60 via-gray-900 to-emerald-950/60 border border-emerald-500/20 text-center space-y-2">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono">Promote Your Release On Gusii Lyrics</span>
+                            <p class="text-xs text-gray-300">Are you an artist? Get your song lyrics featured & promoted to 150K+ Ekegusii music fans!</p>
+                            <a href="{{ route('promote-music') }}" class="inline-block px-4 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-md transition">
+                                Promote Your Music &rarr;
+                            </a>
+                        </div>
+                    @endif
+                </div>
+            @endif
+        @endforeach
     </div>
 
     <!-- Lyrics Below Ad Spot -->
