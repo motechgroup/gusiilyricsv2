@@ -167,20 +167,47 @@
 
 <!-- Support Banner -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
-    <div class="glass-panel p-8 rounded-3xl border border-amber-500/30 text-center space-y-4">
+    <!-- Support Gusii Lyrics Donate Section (Un-enclosed) -->
+    <div class="text-center py-6 space-y-4 border-t border-gray-800/80">
         <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto text-amber-400">
             <svg class="w-6 h-6 fill-current text-rose-500" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         </div>
-        <h2 class="text-2xl font-extrabold text-white">Support Gusii Lyrics</h2>
+        <h2 class="text-2xl font-extrabold text-white tracking-tight">Support Gusii Lyrics</h2>
         <p class="text-xs text-gray-300 max-w-xl mx-auto leading-relaxed">
             Help us keep Gusii Lyrics active and free of intrusive pop-ups. Donate via M-Pesa or Stripe.
         </p>
         <div>
-            <button onclick="openDonateModal()" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg">
+            <button onclick="openDonateModal()" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg transition">
                 Donate Now via M-Pesa / Stripe
             </button>
         </div>
     </div>
+
+    <!-- Music Genres & Categories Section -->
+    <div class="pt-8 border-t border-gray-800/80 space-y-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl font-extrabold text-white tracking-tight">
+                    Browse Music <span class="text-gradient-emerald">Genres & Categories</span>
+                </h2>
+                <p class="text-xs text-gray-400 mt-1">Explore Ekegusii lyrics organized by musical style and tradition.</p>
+            </div>
+            <a href="{{ route('songs.index') }}" class="text-xs font-semibold text-emerald-400 hover:underline">View All Lyrics &rarr;</a>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            @forelse($genres as $genre)
+                <a href="{{ route('songs.index', ['genre' => $genre->slug]) }}" class="p-4 rounded-2xl bg-gray-950/80 hover:bg-gray-900 border border-gray-800/80 hover:border-emerald-500/40 text-center space-y-2 group transition duration-300">
+                    <span class="text-3xl block group-hover:scale-110 transition-transform">{{ $genre->icon ?: '🎵' }}</span>
+                    <strong class="text-xs text-white block group-hover:text-emerald-400 transition font-bold leading-tight">{{ $genre->name }}</strong>
+                    <span class="text-[10px] text-emerald-400 font-mono block">{{ $genre->songs_count }} Songs</span>
+                </a>
+            @empty
+                <div class="col-span-6 text-center py-6 text-xs text-gray-500">No genres registered yet.</div>
+            @endforelse
+        </div>
+    </div>
+
 </div>
 
 @endsection

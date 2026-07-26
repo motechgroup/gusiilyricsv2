@@ -150,6 +150,12 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->name(
         Route::post('/promotions/{id}/status', [AdminController::class, 'promotionsUpdateStatus'])->name('promotions.status');
         Route::delete('/promotions/{id}', [AdminController::class, 'promotionsDestroy'])->name('promotions.destroy');
 
+        // Manage Music Genres & Categories
+        Route::get('/genres', [AdminController::class, 'genresIndex'])->name('genres.index');
+        Route::post('/genres', [AdminController::class, 'genresStore'])->name('genres.store');
+        Route::put('/genres/{id}', [AdminController::class, 'genresUpdate'])->name('genres.update');
+        Route::delete('/genres/{id}', [AdminController::class, 'genresDestroy'])->name('genres.destroy');
+
         Route::get('/pages', [AdminController::class, 'pagesIndex'])->name('pages.index');
         Route::post('/pages', [AdminController::class, 'pagesUpdate'])->name('pages.update');
 

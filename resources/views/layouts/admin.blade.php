@@ -146,6 +146,12 @@
                             <span>Music Promotions</span>
                         </a>
 
+                        <!-- Manage Genres & Categories -->
+                        <a href="{{ route('admin.genres.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition {{ request()->routeIs('admin.genres.*') ? 'bg-emerald-500 text-slate-950 shadow-md font-bold' : 'text-gray-300 hover:bg-gray-800/60 hover:text-white' }}">
+                            <svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path></svg>
+                            <span>Manage Genres</span>
+                        </a>
+
                         <!-- Pages & Legal Content -->
                         <a href="{{ route('admin.pages.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition {{ request()->routeIs('admin.pages.*') ? 'bg-emerald-500 text-slate-950 shadow-md font-bold' : 'text-gray-300 hover:bg-gray-800/60 hover:text-white' }}">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>

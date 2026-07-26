@@ -14,7 +14,7 @@
         @csrf
         @method('PUT')
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Song Title <span class="text-rose-500">*</span></label>
                 <input type="text" name="title" value="{{ old('title', $song->title) }}" required class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
@@ -26,6 +26,18 @@
                     @foreach($artists as $artist)
                         <option value="{{ $artist->id }}" {{ $song->artist_id == $artist->id ? 'selected' : '' }}>
                             {{ $artist->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-purple-400 mb-1">Music Genre / Category</label>
+                <select name="genre_id" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+                    <option value="">Select Genre (Optional)...</option>
+                    @foreach($genres as $genre)
+                        <option value="{{ $genre->id }}" {{ old('genre_id', $song->genre_id) == $genre->id ? 'selected' : '' }}>
+                            {{ $genre->icon }} {{ $genre->name }}
                         </option>
                     @endforeach
                 </select>

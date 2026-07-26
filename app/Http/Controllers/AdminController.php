@@ -550,6 +550,58 @@ class AdminController extends Controller
         return redirect()->route('admin.artists.index')->with('success', 'Artist deleted.');
     }
 
+    // --- Genre CRUD ---
+    public function genresIndex()
+    {
+        $genres = Genre::withCount('songs')->orderBy('name')->get();
+        return view('admin.genres.index', compact('genres'));
+    }
+
+    public function genresStore(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:genres,name',
+            'description' => 'nullable|string',
+            'icon' => 'nullable|string|max:50',
+        ]);
+
+        $validated['slug'] = Str::slug($validated['name']);
+        $validated['icon'] = $validated['icon'] ?: '🎵';
+
+        Genre::create($validated);
+
+        return redirect()->route('admin.genres.index')->with('success', 'Music Genre created successfully!');
+    }
+
+    public function genresUpdate(Request $request, $id)
+    {
+        $genre = Genre::findOrFail($id);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:genres,name,' . $id,
+            'description' => 'nullable|string',
+            'icon' => 'nullable|string|max:50',
+        ]);
+
+        $validated['slug'] = Str::slug($validated['name']);
+        if ($request->filled('icon')) {
+            $validated['icon'] = $request->icon;
+        }
+
+        $genre->update($validated);
+
+        return redirect()->route('admin.genres.index')->with('success', 'Music Genre updated successfully!');
+    }
+
+    public function genresDestroy($id)
+    {
+        $genre = Genre::findOrFail($id);
+        Song::where('genre_id', $id)->update(['genre_id' => null]);
+        $genre->delete();
+
+        return redirect()->route('admin.genres.index')->with('success', 'Music Genre deleted successfully!');
+    }
+
     // --- Requests ---
     public function requestsIndex()
     {
