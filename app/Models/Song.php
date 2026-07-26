@@ -34,11 +34,14 @@ class Song extends Model
         'likes_count',
         'is_featured',
         'is_trending',
+        'is_promoted',
+        'promoted_badge_text',
     ];
 
     protected $casts = [
         'is_featured' => 'boolean',
         'is_trending' => 'boolean',
+        'is_promoted' => 'boolean',
         'views_count' => 'integer',
         'likes_count' => 'integer',
         'release_year' => 'integer',
@@ -57,6 +60,11 @@ class Song extends Model
     public function genre(): BelongsTo
     {
         return $this->belongsTo(Genre::class);
+    }
+
+    public function promotions(): HasMany
+    {
+        return $this->hasMany(MusicPromotion::class);
     }
 
     public function getFormattedViewsAttribute(): string

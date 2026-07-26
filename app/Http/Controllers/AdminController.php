@@ -7,6 +7,7 @@ use App\Models\Correction;
 use App\Models\Donation;
 use App\Models\Genre;
 use App\Models\LyricRequest;
+use App\Models\MusicPromotion;
 use App\Models\Setting;
 use App\Models\Song;
 use App\Models\User;
@@ -922,5 +923,107 @@ EOD;
         $ad->delete();
 
         return redirect()->back()->with('success', 'Ad campaign deleted.');
+    }
+
+    // --- Music Promotions Management & Campaign Analytics ---
+    public function promotionsIndex(Request $request)
+    {
+        $query = MusicPromotion::with('song.artist')->latest();
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $promotions = $query->paginate(15);
+        $songs = Song::orderBy('title')->get();
+
+        $stats = [
+            'total_campaigns' => MusicPromotion::count(),
+            'active_campaigns' => MusicPromotion::where('status', 'active')->count(),
+            'total_views' => MusicPromotion::sum('campaign_views'),
+            'total_clicks' => MusicPromotion::sum('campaign_clicks'),
+            'total_budget' => MusicPromotion::sum('budget_amount'),
+        ];
+
+        return view('admin.promotions.index', compact('promotions', 'songs', 'stats'));
+    }
+
+    public function promotionsStore(Request $request)
+    {
+        $validated = $request->validate([
+            'artist_name' => 'required|string|max:255',
+            'song_title' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:50',
+            'song_url' => 'nullable|url|max:500',
+            'song_id' => 'nullable|exists:songs,id',
+            'package_type' => 'required|string|max:100',
+            'status' => 'required|string|in:pending,active,completed,paused,rejected',
+            'budget_amount' => 'nullable|numeric|min:0',
+            'starts_at' => 'nullable|date',
+            'ends_at' => 'nullable|date',
+            'notes' => 'nullable|string',
+        ]);
+
+        $promo = MusicPromotion::create($validated);
+
+        if ($promo->song_id && $promo->status === 'active') {
+            Song::where('id', $promo->song_id)->update([
+                'is_promoted' => true,
+                'promoted_badge_text' => 'FEATURED PROMO',
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Music Promotion Campaign created successfully!');
+    }
+
+    public function promotionsUpdateStatus(Request $request, $id)
+    {
+        $promo = MusicPromotion::findOrFail($id);
+        
+        $validated = $request->validate([
+            'status' => 'required|string|in:pending,active,completed,paused,rejected',
+            'song_id' => 'nullable|exists:songs,id',
+            'budget_amount' => 'nullable|numeric|min:0',
+            'campaign_views' => 'nullable|integer|min:0',
+            'campaign_clicks' => 'nullable|integer|min:0',
+        ]);
+
+        $promo->update($validated);
+
+        if ($promo->song_id) {
+            if ($promo->status === 'active') {
+                Song::where('id', $promo->song_id)->update([
+                    'is_promoted' => true,
+                    'promoted_badge_text' => 'FEATURED PROMO',
+                ]);
+            } else {
+                $otherActive = MusicPromotion::where('song_id', $promo->song_id)
+                    ->where('id', '!=', $promo->id)
+                    ->where('status', 'active')
+                    ->exists();
+                if (!$otherActive) {
+                    Song::where('id', $promo->song_id)->update(['is_promoted' => false]);
+                }
+            }
+        }
+
+        return redirect()->back()->with('success', 'Music promotion campaign updated successfully!');
+    }
+
+    public function promotionsDestroy($id)
+    {
+        $promo = MusicPromotion::findOrFail($id);
+        $songId = $promo->song_id;
+        $promo->delete();
+
+        if ($songId) {
+            $otherActive = MusicPromotion::where('song_id', $songId)->where('status', 'active')->exists();
+            if (!$otherActive) {
+                Song::where('id', $songId)->update(['is_promoted' => false]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Music promotion campaign deleted.');
     }
 }

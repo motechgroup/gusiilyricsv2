@@ -78,6 +78,7 @@ Route::middleware(\App\Http\Middleware\TrackVisitor::class)->group(function () {
     Route::post('/actions/request-lyric', [VisitorActionController::class, 'requestLyric'])->name('actions.request-lyric');
     Route::post('/actions/submit-correction', [VisitorActionController::class, 'submitCorrection'])->name('actions.submit-correction');
     Route::post('/api/songs/{id}/like', [SongController::class, 'like'])->name('songs.like');
+    Route::post('/api/songs/{id}/track-click', [SongController::class, 'trackClick'])->name('songs.track-click');
     Route::get('/api/search', [SongController::class, 'searchApi'])->name('api.search');
 });
 
@@ -142,6 +143,12 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->name(
         Route::put('/ads/{id}', [AdminController::class, 'adsUpdate'])->name('ads.update');
         Route::post('/ads/{id}/toggle', [AdminController::class, 'adsToggleActive'])->name('ads.toggle');
         Route::delete('/ads/{id}', [AdminController::class, 'adsDestroy'])->name('ads.destroy');
+
+        // Music Promotions & Campaign Analytics Manager
+        Route::get('/promotions', [AdminController::class, 'promotionsIndex'])->name('promotions.index');
+        Route::post('/promotions', [AdminController::class, 'promotionsStore'])->name('promotions.store');
+        Route::post('/promotions/{id}/status', [AdminController::class, 'promotionsUpdateStatus'])->name('promotions.status');
+        Route::delete('/promotions/{id}', [AdminController::class, 'promotionsDestroy'])->name('promotions.destroy');
 
         Route::get('/pages', [AdminController::class, 'pagesIndex'])->name('pages.index');
         Route::post('/pages', [AdminController::class, 'pagesUpdate'])->name('pages.update');

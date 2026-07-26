@@ -159,6 +159,36 @@
                 @empty
                     <div class="text-center py-6 text-xs text-gray-500">No lyric requests yet.</div>
                 @endforelse
+        <!-- Music Promotions & Active Campaigns -->
+        <div class="glass-panel p-6 rounded-3xl border border-gray-800 space-y-4 col-span-1 lg:col-span-2">
+            <div class="flex items-center justify-between">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                    <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    🎵 Promoted Music Campaigns
+                </h3>
+                <a href="{{ route('admin.promotions.index') }}" class="text-xs font-semibold text-emerald-400 hover:underline">Manage All Promotions &rarr;</a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                @forelse($recentPromotions ?? [] as $promo)
+                    <div class="p-3.5 rounded-xl bg-gray-950 border border-gray-800 flex items-center justify-between text-xs">
+                        <div class="min-w-0 pr-2">
+                            <strong class="text-white block truncate">{{ $promo->song_title }}</strong>
+                            <span class="text-emerald-400 block truncate">{{ $promo->artist_name }}</span>
+                            <span class="text-[10px] text-gray-500 font-mono">{{ $promo->package_type }}</span>
+                        </div>
+                        <div class="text-right shrink-0">
+                            @if($promo->status === 'active')
+                                <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold text-[10px]">🟢 Active</span>
+                            @else
+                                <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold text-[10px]">⏳ {{ ucfirst($promo->status) }}</span>
+                            @endif
+                            <div class="text-[10px] font-mono text-gray-400 mt-1">👁️ {{ number_format($promo->campaign_views) }} views</div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-6 text-xs text-gray-500 col-span-2">No music promotions submitted yet.</div>
+                @endforelse
             </div>
         </div>
 

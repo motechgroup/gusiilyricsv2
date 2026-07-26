@@ -90,6 +90,11 @@ class SongController extends Controller
         // Increment view count quietly
         $song->increment('views_count');
 
+        // Increment campaign views for active music promotions
+        \App\Models\MusicPromotion::where('song_id', $song->id)
+            ->where('status', 'active')
+            ->increment('campaign_views');
+
         // More songs from same artist
         $artistSongs = Song::with('artist')
             ->where('artist_id', $song->artist_id)
@@ -105,6 +110,15 @@ class SongController extends Controller
             ->get();
 
         return view('songs.show', compact('song', 'artistSongs', 'relatedSongs'));
+    }
+
+    public function trackClick($id)
+    {
+        \App\Models\MusicPromotion::where('song_id', $id)
+            ->where('status', 'active')
+            ->increment('campaign_clicks');
+
+        return response()->json(['success' => true]);
     }
 
     public function like($id)

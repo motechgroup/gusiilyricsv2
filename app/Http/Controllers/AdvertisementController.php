@@ -77,7 +77,7 @@ class AdvertisementController extends Controller
             $message .= "\nADDITIONAL NOTES:\n{$validated['message']}\n";
         }
 
-        AdInquiry::create([
+        $inquiry = AdInquiry::create([
             'advertiser_name' => $validated['artist_name'],
             'company_name' => $validated['contact_person'] ?? 'Music Promotion',
             'email' => $validated['email'],
@@ -85,6 +85,19 @@ class AdvertisementController extends Controller
             'placement_spot' => 'music_promotion',
             'budget_range' => $validated['package_type'],
             'message' => $message,
+            'status' => 'pending',
+        ]);
+
+        \App\Models\MusicPromotion::create([
+            'ad_inquiry_id' => $inquiry->id,
+            'artist_name' => $validated['artist_name'],
+            'song_title' => $validated['song_title'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'song_url' => $validated['song_url'],
+            'package_type' => $validated['package_type'],
+            'lyrics_text' => $validated['lyrics_text'] ?? null,
+            'notes' => $validated['message'] ?? null,
             'status' => 'pending',
         ]);
 
