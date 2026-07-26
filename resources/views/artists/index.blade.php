@@ -89,7 +89,7 @@
                     </div>
 
                     <div class="w-full mt-6 pt-4 border-t border-gray-800 flex items-center justify-between text-xs text-gray-500 font-mono">
-                        <span>{{ $artist->songs_count }} Songs</span>
+                        <span>{{ $artist->songs_count }} Lyrics</span>
                         <span class="text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
                     </div>
                 </a>

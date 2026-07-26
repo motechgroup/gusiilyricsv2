@@ -23,7 +23,7 @@
                 <tr>
                     <th class="p-4">Icon & Genre Name</th>
                     <th class="p-4">Description</th>
-                    <th class="p-4">Songs Indexed</th>
+                    <th class="p-4">Lyrics Count</th>
                     <th class="p-4 text-right">Actions</th>
                 </tr>
             </thead>
@@ -45,7 +45,7 @@
                         </td>
 
                         <td class="p-4 font-mono font-bold text-emerald-400">
-                            {{ $genre->songs_count }} Songs
+                            {{ $genre->songs_count }} Lyrics
                         </td>
 
                         <td class="p-4 text-right space-x-2">

@@ -53,7 +53,7 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Spotify Section Header -->
     <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-bold text-white tracking-tight">Popular songs and singles</h2>
+        <h2 class="text-2xl font-bold text-white tracking-tight">Popular Ekegusii song lyrics</h2>
         <a href="{{ route('songs.index') }}" class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-wider">
             Show all
         </a>
@@ -116,7 +116,7 @@
             <p class="text-xs text-gray-400 mt-1">Top 10 most viewed Ekegusii song lyrics today</p>
         </div>
         <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gray-900 border border-gray-800 text-[11px] font-mono font-bold text-gray-300 uppercase tracking-wider self-start sm:self-auto">
-            <span>SONGS</span> / <span class="text-emerald-400">ALL GENRES</span> / <span>TODAY</span>
+            <span class="text-emerald-400">LYRICS</span> / <span>ALL GENRES</span> / <span>TODAY</span>
         </div>
     </div>
 
@@ -211,14 +211,14 @@
     <div class="py-10 border-t border-gray-800/80">
         <div class="flex flex-col items-center text-center max-w-2xl mx-auto space-y-4">
             <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Promote Your Music to <span class="text-gradient-emerald">Thousands of Fans</span>
+                Promote Your Song Lyrics to <span class="text-gradient-emerald">Thousands of Fans</span>
             </h2>
             <p class="text-xs text-gray-300 leading-relaxed">
-                Get your songs featured at the top of Gusii Lyrics homepage, index pages, and search results. Drive streaming plays, video views, and grow your fanbase across Kisii, Nyamira, and the diaspora.
+                Get your song lyrics featured at the top of Gusii Lyrics homepage, index pages, and search results. Drive streaming plays, YouTube views, and grow your fanbase across Kisii, Nyamira, and the diaspora.
             </p>
             <div class="pt-2">
                 <a href="{{ route('promote-music') }}" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5 inline-block">
-                    🚀 Promote Your Music Now
+                    🚀 Promote Your Song Lyrics Now
                 </a>
             </div>
         </div>

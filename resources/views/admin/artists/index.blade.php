@@ -21,7 +21,7 @@
                 <tr>
                     <th class="p-4">Artist Name</th>
                     <th class="p-4">Location</th>
-                    <th class="p-4">Total Songs</th>
+                    <th class="p-4">Total Lyrics</th>
                     <th class="p-4 text-right">Actions</th>
                 </tr>
             </thead>
@@ -33,7 +33,7 @@
                             <span>{{ $artist->name }}</span>
                         </td>
                         <td class="p-4 text-gray-400 font-mono">{{ $artist->location }}</td>
-                        <td class="p-4 font-mono">{{ $artist->songs_count }} Songs</td>
+                        <td class="p-4 font-mono">{{ $artist->songs_count }} Lyrics</td>
                         <td class="p-4 text-right space-x-2">
                             <a href="{{ route('admin.artists.edit', $artist->id) }}" class="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-emerald-400 font-semibold">
                                 Edit
