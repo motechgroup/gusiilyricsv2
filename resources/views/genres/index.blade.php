@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Ekegusii Music Genres Directory - GusiiLyrics')
-@section('meta_description', 'Explore Ekegusii music genres including Gospel, Traditional Obokano, Benga, Love Ballads, and Wedding Celebration Songs on GusiiLyrics.com.')
+@section('meta_description', 'Explore Gusii music genres including Gospel, Traditional Obokano, Benga, Love Ballads, and Wedding Celebration Songs on GusiiLyrics.com.')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">

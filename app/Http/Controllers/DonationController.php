@@ -13,7 +13,9 @@ class DonationController extends Controller
         $settings = [
             'mpesa_till' => Setting::get('mpesa_till', '5421908'),
             'mpesa_paybill' => Setting::get('mpesa_paybill', ''),
-            'stripe_url' => Setting::get('stripe_url', ''),
+            'stripe_url' => Setting::get('stripe_url') ?: 'https://donate.stripe.com/gusiilyrics',
+            'enable_mpesa' => Setting::get('enable_mpesa', '1') !== '0',
+            'enable_stripe' => Setting::get('enable_stripe', '1') !== '0',
         ];
 
         $rawPresets = Setting::get('preset_donation_amounts', '100, 250, 500, 1000, 2500, 5000');

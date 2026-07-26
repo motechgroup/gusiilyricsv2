@@ -9,7 +9,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
 
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mx-auto">
-            Discover Ekegusii Song Lyrics & <span class="text-gradient-emerald">Official Streams</span>
+            Discover Gusii<span class="text-gradient-emerald"> Song Lyrics</span>
         </h1>
 
         <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
@@ -187,17 +187,19 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
     <!-- Support Gusii Lyrics Donate Section (Un-enclosed) -->
     <div class="text-center py-6 space-y-4 border-t border-gray-800/80">
-        <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mx-auto text-amber-400">
+        <div class="w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-400/30 flex items-center justify-center mx-auto text-amber-400">
             <svg class="w-6 h-6 fill-current text-rose-500" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         </div>
-        <h2 class="text-2xl font-extrabold text-white tracking-tight">Support Gusii Lyrics</h2>
+        <h2 class="text-2xl font-black text-white tracking-tight">
+            Support <span class="bg-gradient-to-r from-emerald-400 via-amber-300 to-emerald-400 bg-clip-text text-transparent">Gusii Lyrics</span>
+        </h2>
         <p class="text-xs text-gray-300 max-w-xl mx-auto leading-relaxed">
-            Help us keep Gusii Lyrics active and free of intrusive pop-ups. Donate via M-Pesa or Stripe.
+            Help us keep Ekegusii song lyrics active, preserved, and free for fans worldwide. Donate easily via M-Pesa or Card/Stripe.
         </p>
         <div>
-            <button onclick="openDonateModal()" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg transition">
-                Donate Now via M-Pesa / Stripe
-            </button>
+            <a href="{{ route('donate') }}" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-black text-xs shadow-lg shadow-amber-400/20 transition transform hover:-translate-y-0.5 inline-block">
+                ❤️ Donate Now via M-Pesa / Stripe &rarr;
+            </a>
         </div>
     </div>
 
@@ -208,7 +210,7 @@
                 <h2 class="text-2xl font-extrabold text-white tracking-tight">
                     Browse Music <span class="text-gradient-emerald">Genres & Categories</span>
                 </h2>
-                <p class="text-xs text-gray-400 mt-1">Explore Ekegusii lyrics organized by musical style and tradition.</p>
+                <p class="text-xs text-gray-400 mt-1">Explore Gusii lyrics organized by musical style and tradition.</p>
             </div>
             <a href="{{ route('songs.index') }}" class="text-xs font-bold text-amber-400 hover:text-amber-300">View All Lyrics &rarr;</a>
         </div>

@@ -122,10 +122,10 @@
             </button>
 
             <!-- Option 2: Stripe / Card -->
-            @if($settings['stripe_url'])
+            @if(!empty($settings['stripe_url']))
                 <a id="stripeChoiceBtn" href="{{ $settings['stripe_url'] }}" target="_blank" class="w-full p-4 rounded-2xl bg-[#635bff]/15 hover:bg-[#635bff]/25 border border-[#635bff]/50 text-left flex items-center justify-between group transition block">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-[#635bff] text-white flex items-center justify-center font-black text-sm">
+                        <div class="w-10 h-10 rounded-xl bg-[#635bff] text-white flex items-center justify-center font-black text-sm shrink-0">
                             S
                         </div>
                         <div>
