@@ -455,7 +455,7 @@ class AdminController extends Controller
     // --- Artist CRUD ---
     public function artistsIndex()
     {
-        $artists = Artist::withCount('songs')->orderBy('name')->paginate(15);
+        $artists = Artist::withCount('songs')->orderBy('name')->paginate(10);
         return view('admin.artists.index', compact('artists'));
     }
 
@@ -605,7 +605,7 @@ class AdminController extends Controller
     // --- Requests ---
     public function requestsIndex()
     {
-        $requests = LyricRequest::latest()->paginate(15);
+        $requests = LyricRequest::latest()->paginate(10);
         return view('admin.requests.index', compact('requests'));
     }
 
@@ -619,7 +619,7 @@ class AdminController extends Controller
     // --- Corrections ---
     public function correctionsIndex()
     {
-        $corrections = Correction::with('song')->latest()->paginate(15);
+        $corrections = Correction::with('song')->latest()->paginate(10);
         return view('admin.corrections.index', compact('corrections'));
     }
 
@@ -924,7 +924,7 @@ EOD;
             $query->where('status', $request->status);
         }
 
-        $inquiries = $query->paginate(15);
+        $inquiries = $query->paginate(10);
         $pendingCount = \App\Models\AdInquiry::where('status', 'pending')->count();
 
         return view('admin.ad_inquiries.index', compact('inquiries', 'pendingCount'));
@@ -949,7 +949,7 @@ EOD;
     // --- Site Ad Placement & Campaign Management ---
     public function adsIndex()
     {
-        $ads = \App\Models\SiteAd::latest()->paginate(15);
+        $ads = \App\Models\SiteAd::latest()->paginate(10);
         return view('admin.ads.index', compact('ads'));
     }
 
@@ -1040,7 +1040,7 @@ EOD;
             $query->where('status', $request->status);
         }
 
-        $promotions = $query->paginate(15);
+        $promotions = $query->paginate(10);
         $songs = Song::orderBy('title')->get();
 
         $stats = [
