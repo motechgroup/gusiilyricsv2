@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Advertise With Us - Reach Thousands of Gusii Music Fans')
-@section('meta_description', 'Promote your brand, music release, or business on Gusii Lyrics Vault.')
+@section('title', 'Advertise With Us - Gusii Lyrics')
+@section('meta_description', 'Promote your brand, music release, or business on Gusii Lyrics.')
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">

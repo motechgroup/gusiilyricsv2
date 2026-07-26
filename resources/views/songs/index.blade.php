@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Lyrics Vault Directory - Gusii Lyrics')
+@section('title', 'Lyrics Directory - Gusii Lyrics')
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
@@ -8,7 +8,7 @@
     <!-- Directory Header -->
     <div class="mb-8">
         <h1 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Ekegusii <span class="text-gradient-emerald">Lyrics Vault</span>
+            Ekegusii <span class="text-gradient-emerald">Lyrics</span>
         </h1>
         <p class="text-gray-400 text-sm mt-1">Browse and search official Gusii music lyrics & stream links.</p>
     </div>
@@ -52,7 +52,7 @@
 
         <!-- Submit Button -->
         <button type="submit" class="w-full md:w-auto px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition shrink-0">
-            Filter Vault
+            Filter Lyrics
         </button>
         @if(request('q') || request('genre') || request('letter') || request('sort'))
             <a href="{{ route('songs.index') }}" class="px-4 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 text-sm font-semibold">

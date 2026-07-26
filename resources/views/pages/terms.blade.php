@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Terms of Service - Gusii Lyrics Vault')
-@section('meta_description', 'Read the official Terms of Service and Copyright Guidelines for Gusii Lyrics Vault.')
+@section('title', 'Terms of Service - Gusii Lyrics')
+@section('meta_description', 'Read the official Terms of Service and Copyright Guidelines for Gusii Lyrics.')
 
 @section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">

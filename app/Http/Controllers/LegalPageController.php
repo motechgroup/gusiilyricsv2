@@ -10,10 +10,10 @@ class LegalPageController extends Controller
     {
         $defaultTerms = <<<'EOD'
 ### 1. Acceptance of Terms
-By accessing or using Gusii Lyrics Vault ("the Platform"), you agree to be bound by these Terms of Service. If you do not agree to all terms, please do not use the Platform.
+By accessing or using Gusii Lyrics ("the Platform"), you agree to be bound by these Terms of Service. If you do not agree to all terms, please do not use the Platform.
 
 ### 2. Purpose & Educational Use
-Gusii Lyrics Vault is a free cultural preservation platform dedicated to archiving, indexing, and celebrating Ekegusii music heritage and song lyrics. All lyrics, translations, and artist profiles are provided solely for non-commercial educational research, cultural study, and personal entertainment.
+Gusii Lyrics is a free cultural preservation platform dedicated to archiving, indexing, and celebrating Ekegusii music heritage and song lyrics. All lyrics, translations, and artist profiles are provided solely for non-commercial educational research, cultural study, and personal entertainment.
 
 ### 3. Intellectual Property & Copy Protection
 - All song lyrics, musical compositions, and artist branding remain the intellectual property of their respective songwriters, copyright holders, and recording artists.

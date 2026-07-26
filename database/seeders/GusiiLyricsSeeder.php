@@ -28,7 +28,9 @@ class GusiiLyricsSeeder extends Seeder
 
         // 2. Settings
         Setting::set('site_name', 'Gusii Lyrics');
-        Setting::set('seo_title', 'Gusii Lyrics - Ekegusii Song Lyrics Vault & Translations');
+        Setting::set('site_logo', '/images/logo.png');
+        Setting::set('favicon', '/images/favicon.png');
+        Setting::set('seo_title', 'Gusii Lyrics - Ekegusii Song Lyrics & Translations');
         Setting::set('seo_description', 'Discover Ekegusii lyrics, English & Swahili translations, and official stream links on Spotify & YouTube.');
         Setting::set('seo_keywords', 'Ekegusii lyrics, Kisii songs, Gusii gospel, Abagusii music, Fenny Kerubo, Benga');
         Setting::set('mpesa_till', '5421908');

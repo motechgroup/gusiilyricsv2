@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Support & Donate - Gusii Lyrics Vault')
+@section('title', 'Support & Donate - Gusii Lyrics')
 @section('meta_description', 'Support Ekegusii song lyrics preservation via M-Pesa STK Push or Stripe card payment.')
 
 @section('content')
@@ -12,7 +12,7 @@
             ❤️ Platform Heritage Preservation
         </span>
         <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-            Support <span class="text-gradient-emerald">Gusii Lyrics Vault</span>
+            Support <span class="text-gradient-emerald">Gusii Lyrics</span>
         </h1>
         <p class="text-gray-300 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
             Select an amount below to receive an M-Pesa PIN push prompt on your phone!

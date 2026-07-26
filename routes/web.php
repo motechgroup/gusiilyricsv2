@@ -77,10 +77,15 @@ Route::middleware(\App\Http\Middleware\TrackVisitor::class)->group(function () {
     Route::get('/api/search', [SongController::class, 'searchApi'])->name('api.search');
 });
 
-// Staff Auth Routes (Custom Login Route: /mkuu)
+// Staff Auth & Password Reset Routes (Custom Portal: /mkuu)
 Route::get('/mkuu', [AdminController::class, 'showLogin'])->name('admin.login');
 Route::post('/mkuu', [AdminController::class, 'login'])->name('admin.login.post');
 Route::post('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+Route::get('/mkuu/forgot-password', [AdminController::class, 'showForgotPassword'])->name('admin.password.request');
+Route::post('/mkuu/forgot-password', [AdminController::class, 'sendResetLinkEmail'])->name('admin.password.email');
+Route::get('/mkuu/reset-password/{token}', [AdminController::class, 'showResetPassword'])->name('admin.password.reset');
+Route::post('/mkuu/reset-password', [AdminController::class, 'resetPassword'])->name('admin.password.update');
 
 // Legacy login redirect
 Route::get('/admin/login', function() {
@@ -144,5 +149,6 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->name(
 
         Route::get('/settings', [AdminController::class, 'settingsIndex'])->name('settings.index');
         Route::post('/settings', [AdminController::class, 'settingsUpdate'])->name('settings.update');
+        Route::post('/settings/test-email', [AdminController::class, 'testSmtp'])->name('settings.test-email');
     });
 });

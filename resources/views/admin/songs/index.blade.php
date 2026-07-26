@@ -7,7 +7,7 @@
 
     <div class="flex items-center justify-between pb-4 border-b border-gray-800">
         <div>
-            <h1 class="text-2xl font-extrabold text-white">Manage Lyrics Vault</h1>
+            <h1 class="text-2xl font-extrabold text-white">Manage Lyrics</h1>
             <p class="text-xs text-gray-400 mt-1">Create, edit, and update Ekegusii song lyrics.</p>
         </div>
         <a href="{{ route('admin.songs.create') }}" class="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow">

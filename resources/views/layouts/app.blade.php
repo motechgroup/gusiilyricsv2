@@ -118,7 +118,7 @@
             <!-- Desktop Nav Links -->
             <nav class="hidden md:flex items-center space-x-8 text-xs font-bold uppercase tracking-wider">
                 <a href="{{ route('home') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('home') ? 'text-emerald-400' : 'text-gray-300' }}">Home</a>
-                <a href="{{ route('songs.index') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('songs.*') ? 'text-emerald-400' : 'text-gray-300' }}">Lyrics Vault</a>
+                <a href="{{ route('songs.index') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('songs.*') ? 'text-emerald-400' : 'text-gray-300' }}">Lyrics</a>
                 <a href="{{ route('artists.index') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('artists.*') ? 'text-emerald-400' : 'text-gray-300' }}">Artists</a>
                 <a href="{{ route('donate') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('donate') ? 'text-emerald-400' : 'text-gray-300' }}">Donate</a>
             </nav>
@@ -132,7 +132,7 @@
         <!-- Collapsible Mobile Navigation Drawer -->
         <div id="mobileNavDrawer" class="hidden md:hidden pt-4 pb-2 px-2 border-t border-gray-800/80 mt-3 space-y-2 text-xs font-bold uppercase tracking-wider">
             <a href="{{ route('home') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('home') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Home</a>
-            <a href="{{ route('songs.index') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('songs.*') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Lyrics Vault</a>
+            <a href="{{ route('songs.index') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('songs.*') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Lyrics</a>
             <a href="{{ route('artists.index') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('artists.*') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Artists</a>
             <a href="{{ route('donate') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('donate') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Donate</a>
         </div>
@@ -193,7 +193,7 @@
     <footer class="bg-gray-950 border-t border-gray-800/80 py-10 mt-16 text-xs text-gray-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="space-y-1 text-center md:text-left">
-                <p class="text-white font-bold text-sm">{{ $siteName }} Vault</p>
+                <p class="text-white font-bold text-sm">{{ $siteName }}</p>
                 <p class="text-gray-400">Preserving Ekegusii music heritage, song lyrics & official streaming links.</p>
             </div>
 

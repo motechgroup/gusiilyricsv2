@@ -1,16 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Gusii Lyrics - Ekegusii Song Lyrics Vault & Official Stream Links')
+@section('title', 'Gusii Lyrics - Ekegusii Song Lyrics & Official Stream Links')
 
 @section('content')
 
 <!-- Hero Banner -->
 <div class="relative py-12 lg:py-16 border-b border-gray-800/80 bg-gradient-to-b from-[#111a2e] to-[#090d16]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
-        
-        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider">
-            Official Ekegusii Vault
-        </span>
 
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mx-auto">
             Discover Ekegusii Song Lyrics & <span class="text-gradient-emerald">Official Streams</span>
@@ -116,9 +112,9 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
     <div class="glass-panel p-8 rounded-3xl border border-amber-500/30 text-center space-y-4">
         <div class="text-3xl">❤️</div>
-        <h2 class="text-2xl font-extrabold text-white">Support Gusii Lyrics Vault</h2>
+        <h2 class="text-2xl font-extrabold text-white">Support Gusii Lyrics</h2>
         <p class="text-xs text-gray-300 max-w-xl mx-auto leading-relaxed">
-            Help us keep the lyrics vault active and free of intrusive pop-ups. Donate via M-Pesa or Stripe.
+            Help us keep Gusii Lyrics active and free of intrusive pop-ups. Donate via M-Pesa or Stripe.
         </p>
         <div>
             <button onclick="openDonateModal()" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg">

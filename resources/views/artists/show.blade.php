@@ -137,7 +137,7 @@
 
             <div class="p-4 rounded-2xl bg-gray-950/60 border border-gray-800/80 space-y-1">
                 <h3 class="font-bold text-white">How many songs by {{ $artist->name }} are indexed?</h3>
-                <p class="text-gray-300 leading-relaxed">Currently, {{ $artist->songs->count() }} official songs by {{ $artist->name }} are cataloged in our digital vault.</p>
+                <p class="text-gray-300 leading-relaxed">Currently, {{ $artist->songs->count() }} official songs by {{ $artist->name }} are cataloged in our music library.</p>
             </div>
         </div>
     </div>

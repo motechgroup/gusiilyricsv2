@@ -43,6 +43,6 @@ class DonationController extends Controller
 
         Donation::create($validated);
 
-        return redirect()->back()->with('success', 'Ebaora Mno! Thank you for your generous support of Gusii Lyrics Vault.');
+        return redirect()->back()->with('success', 'Ebaora Mno! Thank you for your generous support of Gusii Lyrics.');
     }
 }

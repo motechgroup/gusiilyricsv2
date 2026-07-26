@@ -19,7 +19,7 @@ class VisitorActionController extends Controller
 
         LyricRequest::create($validated);
 
-        return redirect()->back()->with('success', 'Ebaora! Your lyric request has been received. Our team will add it to the vault soon.');
+        return redirect()->back()->with('success', 'Ebaora! Your lyric request has been received. Our team will add it soon.');
     }
 
     public function submitCorrection(Request $request)

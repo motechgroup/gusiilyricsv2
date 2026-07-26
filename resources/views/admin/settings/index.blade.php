@@ -160,7 +160,63 @@
                 </div>
             </div>
 
-            <!-- 5. SEO & Tracking -->
+            <!-- 5. SMTP Mail Server Configuration -->
+            <div class="space-y-4">
+                <h3 class="text-sm font-bold text-emerald-400 uppercase tracking-wider border-b border-gray-800 pb-2">
+                    📧 SMTP Server Settings & Password Reset Dispatcher
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Mail Driver</label>
+                        <select name="mail_mailer" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs">
+                            <option value="smtp" {{ ($settings['mail_mailer'] ?? 'smtp') === 'smtp' ? 'selected' : '' }}>SMTP (Recommended)</option>
+                            <option value="sendmail" {{ ($settings['mail_mailer'] ?? '') === 'sendmail' ? 'selected' : '' }}>Sendmail</option>
+                            <option value="log" {{ ($settings['mail_mailer'] ?? '') === 'log' ? 'selected' : '' }}>Log Driver (Testing Only)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">SMTP Host</label>
+                        <input type="text" name="mail_host" value="{{ $settings['mail_host'] ?? '' }}" placeholder="mail.gusiilyrics.com or smtp.gmail.com" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">SMTP Port</label>
+                        <input type="text" name="mail_port" value="{{ $settings['mail_port'] ?? '587' }}" placeholder="587 or 465" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">SMTP Username / Email</label>
+                        <input type="text" name="mail_username" value="{{ $settings['mail_username'] ?? '' }}" placeholder="info@gusiilyrics.com" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">SMTP Password</label>
+                        <input type="password" name="mail_password" value="{{ $settings['mail_password'] ?? '' }}" placeholder="Enter mailbox password..." class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Encryption</label>
+                        <select name="mail_encryption" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs">
+                            <option value="tls" {{ ($settings['mail_encryption'] ?? 'tls') === 'tls' ? 'selected' : '' }}>TLS (Port 587)</option>
+                            <option value="ssl" {{ ($settings['mail_encryption'] ?? '') === 'ssl' ? 'selected' : '' }}>SSL (Port 465)</option>
+                            <option value="null" {{ ($settings['mail_encryption'] ?? '') === 'null' ? 'selected' : '' }}>None</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Sender Email (From Address)</label>
+                        <input type="email" name="mail_from_address" value="{{ $settings['mail_from_address'] ?? 'info@gusiilyrics.com' }}" placeholder="info@gusiilyrics.com" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Sender Name (From Name)</label>
+                        <input type="text" name="mail_from_name" value="{{ $settings['mail_from_name'] ?? 'Gusii Lyrics' }}" placeholder="Gusii Lyrics" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. SEO & Tracking -->
             <div class="space-y-4">
                 <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider border-b border-gray-800 pb-2">
                     🔍 SEO Tags & Analytics Tracking
@@ -184,7 +240,23 @@
             </div>
 
             <button type="submit" class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition">
-                Save All Credentials & Preset Amounts
+                Save All Credentials & SMTP Settings
+            </button>
+        </form>
+    </div>
+
+    <!-- SMTP Connection Tester Card -->
+    <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-emerald-500/30 space-y-4">
+        <h3 class="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+            🧪 Test SMTP Server Email Connection
+        </h3>
+        <p class="text-xs text-gray-400">Send a test email to verify your SMTP mail credentials, host, and port settings.</p>
+
+        <form method="POST" action="{{ route('admin.settings.test-email') }}" class="flex flex-col sm:flex-row gap-3">
+            @csrf
+            <input type="email" name="recipient" required placeholder="Enter recipient email (e.g. yourname@gmail.com)..." class="flex-grow px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
+            <button type="submit" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shrink-0 transition">
+                Send Test Email &rarr;
             </button>
         </form>
     </div>

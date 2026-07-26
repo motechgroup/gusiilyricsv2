@@ -42,7 +42,7 @@ class CategoryController extends Controller
     {
         $title = "Gusii Gospel Songs - Ekegusii Praise & Worship Lyrics";
         $metaDescription = "Read official lyrics for the most powerful Ekegusii gospel praise and worship songs. Discover Fenny Kerubo, Embarambamba, and top Kisii christian vocalists.";
-        $badge = "🙌 Ekegusii Gospel Vault";
+        $badge = "🙌 Ekegusii Gospel";
         $seoContent = "Gusii gospel music holds a cherished place in Abagusii spiritual life, serving as an uplifting medium of faith, thanksgiving, prayer, and community worship. From soul-stirring hymns performed during church fellowships to high-energy contemporary praise anthems, Ekegusii gospel music inspires millions across Kenya and the diaspora. On GusiiLyrics.com, explore comprehensive transcriptions of famous Ekegusii gospel songs by vocalists like Fenny Kerubo, Embarambamba, Douglas Otiso, and local choir ensembles. Each song entry includes complete lyrics, theological context, song meanings, and direct streaming links.";
 
         $genre = Genre::where('slug', 'gospel')->first();

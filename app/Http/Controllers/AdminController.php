@@ -16,6 +16,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -52,6 +53,77 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
         session()->forget('admin_user_id');
         return redirect()->route('home')->with('success', 'Logged out successfully.');
+    }
+
+    // --- Password Reset ---
+    public function showForgotPassword()
+    {
+        return view('admin.auth.forgot-password');
+    }
+
+    public function sendResetLinkEmail(Request $request)
+    {
+        $request->validate(['email' => 'required|email']);
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return redirect()->back()->with('error', 'We could not find an account registered with that email address.');
+        }
+
+        $token = Str::random(64);
+
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $request->email],
+            [
+                'email' => $request->email,
+                'token' => Hash::make($token),
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        $resetUrl = route('admin.password.reset', ['token' => $token, 'email' => $request->email]);
+
+        try {
+            Mail::send('emails.password-reset', ['resetUrl' => $resetUrl, 'user' => $user], function ($message) use ($user) {
+                $message->to($user->email)->subject('Gusii Lyrics Staff Password Reset Request');
+            });
+
+            return redirect()->back()->with('success', 'A password reset link has been sent to your email address!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'SMTP Error sending email: ' . $e->getMessage() . '. Please verify your SMTP settings.');
+        }
+    }
+
+    public function showResetPassword(Request $request, $token)
+    {
+        return view('admin.auth.reset-password', ['token' => $token, 'email' => $request->email]);
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'token' => 'required',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $record = DB::table('password_reset_tokens')->where('email', $request->email)->first();
+
+        if (!$record || !Hash::check($request->token, $record->token)) {
+            return redirect()->back()->with('error', 'Invalid or expired password reset token.');
+        }
+
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return redirect()->back()->with('error', 'Staff user account not found.');
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
+
+        return redirect()->route('admin.login')->with('success', 'Your password has been reset successfully! You may now sign in.');
     }
 
     // --- Dashboard ---
@@ -434,7 +506,7 @@ class AdminController extends Controller
             'site_name' => Setting::get('site_name', 'Gusii Lyrics'),
             'site_logo' => Setting::get('site_logo', ''),
             'favicon' => Setting::get('favicon', ''),
-            'seo_title' => Setting::get('seo_title', 'Gusii Lyrics - Ekegusii Song Lyrics Vault'),
+            'seo_title' => Setting::get('seo_title', 'Gusii Lyrics - Ekegusii Song Lyrics'),
             'seo_description' => Setting::get('seo_description', 'Discover Ekegusii lyrics and stream links.'),
             'seo_keywords' => Setting::get('seo_keywords', 'Ekegusii lyrics, Kisii songs'),
             'preset_donation_amounts' => Setting::get('preset_donation_amounts', '100, 250, 500, 1000, 2500, 5000'),
@@ -457,6 +529,14 @@ class AdminController extends Controller
             'social_x' => Setting::get('social_x', ''),
             'social_youtube' => Setting::get('social_youtube', ''),
             'social_tiktok' => Setting::get('social_tiktok', ''),
+            'mail_mailer' => Setting::get('mail_mailer', 'smtp'),
+            'mail_host' => Setting::get('mail_host', '127.0.0.1'),
+            'mail_port' => Setting::get('mail_port', '587'),
+            'mail_username' => Setting::get('mail_username', ''),
+            'mail_password' => Setting::get('mail_password', ''),
+            'mail_encryption' => Setting::get('mail_encryption', 'tls'),
+            'mail_from_address' => Setting::get('mail_from_address', 'info@gusiilyrics.com'),
+            'mail_from_name' => Setting::get('mail_from_name', 'Gusii Lyrics'),
         ];
 
         return view('admin.settings.index', compact('settings'));
@@ -507,7 +587,32 @@ class AdminController extends Controller
         Setting::set('stripe_webhook_secret', $request->stripe_webhook_secret);
         Setting::set('stripe_url', $request->stripe_url);
 
-        return redirect()->back()->with('success', 'Site settings, preset donation amounts, and gateway credentials updated successfully!');
+        Setting::set('mail_mailer', $request->mail_mailer ?? 'smtp');
+        Setting::set('mail_host', $request->mail_host);
+        Setting::set('mail_port', $request->mail_port ?? 587);
+        Setting::set('mail_username', $request->mail_username);
+        Setting::set('mail_password', $request->mail_password);
+        Setting::set('mail_encryption', $request->mail_encryption ?? 'tls');
+        Setting::set('mail_from_address', $request->mail_from_address);
+        Setting::set('mail_from_name', $request->mail_from_name);
+
+        return redirect()->back()->with('success', 'Site settings, SMTP mail configurations, and gateway credentials updated successfully!');
+    }
+
+    public function testSmtp(Request $request)
+    {
+        $request->validate(['recipient' => 'required|email']);
+        $recipient = $request->recipient;
+
+        try {
+            Mail::send('emails.test-smtp', ['recipient' => $recipient], function ($message) use ($recipient) {
+                $message->to($recipient)->subject('Gusii Lyrics - SMTP Test Email Connection');
+            });
+
+            return redirect()->back()->with('success', "SMTP Connection Successful! Test email dispatched to {$recipient}.");
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', "SMTP Connection Failed: " . $e->getMessage());
+        }
     }
 
     // --- Legal Pages Content Manager ---

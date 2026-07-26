@@ -213,7 +213,7 @@
     <div class="pt-6 border-t border-gray-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 font-mono gap-2 unselectable">
         <div class="flex items-center gap-1.5">
             <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            <span>© Gusii Lyrics Vault. Copying text is restricted.</span>
+            <span>© Gusii Lyrics. Copying text is restricted.</span>
         </div>
         <span>ID: GSH-{{ $song->id }}-2026</span>
     </div>
@@ -222,7 +222,7 @@
     <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
         <div>
             <h4 class="text-lg font-extrabold text-white">Enjoying reading lyrics? Support Gusii Lyrics</h4>
-            <p class="text-xs text-gray-400 mt-0.5">Your support helps keep our Ekegusii lyrics vault online and free for everyone.</p>
+            <p class="text-xs text-gray-400 mt-0.5">Your support helps keep Ekegusii lyrics online and free for everyone.</p>
         </div>
         <button onclick="openDonateModal()" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs shadow-lg shadow-amber-500/20 shrink-0 transition active:scale-98">
             ❤️ Support / Donate
