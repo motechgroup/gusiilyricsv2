@@ -24,9 +24,9 @@
 <body class="bg-[#090d16] text-gray-100 font-sans antialiased min-h-screen flex">
 
     <!-- Sidebar Navigation (Desktop & Mobile Drawer) -->
-    <aside id="adminSidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-[#0c121e] border-r border-gray-800/80 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col justify-between shadow-2xl">
+    <aside id="adminSidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-[#0c121e] border-r border-gray-800/80 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col justify-between shadow-2xl h-screen overflow-hidden">
         
-        <div class="p-5 space-y-6">
+        <div class="p-5 space-y-6 flex-1 overflow-y-auto custom-scrollbar">
             <!-- Brand Logo -->
             <div class="flex items-center justify-between">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3">
@@ -175,7 +175,7 @@
         </div>
 
         <!-- Sidebar Bottom Footer -->
-        <div class="p-5 border-t border-gray-800/80 space-y-2">
+        <div class="p-5 border-t border-gray-800/80 space-y-2 shrink-0 bg-[#0c121e]">
             <a href="{{ route('home') }}" target="_blank" class="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold text-gray-400 hover:text-white hover:bg-gray-800 transition">
                 <span>View Public Site</span>
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
