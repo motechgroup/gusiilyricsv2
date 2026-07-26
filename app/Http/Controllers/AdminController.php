@@ -331,12 +331,42 @@ class AdminController extends Controller
     // --- Song CRUD ---
     public function songsIndex(Request $request)
     {
-        $query = Song::with('artist');
-        if ($request->q) {
-            $query->where('title', 'like', '%' . $request->q . '%');
+        $query = Song::with(['artist', 'genre']);
+
+        if ($request->filled('q')) {
+            $term = '%' . trim($request->q) . '%';
+            $query->where(function ($q) use ($term) {
+                $q->where('title', 'like', $term)
+                  ->orWhere('lyrics_raw', 'like', $term)
+                  ->orWhereHas('artist', function ($artQ) use ($term) {
+                      $artQ->where('name', 'like', $term);
+                  });
+            });
         }
-        $songs = $query->latest()->paginate(15);
-        return view('admin.songs.index', compact('songs'));
+
+        if ($request->filled('artist_id')) {
+            $query->where('artist_id', $request->artist_id);
+        }
+
+        if ($request->filled('genre_id')) {
+            $query->where('genre_id', $request->genre_id);
+        }
+
+        if ($request->filled('filter')) {
+            if ($request->filter === 'featured') {
+                $query->where('is_featured', true);
+            } elseif ($request->filter === 'trending') {
+                $query->where('is_trending', true);
+            } elseif ($request->filter === 'promoted') {
+                $query->where('is_promoted', true);
+            }
+        }
+
+        $songs = $query->latest()->paginate(15)->withQueryString();
+        $artists = Artist::orderBy('name')->get();
+        $genres = Genre::orderBy('name')->get();
+
+        return view('admin.songs.index', compact('songs', 'artists', 'genres'));
     }
 
     public function songsCreate()
