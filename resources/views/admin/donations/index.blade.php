@@ -73,8 +73,8 @@
             </a>
         </form>
 
-        <!-- Donations Table -->
-        <div class="rounded-2xl overflow-hidden border border-gray-800/80 bg-gray-950/60">
+        <!-- Donations Table (Completely Un-enclosed) -->
+        <div class="overflow-x-auto">
             <table class="w-full text-left text-xs text-gray-300">
                 <thead class="bg-gray-950 text-gray-400 font-bold uppercase tracking-wider border-b border-gray-800">
                     <tr>

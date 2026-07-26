@@ -243,7 +243,7 @@ class AdminController extends Controller
             $query->where('status', $request->status);
         }
 
-        $donations = $query->paginate(15);
+        $donations = $query->paginate(10);
 
         $totals = [
             'total_kes' => Donation::where('status', 'completed')->where('currency', 'KES')->sum('amount'),
