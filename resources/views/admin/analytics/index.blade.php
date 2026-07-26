@@ -102,23 +102,25 @@
 
     </div>
 
-    <!-- Top 10 Most Popular Songs -->
-    <div class="glass-panel p-6 rounded-3xl border border-gray-800 space-y-4">
-        <h3 class="text-sm font-bold text-white uppercase tracking-wider">🔥 Top 10 Most Viewed Songs</h3>
+    <!-- Top 10 Most Popular Songs (Un-enclosed) -->
+    <div class="space-y-4 py-4 border-t border-gray-800/80">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            🔥 Top 10 Most Viewed Songs
+        </h3>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
             @foreach($popularSongs as $song)
-                <div class="p-3 rounded-xl bg-gray-950 border border-gray-800 flex items-center justify-between text-xs">
+                <div class="p-3.5 rounded-2xl bg-gray-950/80 border border-gray-800/80 hover:border-emerald-500/40 flex items-center justify-between text-xs transition">
                     <div class="flex items-center gap-3">
-                        <img src="{{ $song->cover_art_url }}" class="w-10 h-10 rounded-xl object-cover">
+                        <img src="{{ $song->cover_art_url }}" class="w-10 h-10 rounded-xl object-cover border border-gray-800">
                         <div>
-                            <a href="{{ route('songs.show', $song->slug) }}" target="_blank" class="font-bold text-white hover:text-emerald-400 block">
+                            <a href="{{ route('songs.show', $song->slug) }}" target="_blank" class="font-extrabold text-white hover:text-emerald-400 block transition">
                                 {{ $song->title }}
                             </a>
                             <span class="text-gray-400 text-[11px]">By {{ $song->artist->name }}</span>
                         </div>
                     </div>
-                    <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 font-mono font-bold text-xs">
+                    <span class="px-3 py-1 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 font-mono font-bold text-xs shrink-0">
                         👁️ {{ number_format($song->views_count) }} Views
                     </span>
                 </div>
