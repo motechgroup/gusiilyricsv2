@@ -52,10 +52,8 @@
                 </div>
             </div>
 
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Song Lyrics <span class="text-rose-500">*</span></label>
-                <textarea name="lyrics_raw" rows="12" required placeholder="Paste full song lyrics line by line..." class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-sm leading-relaxed focus:outline-none focus:border-emerald-500"></textarea>
-            </div>
+            <!-- Interactive Song Structure Lyrics Blocks Builder -->
+            @include('admin.songs._lyrics_builder')
 
             <div class="flex items-center gap-6 pt-2">
                 <label class="flex items-center gap-2 text-xs font-semibold text-gray-300 cursor-pointer">

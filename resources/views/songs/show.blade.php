@@ -176,8 +176,31 @@
         $lyricsBelowAd = \App\Models\SiteAd::getAdForSpot('lyrics_below');
         $adsenseCode = \App\Models\Setting::get('google_adsense_code', '');
 
-        // Split lyrics into stanzas / blocks by double line breaks
-        $lyricsBlocks = array_values(array_filter(preg_split('/\n\s*\n/', trim($song->lyrics_raw))));
+        // Split raw lyrics into stanzas by double line breaks
+        $rawBlocks = array_values(array_filter(preg_split('/\n\s*\n/', trim($song->lyrics_raw))));
+        $parsedBlocks = [];
+
+        foreach ($rawBlocks as $b) {
+            $bTrimmed = trim($b);
+            if (!$bTrimmed) continue;
+
+            // Header matching regex for [Section] or Section:
+            if (preg_match('/^\[?([A-Za-z0-9\s\-]+)\]?:?\s*\n(.*)$/s', $bTrimmed, $matches)) {
+                $headerCandidate = trim($matches[1]);
+                if (preg_match('/^(Intro|Verse|Chorus|Pre-Chorus|Bridge|Outro|Refrain|Hook|Spoken Word)/i', $headerCandidate)) {
+                    $parsedBlocks[] = [
+                        'header' => $headerCandidate,
+                        'content' => trim($matches[2])
+                    ];
+                    continue;
+                }
+            }
+
+            $parsedBlocks[] = [
+                'header' => null,
+                'content' => $bTrimmed
+            ];
+        }
     @endphp
 
     @if($lyricsAboveAd)
@@ -194,15 +217,34 @@
         </div>
     @endif
 
-    <!-- Lyrics Text Flow Broken Into Stanzas With AdSense / Custom Banners In Between -->
+    <!-- Lyrics Text Flow Broken Into Structured Song Blocks With Section Badges -->
     <div class="space-y-6">
-        @foreach($lyricsBlocks as $index => $block)
-            <div class="lyrics-content no-copy unselectable text-base sm:text-xl text-gray-100 font-medium leading-relaxed whitespace-pre-line select-none font-sans bg-gray-950/40 p-4 sm:p-6 rounded-2xl border border-gray-800/40">
-                {!! trim($block) !!}
+        @foreach($parsedBlocks as $index => $block)
+            <div class="lyrics-content no-copy unselectable text-base sm:text-xl text-gray-100 font-medium leading-relaxed select-none font-sans bg-gray-950/60 p-5 sm:p-7 rounded-3xl border border-gray-800/80 shadow-xl space-y-3">
+                @if(!empty($block['header']))
+                    @php
+                        $h = strtolower($block['header']);
+                        $badgeStyle = 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30';
+                        if (str_contains($h, 'intro')) $badgeStyle = 'bg-purple-500/15 text-purple-400 border-purple-500/30';
+                        elseif (str_contains($h, 'chorus') || str_contains($h, 'refrain') || str_contains($h, 'hook')) $badgeStyle = 'bg-amber-500/20 text-amber-300 border-amber-500/40 font-bold';
+                        elseif (str_contains($h, 'bridge')) $badgeStyle = 'bg-indigo-500/15 text-indigo-400 border-indigo-500/30';
+                        elseif (str_contains($h, 'pre-chorus')) $badgeStyle = 'bg-sky-500/15 text-sky-400 border-sky-500/30';
+                        elseif (str_contains($h, 'outro')) $badgeStyle = 'bg-rose-500/15 text-rose-400 border-rose-500/30';
+                        elseif (str_contains($h, 'spoken')) $badgeStyle = 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30';
+                    @endphp
+
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider font-mono border {{ $badgeStyle }}">
+                        <span>[{{ strtoupper($block['header']) }}]</span>
+                    </div>
+                @endif
+
+                <div class="whitespace-pre-line text-gray-100 leading-loose">
+                    {!! trim($block['content']) !!}
+                </div>
             </div>
 
             <!-- Insert AdSense / Custom Banner in-between stanzas (after 1st and 3rd blocks) -->
-            @if(($index === 0 || $index === 2) && $index < count($lyricsBlocks) - 1)
+            @if(($index === 0 || $index === 2) && $index < count($parsedBlocks) - 1)
                 <div class="my-6 py-4 text-center border-y border-gray-800/60 bg-gray-950/60 rounded-2xl p-4 space-y-2">
                     <span class="text-[9px] uppercase tracking-widest text-gray-500 font-mono block">Advertisement</span>
                     @if($inLyricsAd)
