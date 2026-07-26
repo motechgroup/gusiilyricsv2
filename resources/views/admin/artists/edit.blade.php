@@ -25,17 +25,28 @@
                 <input type="text" name="location" value="{{ old('location', $artist->location) }}" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
             </div>
 
-            <!-- Upload Artist Profile Picture File -->
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Upload New Artist Profile Picture File</label>
-                <input type="file" name="image_file" accept="image/*" class="w-full text-xs text-gray-400 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30">
-                @if($artist->image)
-                    <div class="mt-2 flex items-center gap-3">
-                        <span class="text-xs text-gray-400">Current Image:</span>
-                        <img src="{{ $artist->avatar_url }}" class="w-10 h-10 rounded-full object-cover border border-emerald-500/30">
-                    </div>
-                @endif
+            <!-- Upload Artist Profile Picture File or Paste URL -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Upload New Profile Picture File</label>
+                    <input type="file" name="image_file" accept="image/*" class="w-full text-xs text-gray-400 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">OR Paste Image URL</label>
+                    <input type="url" name="image" value="{{ old('image', $artist->image) }}" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
+                </div>
             </div>
+
+            @if($artist->image)
+                <div class="flex items-center gap-3 p-3 bg-gray-950 rounded-2xl border border-gray-800">
+                    <img src="{{ $artist->avatar_url }}" class="w-12 h-12 rounded-full object-cover border border-emerald-500/30 shadow-md">
+                    <div>
+                        <span class="text-xs text-gray-300 font-bold block">Current Profile Picture</span>
+                        <span class="text-[10px] text-gray-500 font-mono truncate block max-w-sm">{{ $artist->image }}</span>
+                    </div>
+                </div>
+            @endif
 
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Biography</label>

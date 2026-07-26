@@ -448,6 +448,8 @@ class AdminController extends Controller
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('uploads/artists', 'public');
             $validated['image'] = '/storage/' . $path;
+        } elseif ($request->filled('image')) {
+            $validated['image'] = trim($request->image);
         }
 
         $validated['slug'] = Str::slug($validated['name']) . '-' . Str::random(4);
@@ -480,6 +482,8 @@ class AdminController extends Controller
         if ($request->hasFile('image_file')) {
             $path = $request->file('image_file')->store('uploads/artists', 'public');
             $validated['image'] = '/storage/' . $path;
+        } elseif ($request->filled('image')) {
+            $validated['image'] = trim($request->image);
         }
 
         $validated['is_featured'] = $request->has('is_featured');

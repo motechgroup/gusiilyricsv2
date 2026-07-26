@@ -87,15 +87,21 @@ class Song extends Model
     public function getCoverArtUrlAttribute(): string
     {
         if ($this->cover_image) {
-            return $this->cover_image;
+            if (str_starts_with($this->cover_image, 'http://') || str_starts_with($this->cover_image, 'https://')) {
+                return $this->cover_image;
+            }
+            return asset(ltrim($this->cover_image, '/'));
         }
 
         if ($this->album && $this->album->cover_image) {
-            return $this->album->cover_image;
+            if (str_starts_with($this->album->cover_image, 'http://') || str_starts_with($this->album->cover_image, 'https://')) {
+                return $this->album->cover_image;
+            }
+            return asset(ltrim($this->album->cover_image, '/'));
         }
 
         if ($this->artist && $this->artist->image) {
-            return $this->artist->image;
+            return $this->artist->avatar_url;
         }
 
         return 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80';
