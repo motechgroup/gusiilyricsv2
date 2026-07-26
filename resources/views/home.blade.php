@@ -207,6 +207,29 @@
         </div>
     </div>
 
+    <!-- Promote Your Music CTA Section (Un-enclosed) -->
+    <div class="pt-10 border-t border-gray-800/80">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 py-6 px-2">
+            <div class="space-y-2 text-center md:text-left max-w-2xl">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-bold uppercase tracking-wider">
+                    ⚡ Are you a Gusii Music Artist?
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                    Promote Your Music to <span class="text-gradient-emerald">Thousands of Fans</span>
+                </h2>
+                <p class="text-xs text-gray-300 leading-relaxed">
+                    Get your songs featured at the top of Gusii Lyrics homepage, index pages, and search results. Drive streaming plays, video views, and grow your fanbase across Kisii, Nyamira, and the diaspora.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-3 shrink-0">
+                <a href="{{ route('promote-music') }}" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5">
+                    🚀 Promote Your Music Now
+                </a>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 @endsection
