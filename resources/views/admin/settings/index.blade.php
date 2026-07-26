@@ -10,7 +10,10 @@
             <h1 class="text-2xl font-extrabold text-white">Site Settings & Configurations</h1>
             <p class="text-xs text-gray-400 mt-1">Super Admin standalone setting cards. Save each setting section independently.</p>
         </div>
-        <div>
+        <div class="flex flex-wrap items-center gap-2">
+            <a href="{{ route('storage-link') }}" target="_blank" class="px-4 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-sky-400 font-bold border border-sky-500/30 text-xs shadow-lg transition inline-flex items-center gap-1.5">
+                🔗 Link Storage (`storage:link`)
+            </a>
             <a href="{{ route('run-migrations') }}" target="_blank" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-extrabold text-xs shadow-lg transition inline-flex items-center gap-1.5">
                 ⚡ Run DB Migrations & Clear Cache
             </a>

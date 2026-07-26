@@ -8,7 +8,7 @@
     <div class="flex items-center justify-between pb-4 border-b border-gray-800">
         <div>
             <h1 class="text-2xl font-extrabold text-white">Create Artist Profile</h1>
-            <p class="text-xs text-gray-400 mt-1">Add a new Gusii artist profile, select region, upload picture, and add social links.</p>
+            <p class="text-xs text-gray-400 mt-1">Add a new Gusii artist profile, select region, upload profile picture, and add social links.</p>
         </div>
         <a href="{{ route('admin.artists.index') }}" class="text-xs text-gray-400 hover:text-emerald-400">&larr; Cancel & Back</a>
     </div>
@@ -25,11 +25,8 @@
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Select Region / County *</label>
                 <select name="location" required class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
-                    <option value="Kisii County, Kenya">Kisii County, Kenya</option>
-                    <option value="Nyamira County, Kenya">Nyamira County, Kenya</option>
-                    <option value="Nairobi, Kenya">Nairobi, Kenya</option>
-                    <option value="Rift Valley, Kenya">Rift Valley, Kenya</option>
-                    <option value="Diaspora / International">Diaspora / International</option>
+                    <option value="Kisii County, Kenya" {{ old('location') === 'Kisii County, Kenya' ? 'selected' : '' }}>Kisii County, Kenya</option>
+                    <option value="Nyamira County, Kenya" {{ old('location') === 'Nyamira County, Kenya' ? 'selected' : '' }}>Nyamira County, Kenya</option>
                 </select>
             </div>
         </div>
@@ -46,17 +43,11 @@
             </div>
         </div>
 
-        <!-- Upload Artist Profile Picture File or Paste URL -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Upload Profile Picture File</label>
-                <input type="file" name="image_file" accept="image/*" class="w-full text-xs text-gray-400 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30">
-            </div>
-
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">OR Paste Image URL</label>
-                <input type="url" name="image" value="{{ old('image') }}" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
-            </div>
+        <!-- Upload Artist Profile Picture File -->
+        <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Upload Profile Picture File *</label>
+            <input type="file" name="image_file" accept="image/*" class="w-full text-xs text-gray-400 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30 bg-gray-950 border border-gray-800 rounded-xl p-2">
+            <span class="text-[11px] text-gray-500 mt-1 block">Supported formats: JPG, PNG, WEBP (Max 5MB).</span>
         </div>
 
         <!-- Social Media Accounts Section -->

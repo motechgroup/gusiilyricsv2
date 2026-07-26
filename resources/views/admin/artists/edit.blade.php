@@ -28,9 +28,6 @@
                 <select name="location" required class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
                     <option value="Kisii County, Kenya" {{ old('location', $artist->location) === 'Kisii County, Kenya' || old('location', $artist->location) === 'Kisii, Kenya' ? 'selected' : '' }}>Kisii County, Kenya</option>
                     <option value="Nyamira County, Kenya" {{ old('location', $artist->location) === 'Nyamira County, Kenya' || old('location', $artist->location) === 'Nyamira, Kenya' ? 'selected' : '' }}>Nyamira County, Kenya</option>
-                    <option value="Nairobi, Kenya" {{ old('location', $artist->location) === 'Nairobi, Kenya' ? 'selected' : '' }}>Nairobi, Kenya</option>
-                    <option value="Rift Valley, Kenya" {{ old('location', $artist->location) === 'Rift Valley, Kenya' ? 'selected' : '' }}>Rift Valley, Kenya</option>
-                    <option value="Diaspora / International" {{ old('location', $artist->location) === 'Diaspora / International' ? 'selected' : '' }}>Diaspora / International</option>
                 </select>
             </div>
         </div>
@@ -47,17 +44,11 @@
             </div>
         </div>
 
-        <!-- Upload Artist Profile Picture File or Paste URL -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Upload New Profile Picture File</label>
-                <input type="file" name="image_file" accept="image/*" class="w-full text-xs text-gray-400 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30">
-            </div>
-
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">OR Paste Image URL</label>
-                <input type="url" name="image" value="{{ old('image', $artist->image) }}" placeholder="https://images.unsplash.com/..." class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
-            </div>
+        <!-- Upload Artist Profile Picture File -->
+        <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Upload New Profile Picture File</label>
+            <input type="file" name="image_file" accept="image/*" class="w-full text-xs text-gray-400 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-500/20 file:text-emerald-400 hover:file:bg-emerald-500/30 bg-gray-950 border border-gray-800 rounded-xl p-2">
+            <span class="text-[11px] text-gray-500 mt-1 block">Leave empty to keep existing profile picture. Supported: JPG, PNG, WEBP.</span>
         </div>
 
         @if($artist->image)

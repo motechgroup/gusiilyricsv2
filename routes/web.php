@@ -191,3 +191,20 @@ Route::get('/run-migrations', function (\Illuminate\Http\Request $request) {
         return response('<div style="font-family:sans-serif;padding:30px;background:#090d16;color:#fff;border-radius:16px;max-width:650px;margin:50px auto;border:1px solid #f43f5e;"><h2 style="color:#f43f5e;">❌ Migration Error</h2><p style="color:#ccc;">Error details:</p><pre style="background:#111a2e;padding:15px;border-radius:10px;color:#fca5a5;text-align:left;overflow-x:auto;">' . htmlspecialchars($e->getMessage()) . '</pre></div>', 500);
     }
 })->name('run-migrations');
+
+// Shared Hosting Storage Symlink Runner (Triggerable via Browser)
+Route::get('/storage-link', function (\Illuminate\Http\Request $request) {
+    $secret = $request->query('key', '');
+    if ($secret !== 'gusii2026' && !auth()->check()) {
+        return response('<div style="font-family:sans-serif;padding:30px;background:#090d16;color:#fff;border-radius:16px;max-width:550px;margin:50px auto;text-align:center;"><h2>🔒 Access Restricted</h2><p style="color:#94a3b8;">Please append your secret key to the browser URL:</p><p><code style="color:#10b981;font-weight:bold;">https://gusiilyrics.com/storage-link?key=gusii2026</code></p></div>', 403);
+    }
+
+    try {
+        \Illuminate\Support\Facades\Artisan::call('storage:link');
+        $output = \Illuminate\Support\Facades\Artisan::output();
+
+        return response('<div style="font-family:sans-serif;padding:30px;background:#090d16;color:#fff;border-radius:16px;max-width:650px;margin:50px auto;border:1px solid #10b981;"><h2 style="color:#10b981;">🔗 Storage Link Created Successfully!</h2><p style="color:#ccc;">Public storage directory has been linked to app storage on your shared hosting server.</p><pre style="background:#111a2e;padding:15px;border-radius:10px;color:#a7f3d0;text-align:left;overflow-x:auto;">' . htmlspecialchars($output ?: 'The [public/storage] link has been created.') . '</pre><a href="/mkuu/settings" style="display:inline-block;margin-top:15px;padding:12px 24px;background:#10b981;color:#090d16;font-weight:bold;text-decoration:none;border-radius:10px;">Return to Admin Panel &rarr;</a></div>');
+    } catch (\Throwable $e) {
+        return response('<div style="font-family:sans-serif;padding:30px;background:#090d16;color:#fff;border-radius:16px;max-width:650px;margin:50px auto;border:1px solid #f43f5e;"><h2 style="color:#f43f5e;">❌ Storage Link Error</h2><p style="color:#ccc;">Error details:</p><pre style="background:#111a2e;padding:15px;border-radius:10px;color:#fca5a5;text-align:left;overflow-x:auto;">' . htmlspecialchars($e->getMessage()) . '</pre></div>', 500);
+    }
+})->name('storage-link');
