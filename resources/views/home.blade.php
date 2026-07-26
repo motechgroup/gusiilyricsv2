@@ -108,6 +108,24 @@
     </div>
 </div>
 
+<!-- Homepage Middle Ad Banner Spot -->
+@php
+    $homepageMidAd = \App\Models\SiteAd::getAdForSpot('homepage_mid');
+@endphp
+@if($homepageMidAd)
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8 text-center">
+        @if($homepageMidAd->type === 'custom' && $homepageMidAd->image_path)
+            <a href="{{ $homepageMidAd->target_url }}" target="_blank" class="inline-block max-w-full overflow-hidden rounded-2xl border border-emerald-500/30 shadow-2xl transition transform hover:scale-[1.01]">
+                <img src="{{ $homepageMidAd->image_url }}" alt="{{ $homepageMidAd->title }}" class="max-w-full h-auto rounded-2xl mx-auto">
+            </a>
+        @elseif($homepageMidAd->code_script)
+            <div class="inline-block max-w-full overflow-hidden rounded-2xl border border-gray-800 bg-gray-950 p-2">
+                {!! $homepageMidAd->code_script !!}
+            </div>
+        @endif
+    </div>
+@endif
+
 <!-- Daily Top 10 CHARTS Section -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-900">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
@@ -206,6 +224,24 @@
             @endforelse
         </div>
     </div>
+
+    <!-- Homepage Bottom Ad Banner Spot -->
+    @php
+        $homepageBottomAd = \App\Models\SiteAd::getAdForSpot('homepage_bottom');
+    @endphp
+    @if($homepageBottomAd)
+        <div class="my-8 text-center">
+            @if($homepageBottomAd->type === 'custom' && $homepageBottomAd->image_path)
+                <a href="{{ $homepageBottomAd->target_url }}" target="_blank" class="inline-block max-w-full overflow-hidden rounded-2xl border border-emerald-500/30 shadow-2xl transition transform hover:scale-[1.01]">
+                    <img src="{{ $homepageBottomAd->image_url }}" alt="{{ $homepageBottomAd->title }}" class="max-w-full h-auto rounded-2xl mx-auto">
+                </a>
+            @elseif($homepageBottomAd->code_script)
+                <div class="inline-block max-w-full overflow-hidden rounded-2xl border border-gray-800 bg-gray-950 p-2">
+                    {!! $homepageBottomAd->code_script !!}
+                </div>
+            @endif
+        </div>
+    @endif
 
     <!-- Promote Your Music CTA Section (Un-enclosed & Centered) -->
     <div class="py-10 border-t border-gray-800/80">

@@ -174,11 +174,11 @@
         <!-- Header Top Ad Banner Spot -->
         @if($headerAd)
             <div class="max-w-7xl mx-auto px-4 mt-4 text-center">
-                @if($headerAd->type === 'image' && $headerAd->image_path)
+                @if(($headerAd->type === 'custom' || $headerAd->type === 'image') && $headerAd->image_path)
                     <a href="{{ $headerAd->target_url ?? '#' }}" target="_blank" rel="noopener" class="inline-block max-w-full">
-                        <img src="{{ $headerAd->image_url }}" alt="{{ $headerAd->title }}" class="max-h-24 w-auto rounded-2xl border border-gray-800 shadow-lg mx-auto">
+                        <img src="{{ $headerAd->image_url }}" alt="{{ $headerAd->title }}" class="max-h-24 w-auto rounded-2xl border border-emerald-500/30 shadow-xl mx-auto">
                     </a>
-                @elseif($headerAd->type === 'script' && $headerAd->code_script)
+                @elseif($headerAd->code_script)
                     <div class="inline-block max-w-full">
                         {!! $headerAd->code_script !!}
                     </div>

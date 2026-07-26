@@ -248,11 +248,11 @@
                 <div class="my-6 py-4 text-center border-y border-gray-800/60 bg-gray-950/60 rounded-2xl p-4 space-y-2">
                     <span class="text-[9px] uppercase tracking-widest text-gray-500 font-mono block">Advertisement</span>
                     @if($inLyricsAd)
-                        @if($inLyricsAd->type === 'image' && $inLyricsAd->image_path)
+                        @if(($inLyricsAd->type === 'custom' || $inLyricsAd->type === 'image') && $inLyricsAd->image_path)
                             <a href="{{ $inLyricsAd->target_url ?? '#' }}" target="_blank" rel="noopener" class="inline-block max-w-full">
-                                <img src="{{ $inLyricsAd->image_url }}" alt="{{ $inLyricsAd->title }}" class="max-h-28 sm:max-h-32 w-auto rounded-xl border border-gray-800 shadow-lg mx-auto">
+                                <img src="{{ $inLyricsAd->image_url }}" alt="{{ $inLyricsAd->title }}" class="max-h-28 sm:max-h-36 w-auto rounded-xl border border-emerald-500/30 shadow-xl mx-auto">
                             </a>
-                        @elseif($inLyricsAd->type === 'script' && $inLyricsAd->code_script)
+                        @elseif($inLyricsAd->code_script)
                             <div class="inline-block max-w-full overflow-hidden">
                                 {!! $inLyricsAd->code_script !!}
                             </div>
@@ -286,11 +286,11 @@
     <!-- Lyrics Below Ad Spot -->
     @if($lyricsBelowAd)
         <div class="text-center py-2">
-            @if($lyricsBelowAd->type === 'image' && $lyricsBelowAd->image_path)
+            @if(($lyricsBelowAd->type === 'custom' || $lyricsBelowAd->type === 'image') && $lyricsBelowAd->image_path)
                 <a href="{{ $lyricsBelowAd->target_url ?? '#' }}" target="_blank" rel="noopener" class="inline-block max-w-full">
-                    <img src="{{ $lyricsBelowAd->image_url }}" alt="{{ $lyricsBelowAd->title }}" class="max-h-24 w-auto rounded-2xl border border-gray-800 shadow-md mx-auto">
+                    <img src="{{ $lyricsBelowAd->image_url }}" alt="{{ $lyricsBelowAd->title }}" class="max-h-24 w-auto rounded-2xl border border-emerald-500/30 shadow-xl mx-auto">
                 </a>
-            @elseif($lyricsBelowAd->type === 'script' && $lyricsBelowAd->code_script)
+            @elseif($lyricsBelowAd->code_script)
                 <div class="inline-block max-w-full">
                     {!! $lyricsBelowAd->code_script !!}
                 </div>
