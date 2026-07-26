@@ -138,6 +138,10 @@ if ($action === 'full_deploy') {
 
         <div class="status-box">
             <div class="status-item">
+                <span>PHP Environment:</span>
+                <strong style="color: #34d399;">PHP <?= PHP_VERSION ?> (Compatible)</strong>
+            </div>
+            <div class="status-item">
                 <span>Database Connection:</span>
                 <strong style="color: <?= $dbStatus === 'Disconnected' ? '#ef4444' : '#34d399' ?>;"><?= htmlspecialchars($dbStatus) ?></strong>
             </div>
