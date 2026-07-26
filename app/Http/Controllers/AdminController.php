@@ -885,6 +885,25 @@ class AdminController extends Controller
         }
     }
 
+    // --- System Version & Documentation Hub ---
+    public function docsIndex()
+    {
+        $systemInfo = [
+            'app_version' => 'v2.4.0-STABLE',
+            'release_name' => 'Gusii Lyrics Vault Shared-Hosting Edition',
+            'laravel_version' => app()->version(),
+            'php_version' => PHP_VERSION,
+            'environment' => config('app.env'),
+            'debug_mode' => config('app.debug') ? 'Enabled (Development)' : 'Disabled (Production)',
+            'timezone' => config('app.timezone', 'UTC'),
+            'server_software' => $_SERVER['SERVER_SOFTWARE'] ?? 'PHP CLI / Shared Web Server',
+            'database_driver' => config('database.default'),
+            'database_name' => config('database.connections.' . config('database.default') . '.database'),
+        ];
+
+        return view('admin.docs.index', compact('systemInfo'));
+    }
+
     // --- Legal Pages Content Manager ---
     public function pagesIndex()
     {

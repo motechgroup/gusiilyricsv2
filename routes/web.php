@@ -174,6 +174,8 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->name(
         Route::get('/settings', [AdminController::class, 'settingsIndex'])->name('settings.index');
         Route::post('/settings', [AdminController::class, 'settingsUpdate'])->name('settings.update');
         Route::post('/settings/test-email', [AdminController::class, 'testSmtp'])->name('settings.test-email');
+
+        Route::get('/docs', [AdminController::class, 'docsIndex'])->name('docs.index');
     });
 });
 
