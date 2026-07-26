@@ -569,21 +569,93 @@ class AdminController extends Controller
 
     public function settingsUpdate(Request $request)
     {
-        $request->validate([
-            'site_logo_file' => 'nullable|image|max:5120',
-            'favicon_file' => 'nullable|file|mimes:ico,png,jpg,svg|max:2048',
-        ]);
+        $section = $request->input('section_type', 'all');
 
-        if ($request->hasFile('site_logo_file')) {
-            $path = $request->file('site_logo_file')->store('uploads/branding', 'public');
-            Setting::set('site_logo', '/storage/' . $path);
+        // 1. Site Branding & Donation Presets Section
+        if ($section === 'branding' || $request->hasFile('site_logo_file') || $request->hasFile('favicon_file')) {
+            $request->validate([
+                'site_logo_file' => 'nullable|image|max:5120',
+                'favicon_file' => 'nullable|file|mimes:ico,png,jpg,svg|max:2048',
+            ]);
+
+            if ($request->hasFile('site_logo_file')) {
+                $path = $request->file('site_logo_file')->store('uploads/branding', 'public');
+                Setting::set('site_logo', '/storage/' . $path);
+            }
+
+            if ($request->hasFile('favicon_file')) {
+                $path = $request->file('favicon_file')->store('uploads/branding', 'public');
+                Setting::set('favicon', '/storage/' . $path);
+            }
+
+            if ($request->has('site_name')) Setting::set('site_name', $request->site_name);
+            if ($request->has('footer_description')) Setting::set('footer_description', $request->footer_description);
+            if ($request->has('preset_donation_amounts')) Setting::set('preset_donation_amounts', $request->preset_donation_amounts ?? '100, 250, 500, 1000, 2500, 5000');
+
+            return redirect()->back()->with('success', 'Site Branding & Presets saved successfully!');
         }
 
-        if ($request->hasFile('favicon_file')) {
-            $path = $request->file('favicon_file')->store('uploads/branding', 'public');
-            Setting::set('favicon', '/storage/' . $path);
+        // 2. M-Pesa STK Push Section
+        if ($section === 'mpesa') {
+            if ($request->has('mpesa_env')) Setting::set('mpesa_env', $request->mpesa_env);
+            if ($request->has('mpesa_consumer_key')) Setting::set('mpesa_consumer_key', $request->mpesa_consumer_key);
+            if ($request->has('mpesa_consumer_secret')) Setting::set('mpesa_consumer_secret', $request->mpesa_consumer_secret);
+            if ($request->has('mpesa_passkey')) Setting::set('mpesa_passkey', $request->mpesa_passkey);
+            if ($request->has('mpesa_shortcode')) Setting::set('mpesa_shortcode', $request->mpesa_shortcode);
+            if ($request->has('mpesa_till')) Setting::set('mpesa_till', $request->mpesa_till);
+            if ($request->has('mpesa_paybill')) Setting::set('mpesa_paybill', $request->mpesa_paybill);
+
+            return redirect()->back()->with('success', 'M-Pesa STK Push API credentials saved successfully!');
         }
 
+        // 3. Stripe API Credentials Section
+        if ($section === 'stripe') {
+            if ($request->has('stripe_publishable_key')) Setting::set('stripe_publishable_key', $request->stripe_publishable_key);
+            if ($request->has('stripe_secret_key')) Setting::set('stripe_secret_key', $request->stripe_secret_key);
+            if ($request->has('stripe_webhook_secret')) Setting::set('stripe_webhook_secret', $request->stripe_webhook_secret);
+            if ($request->has('stripe_url')) Setting::set('stripe_url', $request->stripe_url);
+
+            return redirect()->back()->with('success', 'Stripe API credentials saved successfully!');
+        }
+
+        // 4. Social Media Links Section
+        if ($section === 'social') {
+            if ($request->has('social_facebook')) Setting::set('social_facebook', $request->social_facebook);
+            if ($request->has('social_instagram')) Setting::set('social_instagram', $request->social_instagram);
+            if ($request->has('social_x')) Setting::set('social_x', $request->social_x);
+            if ($request->has('social_youtube')) Setting::set('social_youtube', $request->social_youtube);
+            if ($request->has('social_tiktok')) Setting::set('social_tiktok', $request->social_tiktok);
+
+            return redirect()->back()->with('success', 'Social Media profiles saved successfully!');
+        }
+
+        // 5. SMTP Server Configuration Section
+        if ($section === 'smtp') {
+            if ($request->has('mail_mailer')) Setting::set('mail_mailer', $request->mail_mailer);
+            if ($request->has('mail_host')) Setting::set('mail_host', $request->mail_host);
+            if ($request->has('mail_port')) Setting::set('mail_port', $request->mail_port);
+            if ($request->has('mail_username')) Setting::set('mail_username', $request->mail_username);
+            if ($request->has('mail_password')) Setting::set('mail_password', $request->mail_password);
+            if ($request->has('mail_encryption')) Setting::set('mail_encryption', $request->mail_encryption);
+            if ($request->has('mail_from_address')) Setting::set('mail_from_address', $request->mail_from_address);
+            if ($request->has('mail_from_name')) Setting::set('mail_from_name', $request->mail_from_name);
+
+            return redirect()->back()->with('success', 'SMTP Mail Server configuration saved successfully!');
+        }
+
+        // 6. SEO & Analytics Section
+        if ($section === 'seo') {
+            if ($request->has('seo_title')) Setting::set('seo_title', $request->seo_title);
+            if ($request->has('seo_description')) Setting::set('seo_description', $request->seo_description);
+            if ($request->has('seo_keywords')) Setting::set('seo_keywords', $request->seo_keywords);
+            if ($request->has('google_analytics_id')) Setting::set('google_analytics_id', $request->google_analytics_id);
+            if ($request->has('google_adsense_code')) Setting::set('google_adsense_code', $request->google_adsense_code);
+            if ($request->has('meta_pixel_id')) Setting::set('meta_pixel_id', $request->meta_pixel_id);
+
+            return redirect()->back()->with('success', 'SEO & Analytics tracking saved successfully!');
+        }
+
+        // Fallback for full save
         Setting::set('site_name', $request->site_name);
         Setting::set('seo_title', $request->seo_title);
         Setting::set('seo_description', $request->seo_description);
@@ -622,7 +694,7 @@ class AdminController extends Controller
         Setting::set('mail_from_address', $request->mail_from_address);
         Setting::set('mail_from_name', $request->mail_from_name);
 
-        return redirect()->back()->with('success', 'Site settings, SMTP mail configurations, and gateway credentials updated successfully!');
+        return redirect()->back()->with('success', 'All settings saved successfully!');
     }
 
     public function testSmtp(Request $request)
