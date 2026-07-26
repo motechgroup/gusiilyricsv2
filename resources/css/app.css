@@ -47,9 +47,23 @@
 }
 
 .text-gradient-emerald {
-    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+    background: linear-gradient(135deg, #10b981 0%, #fbbf24 50%, #34d399 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #10b981 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-emerald-gold {
+    background: linear-gradient(135deg, #10b981 0%, #f59e0b 50%, #10b981 100%);
+}
+
+.hover-glow-gold:hover {
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.3);
 }
 
 /* Custom Scrollbar */

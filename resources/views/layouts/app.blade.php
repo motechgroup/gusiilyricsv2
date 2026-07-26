@@ -122,18 +122,18 @@
 
                 <!-- Desktop Nav Links Positioned Right Next to Logo -->
                 <nav class="hidden md:flex items-center space-x-5 lg:space-x-7 text-xs font-bold uppercase tracking-wider">
-                    <a href="{{ route('home') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('home') ? 'text-emerald-400' : 'text-gray-300' }}">Home</a>
-                    <a href="{{ route('songs.index') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('songs.*') ? 'text-emerald-400' : 'text-gray-300' }}">Lyrics</a>
-                    <a href="{{ route('artists.index') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('artists.*') ? 'text-emerald-400' : 'text-gray-300' }}">Artists</a>
-                    <a href="{{ route('promote-music') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('promote-music*') ? 'text-emerald-400' : 'text-gray-300' }}">Promote Music</a>
-                    <a href="{{ route('donate') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('donate') ? 'text-emerald-400' : 'text-gray-300' }}">Donate</a>
+                    <a href="{{ route('home') }}" class="hover:text-amber-400 transition {{ request()->routeIs('home') ? 'text-amber-400 border-b-2 border-amber-400 pb-0.5' : 'text-gray-300' }}">Home</a>
+                    <a href="{{ route('songs.index') }}" class="hover:text-amber-400 transition {{ request()->routeIs('songs.*') ? 'text-amber-400 border-b-2 border-amber-400 pb-0.5' : 'text-gray-300' }}">Lyrics</a>
+                    <a href="{{ route('artists.index') }}" class="hover:text-amber-400 transition {{ request()->routeIs('artists.*') ? 'text-amber-400 border-b-2 border-amber-400 pb-0.5' : 'text-gray-300' }}">Artists</a>
+                    <a href="{{ route('promote-music') }}" class="hover:text-amber-400 transition {{ request()->routeIs('promote-music*') ? 'text-amber-400 border-b-2 border-amber-400 pb-0.5' : 'text-gray-300' }}">Promote Music</a>
+                    <a href="{{ route('donate') }}" class="hover:text-amber-400 transition {{ request()->routeIs('donate') ? 'text-amber-400 border-b-2 border-amber-400 pb-0.5' : 'text-gray-300' }}">Donate</a>
                 </nav>
             </div>
 
             <!-- Right Controls: Search Icon Button (where menu was positioned) & Mobile Hamburger -->
             <div class="flex items-center space-x-3">
-                <button id="headerSearchToggleBtn" class="p-2.5 rounded-xl bg-gray-900 hover:bg-emerald-500 hover:text-slate-950 text-emerald-400 border border-gray-800 transition flex items-center gap-2 text-xs font-bold shadow-lg" title="Search Lyrics">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <button id="headerSearchToggleBtn" class="p-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-amber-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-extrabold transition flex items-center gap-2 text-xs shadow-lg shadow-amber-400/10" title="Search Lyrics">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     <span class="hidden sm:inline">Search</span>
                 </button>
 
@@ -146,9 +146,9 @@
         <!-- Expandable Header Search Modal Bar -->
         <div id="headerSearchModal" class="hidden pt-4 pb-2 border-t border-gray-800/80 mt-3 max-w-4xl mx-auto px-2">
             <form method="GET" action="{{ route('songs.index') }}" class="relative flex items-center">
-                <svg class="w-5 h-5 absolute left-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <input type="text" name="q" placeholder="Type song title, artist name, or word (e.g. Fenny Kerubo, Ebiogo)..." class="w-full pl-12 pr-28 py-3 bg-gray-950 border border-emerald-500/50 rounded-2xl text-white placeholder-gray-400 text-sm focus:outline-none shadow-2xl">
-                <button type="submit" class="absolute right-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition">
+                <svg class="w-5 h-5 absolute left-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <input type="text" name="q" placeholder="Type song title, artist name, or word (e.g. Fenny Kerubo, Ebiogo)..." class="w-full pl-12 pr-28 py-3 bg-gray-950 border border-amber-400/50 rounded-2xl text-white placeholder-gray-400 text-sm focus:outline-none focus:border-emerald-400 shadow-2xl">
+                <button type="submit" class="absolute right-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-amber-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-bold text-xs transition">
                     Search
                 </button>
             </form>

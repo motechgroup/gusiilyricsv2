@@ -19,9 +19,9 @@
         <!-- Search Bar -->
         <form method="GET" action="{{ route('songs.index') }}" class="max-w-2xl mx-auto pt-2">
             <div class="relative flex items-center">
-                <svg class="w-5 h-5 absolute left-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <input type="text" name="q" placeholder="Search song title, artist name, or word (e.g. Ebiogo, Fenny Kerubo)..." class="w-full pl-12 pr-28 py-3.5 bg-gray-900/90 border border-gray-700/80 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 text-sm shadow-xl">
-                <button type="submit" class="absolute right-2 px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition">
+                <svg class="w-5 h-5 absolute left-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <input type="text" name="q" placeholder="Search song title, artist name, or word (e.g. Ebiogo, Fenny Kerubo)..." class="w-full pl-12 pr-28 py-3.5 bg-gray-900/90 border border-amber-400/40 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 text-sm shadow-xl">
+                <button type="submit" class="absolute right-2 px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-amber-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-extrabold text-xs transition">
                     Search
                 </button>
             </div>
@@ -34,14 +34,14 @@
 <div class="bg-[#0b111d] border-b border-gray-800/80 py-4">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap items-center justify-center gap-1.5 overflow-x-auto">
-            <a href="{{ route('songs.index') }}" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 text-xs font-bold transition">
+            <a href="{{ route('songs.index') }}" class="px-2.5 py-1 rounded-lg bg-amber-400/20 text-amber-300 border border-amber-400/40 hover:bg-amber-400 hover:text-slate-950 text-xs font-bold transition">
                 ALL
             </a>
-            <a href="{{ route('songs.index', ['letter' => '#']) }}" class="px-2.5 py-1 rounded-lg bg-gray-900 hover:bg-emerald-500 text-gray-300 hover:text-slate-950 text-xs font-bold border border-gray-800 transition">
+            <a href="{{ route('songs.index', ['letter' => '#']) }}" class="px-2.5 py-1 rounded-lg bg-gray-900 hover:bg-amber-400 text-gray-300 hover:text-slate-950 text-xs font-bold border border-gray-800 transition">
                 #
             </a>
             @foreach(range('A', 'Z') as $char)
-                <a href="{{ route('songs.index', ['letter' => $char]) }}" class="w-7 h-7 rounded-lg bg-gray-900 hover:bg-emerald-500 text-gray-300 hover:text-slate-950 text-xs font-bold border border-gray-800 transition flex items-center justify-center">
+                <a href="{{ route('songs.index', ['letter' => $char]) }}" class="w-7 h-7 rounded-lg bg-gray-900 hover:bg-amber-400 text-gray-300 hover:text-slate-950 text-xs font-bold border border-gray-800 transition flex items-center justify-center">
                     {{ $char }}
                 </a>
             @endforeach
@@ -54,27 +54,27 @@
     <!-- Spotify Section Header -->
     <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-bold text-white tracking-tight">Popular Ekegusii song lyrics</h2>
-        <a href="{{ route('songs.index') }}" class="text-xs font-bold text-gray-400 hover:text-white uppercase tracking-wider">
-            Show all
+        <a href="{{ route('songs.index') }}" class="text-xs font-bold text-amber-400 hover:text-amber-300 uppercase tracking-wider">
+            Show all &rarr;
         </a>
     </div>
 
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
         @foreach($trendingSongs as $song)
-            <a href="{{ route('songs.show', $song->slug) }}" class="group p-4 rounded-2xl bg-[#121927]/60 hover:bg-[#1c273c] transition duration-300 flex flex-col justify-between border border-transparent hover:border-emerald-500/20 shadow-lg">
+            <a href="{{ route('songs.show', $song->slug) }}" class="group p-4 rounded-2xl bg-[#121927]/60 hover:bg-[#1c273c] transition duration-300 flex flex-col justify-between border border-transparent hover:border-amber-400/30 shadow-lg">
                 <!-- Artwork -->
                 <div class="relative aspect-square w-full rounded-xl overflow-hidden mb-3.5 bg-gray-950 shadow-md">
                     <img src="{{ $song->cover_art_url }}" alt="{{ $song->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                     
-                    <!-- Green Spotify Floating Play Icon -->
-                    <div class="absolute bottom-2 right-2 w-11 h-11 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shadow-2xl opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300">
+                    <!-- Floating Play Icon (Yellow Gold / Emerald) -->
+                    <div class="absolute bottom-2 right-2 w-11 h-11 rounded-full bg-gradient-to-r from-emerald-500 to-amber-400 text-slate-950 flex items-center justify-center shadow-2xl opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300">
                         <svg class="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
                 </div>
 
                 <!-- Titles -->
                 <div>
-                    <h3 class="font-bold text-white text-sm sm:text-base truncate group-hover:text-emerald-400 transition leading-snug">
+                    <h3 class="font-bold text-white text-sm sm:text-base truncate group-hover:text-amber-300 transition leading-snug">
                         {{ $song->title }}
                     </h3>
                     <p class="text-xs text-gray-400 truncate mt-1">
@@ -210,14 +210,14 @@
                 </h2>
                 <p class="text-xs text-gray-400 mt-1">Explore Ekegusii lyrics organized by musical style and tradition.</p>
             </div>
-            <a href="{{ route('songs.index') }}" class="text-xs font-semibold text-emerald-400 hover:underline">View All Lyrics &rarr;</a>
+            <a href="{{ route('songs.index') }}" class="text-xs font-bold text-amber-400 hover:text-amber-300">View All Lyrics &rarr;</a>
         </div>
 
         <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 py-4">
             @forelse($genres as $genre)
-                <a href="{{ route('songs.index', ['genre' => $genre->slug]) }}" class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gray-950/90 hover:bg-gray-900 border border-gray-800/80 hover:border-emerald-500/50 flex flex-col items-center justify-center text-center p-3 group transition duration-300 shadow-md shrink-0">
+                <a href="{{ route('songs.index', ['genre' => $genre->slug]) }}" class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gray-950/90 hover:bg-gray-900 border border-gray-800/80 hover:border-amber-400/60 flex flex-col items-center justify-center text-center p-3 group transition duration-300 shadow-md shrink-0">
                     <span class="text-2xl sm:text-3xl block group-hover:scale-110 transition-transform mb-1">{{ $genre->icon ?: '🎵' }}</span>
-                    <strong class="text-[11px] sm:text-xs text-white block group-hover:text-emerald-400 transition font-bold leading-tight px-1 line-clamp-2">{{ $genre->name }}</strong>
+                    <strong class="text-[11px] sm:text-xs text-white block group-hover:text-amber-300 transition font-bold leading-tight px-1 line-clamp-2">{{ $genre->name }}</strong>
                 </a>
             @empty
                 <div class="w-full text-center py-6 text-xs text-gray-500">No genres registered yet.</div>
@@ -246,14 +246,14 @@
     <!-- Promote Your Music CTA Section (Un-enclosed & Centered) -->
     <div class="py-10 border-t border-gray-800/80">
         <div class="flex flex-col items-center text-center max-w-2xl mx-auto space-y-4">
-            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Promote Your Song Lyrics to <span class="text-gradient-emerald">Thousands of Fans</span>
+            <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                Promote Your Song Lyrics to <span class="bg-gradient-to-r from-emerald-400 via-amber-300 to-emerald-400 bg-clip-text text-transparent">Thousands of Fans</span>
             </h2>
             <p class="text-xs text-gray-300 leading-relaxed">
                 Get your song lyrics featured at the top of Gusii Lyrics homepage, index pages, and search results. Drive streaming plays, YouTube views, and grow your fanbase across Kisii, Nyamira, and the diaspora.
             </p>
             <div class="pt-2">
-                <a href="{{ route('promote-music') }}" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition transform hover:-translate-y-0.5 inline-block">
+                <a href="{{ route('promote-music') }}" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-black text-xs shadow-lg shadow-amber-400/20 transition transform hover:-translate-y-0.5 inline-block">
                     🚀 Promote Your Song Lyrics Now
                 </a>
             </div>
