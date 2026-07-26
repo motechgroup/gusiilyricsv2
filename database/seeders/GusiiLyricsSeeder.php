@@ -244,5 +244,65 @@ class GusiiLyricsSeeder extends Seeder
             'lyrics_raw' => "Enyangi ya tata yacha lelo!\nOmogoko omonee kwene nka!\nBonsi ng\'enyera Tata monyene!",
             'english_translation' => "The wedding day of joy has arrived today!\nGreat laughter fills our homestead!",
         ]);
+
+        Song::create([
+            'artist_id' => $kebaso->id,
+            'genre_id' => $traditional->id,
+            'title' => 'Chinchera Chia Abagusii (Gusii Traditions)',
+            'slug' => 'chinchera-chia-abagusii',
+            'cover_image' => 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&auto=format&fit=crop&q=80',
+            'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            'views_count' => 11200,
+            'likes_count' => 780,
+            'release_year' => 2012,
+            'is_featured' => false,
+            'lyrics_raw' => "Chinchera chia tata nigo chiatoreire!\nAbagusii bonsi ng\'imaria amang\'ana!",
+            'english_translation' => "Our Gusii traditions guide us through generations!",
+        ]);
+
+        Song::create([
+            'artist_id' => $monyoncho->id,
+            'genre_id' => $benga->id,
+            'title' => 'Omogusii Omochia (Respected Gusii)',
+            'slug' => 'omogusii-omochia',
+            'cover_image' => 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80',
+            'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            'views_count' => 16700,
+            'likes_count' => 1250,
+            'release_year' => 1998,
+            'is_featured' => true,
+            'lyrics_raw' => "Omogusii omochia nigo akogamba amang'ana yomogoso!",
+            'english_translation' => "The honorable Gusii elder speaks words of wisdom!",
+        ]);
+
+        Song::create([
+            'artist_id' => $fenny->id,
+            'genre_id' => $gospel->id,
+            'title' => 'Nyasae Wane (My Heavenly Father)',
+            'slug' => 'nyasae-wane',
+            'cover_image' => 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80',
+            'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            'views_count' => 21300,
+            'likes_count' => 1540,
+            'release_year' => 2023,
+            'is_featured' => true,
+            'lyrics_raw' => "Nyasae wane Nyamahang'i omonene ngasima oboboso bwango!",
+            'english_translation' => "My Heavenly Father, I give thanks for Your grace!",
+        ]);
+
+        Song::create([
+            'artist_id' => $embarambamba->id,
+            'genre_id' => $gospel->id,
+            'title' => 'Ing\'oto Ya Yesu (Victory of Jesus)',
+            'slug' => 'ingoto-ya-yesu',
+            'cover_image' => 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80',
+            'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            'views_count' => 19800,
+            'likes_count' => 1410,
+            'release_year' => 2024,
+            'is_featured' => true,
+            'lyrics_raw' => "Ing'oto ya Yesu nigo eyagetiwe iguru lelo!",
+            'english_translation' => "The victory of Jesus is proclaimed today!",
+        ]);
     }
 }
