@@ -18,9 +18,15 @@
         <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
             Get your Ekegusii song lyrics indexed on the #1 Gusii music platform, featured on our home page charts, and distributed across our social & partner network.
         </p>
+
+        <div class="pt-4">
+            <button onclick="document.getElementById('promoteFormModal').classList.remove('hidden')" class="px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-extrabold text-sm shadow-xl shadow-emerald-500/20 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                <span>🚀 Submit Song Lyrics for Promotion</span>
+            </button>
+        </div>
     </div>
 
-    <!-- Live Social Reach & Audience Stats Grid (Official Platform Icons) -->
+    <!-- Live Social Reach & Audience Stats Grid -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
         <!-- Website Traffic -->
         <div class="glass-panel p-6 rounded-3xl border border-emerald-500/30 text-center space-y-3">
@@ -59,11 +65,11 @@
         </div>
     </div>
 
-    <!-- Why Promote With Us Section -->
-    <div class="glass-panel p-8 sm:p-10 rounded-3xl border border-gray-800 space-y-6">
+    <!-- Why Promote With Us Section (Un-enclosed) -->
+    <div class="space-y-6 pt-6 border-t border-gray-800/80">
         <h2 class="text-2xl font-extrabold text-white text-center">Why Promote Your Releases With Gusii Lyrics?</h2>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
             <div class="space-y-2">
                 <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
@@ -94,57 +100,69 @@
                 </p>
             </div>
         </div>
+
+        <div class="text-center pt-8">
+            <button onclick="document.getElementById('promoteFormModal').classList.remove('hidden')" class="px-8 py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm shadow-xl shadow-emerald-500/20 transition transform hover:-translate-y-0.5 inline-flex items-center gap-2">
+                <span>🚀 Submit Your Song Lyrics for Promotion</span>
+            </button>
+        </div>
     </div>
 
-    <!-- Music Submission Form -->
-    <div class="glass-panel p-8 sm:p-10 rounded-3xl border border-emerald-500/30 shadow-2xl space-y-6 max-w-3xl mx-auto">
-        <div class="text-center space-y-2 border-b border-gray-800 pb-6">
-            <h2 class="text-2xl font-extrabold text-white">Submit Your Music for Promotion</h2>
-            <p class="text-xs text-gray-400">Fill out the form below to submit your track for editorial review and promotion.</p>
+</div>
+
+<!-- Music Submission Modal -->
+<div id="promoteFormModal" class="{{ $errors->any() ? '' : 'hidden' }} fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-emerald-500/30 shadow-2xl space-y-6 max-w-2xl w-full my-8 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+            <div>
+                <h2 class="text-xl font-extrabold text-white">Submit Music for Promotion</h2>
+                <p class="text-xs text-gray-400">Fill out the form below to submit your track for editorial review.</p>
+            </div>
+            <button onclick="document.getElementById('promoteFormModal').classList.add('hidden')" class="text-gray-400 hover:text-white text-xl font-bold">&times;</button>
         </div>
 
-        <form method="POST" action="{{ route('promote-music.store') }}" class="space-y-6">
+        <form method="POST" action="{{ route('promote-music.store') }}" class="space-y-4 text-xs">
             @csrf
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Artist / Band Name *</label>
-                    <input type="text" name="artist_name" required value="{{ old('artist_name') }}" placeholder="e.g. Fenny Kerubo" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+                    <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Artist / Band Name *</label>
+                    <input type="text" name="artist_name" required value="{{ old('artist_name') }}" placeholder="e.g. Fenny Kerubo" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Contact Person Name</label>
-                    <input type="text" name="contact_person" value="{{ old('contact_person') }}" placeholder="e.g. Manager / Artist Name" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Email Address *</label>
-                    <input type="email" name="email" required value="{{ old('email') }}" placeholder="artist@gusiilyrics.com" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Phone Number / WhatsApp *</label>
-                    <input type="text" name="phone" required value="{{ old('phone') }}" placeholder="e.g. +254 712 345 678" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+                    <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Contact Person Name</label>
+                    <input type="text" name="contact_person" value="{{ old('contact_person') }}" placeholder="e.g. Manager / Artist Name" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
                 </div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Song Title *</label>
-                    <input type="text" name="song_title" required value="{{ old('song_title') }}" placeholder="e.g. Enyangi Ekero Enyene" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+                    <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Email Address *</label>
+                    <input type="email" name="email" required value="{{ old('email') }}" placeholder="artist@gusiilyrics.com" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Song Link (YouTube, Spotify, Audiomack) *</label>
-                    <input type="url" name="song_url" required value="{{ old('song_url') }}" placeholder="https://youtube.com/watch?v=..." class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+                    <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Phone Number / WhatsApp *</label>
+                    <input type="text" name="phone" required value="{{ old('phone') }}" placeholder="e.g. +254 712 345 678" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Song Title *</label>
+                    <input type="text" name="song_title" required value="{{ old('song_title') }}" placeholder="e.g. Enyangi Ekero Enyene" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div>
+                    <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Song Link (YouTube, Spotify, Audiomack) *</label>
+                    <input type="url" name="song_url" required value="{{ old('song_url') }}" placeholder="https://youtube.com/watch?v=..." class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
                 </div>
             </div>
 
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Select Promotion Package *</label>
-                <select name="package_type" required class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
+                <label class="block font-bold uppercase tracking-wider text-emerald-400 mb-1">Select Promotion Package *</label>
+                <select name="package_type" required class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
                     <option value="Standard Lyric Indexing & Streaming Links">Standard Listing - Lyric Transcription & Streaming Links (Free)</option>
                     <option value="Home Page Chart Priority & Featured Banner">Featured Listing - Home Page Banner & Top Chart Push</option>
                     <option value="Social Media Blast (YouTube, Instagram, TikTok)">Social Media Blast - Instagram, YouTube & TikTok Feature</option>
@@ -153,20 +171,20 @@
             </div>
 
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Song Lyrics (Optional)</label>
-                <textarea name="lyrics_text" rows="4" placeholder="Paste Ekegusii song lyrics if available..." class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">{{ old('lyrics_text') }}</textarea>
+                <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Song Lyrics (Optional)</label>
+                <textarea name="lyrics_text" rows="3" placeholder="Paste Ekegusii song lyrics if available..." class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">{{ old('lyrics_text') }}</textarea>
             </div>
 
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Additional Notes / Special Instructions</label>
-                <textarea name="message" rows="3" placeholder="Tell us more about your song release date, story, or video details..." class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">{{ old('message') }}</textarea>
+                <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Additional Notes / Special Instructions</label>
+                <textarea name="message" rows="2" placeholder="Tell us more about your song release date, story, or video details..." class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">{{ old('message') }}</textarea>
             </div>
 
-            <button type="submit" class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm shadow-lg transition">
-                Submit Song for Promotion &rarr;
-            </button>
+            <div class="pt-2 flex justify-end gap-3">
+                <button type="button" onclick="document.getElementById('promoteFormModal').classList.add('hidden')" class="px-4 py-2.5 rounded-xl bg-gray-800 text-gray-300 font-bold">Cancel</button>
+                <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold">Submit Song for Promotion &rarr;</button>
+            </div>
         </form>
     </div>
-
 </div>
 @endsection

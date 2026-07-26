@@ -21,7 +21,7 @@
         $socialFacebook = \App\Models\Setting::get('social_facebook', 'https://facebook.com');
         $socialYoutube = \App\Models\Setting::get('social_youtube', '');
         $socialTiktok = \App\Models\Setting::get('social_tiktok', '');
-        $footerDescription = \App\Models\Setting::get('footer_description', 'Preserving Ekegusii music heritage, song lyrics, translations, and official streaming links for Abagusii worldwide.');
+        $footerDescription = \App\Models\Setting::get('footer_description', 'Preserving Ekegusii music heritage, song lyrics, translations, and official streaming links for Omogusii worldwide.');
     @endphp
 
     <title>@yield('title', $defaultSeoTitle)</title>

@@ -32,7 +32,7 @@ class GusiiLyricsSeeder extends Seeder
         Setting::set('favicon', '/images/favicon.png');
         Setting::set('seo_title', 'Gusii Lyrics - Ekegusii Song Lyrics & Translations');
         Setting::set('seo_description', 'Discover Ekegusii lyrics, English & Swahili translations, and official stream links on Spotify & YouTube.');
-        Setting::set('seo_keywords', 'Ekegusii lyrics, Kisii songs, Gusii gospel, Abagusii music, Fenny Kerubo, Benga');
+        Setting::set('seo_keywords', 'Ekegusii lyrics, Kisii songs, Gusii gospel, Omogusii music, Fenny Kerubo, Benga');
         Setting::set('mpesa_till', '5421908');
         Setting::set('mpesa_paybill', '400200');
 
@@ -226,8 +226,8 @@ class GusiiLyricsSeeder extends Seeder
             'likes_count' => 640,
             'release_year' => 2010,
             'is_featured' => true,
-            'lyrics_raw' => "Emamba yobokano nigo ekogamba\nAbagusii bonsi ng\'imaria amang\'ana\nNche korwa Mugirango tata monyene!",
-            'english_translation' => "The strings of Obokano resonate across the hills\nGather all Abagusii elders to hear wisdom",
+            'lyrics_raw' => "Emamba yobokano nigo ekogamba\nOmogusii bonsi ng\'imaria amang\'ana\nNche korwa Mugirango tata monyene!",
+            'english_translation' => "The strings of Obokano resonate across the hills\nGather all Omogusii elders to hear wisdom",
         ]);
 
         Song::create([
@@ -248,15 +248,15 @@ class GusiiLyricsSeeder extends Seeder
         Song::create([
             'artist_id' => $kebaso->id,
             'genre_id' => $traditional->id,
-            'title' => 'Chinchera Chia Abagusii (Gusii Traditions)',
-            'slug' => 'chinchera-chia-abagusii',
+            'title' => 'Chinchera Chia Omogusii (Gusii Traditions)',
+            'slug' => 'chinchera-chia-Omogusii',
             'cover_image' => 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&auto=format&fit=crop&q=80',
             'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
             'views_count' => 11200,
             'likes_count' => 780,
             'release_year' => 2012,
             'is_featured' => false,
-            'lyrics_raw' => "Chinchera chia tata nigo chiatoreire!\nAbagusii bonsi ng\'imaria amang\'ana!",
+            'lyrics_raw' => "Chinchera chia tata nigo chiatoreire!\nOmogusii bonsi ng\'imaria amang\'ana!",
             'english_translation' => "Our Gusii traditions guide us through generations!",
         ]);
 

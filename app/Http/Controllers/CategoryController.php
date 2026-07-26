@@ -43,7 +43,7 @@ class CategoryController extends Controller
         $title = "Gusii Gospel Songs - Ekegusii Praise & Worship Lyrics";
         $metaDescription = "Read official lyrics for the most powerful Ekegusii gospel praise and worship songs. Discover Fenny Kerubo, Embarambamba, and top Kisii christian vocalists.";
         $badge = "🙌 Ekegusii Gospel";
-        $seoContent = "Gusii gospel music holds a cherished place in Abagusii spiritual life, serving as an uplifting medium of faith, thanksgiving, prayer, and community worship. From soul-stirring hymns performed during church fellowships to high-energy contemporary praise anthems, Ekegusii gospel music inspires millions across Kenya and the diaspora. On GusiiLyrics.com, explore comprehensive transcriptions of famous Ekegusii gospel songs by vocalists like Fenny Kerubo, Embarambamba, Douglas Otiso, and local choir ensembles. Each song entry includes complete lyrics, theological context, song meanings, and direct streaming links.";
+        $seoContent = "Gusii gospel music holds a cherished place in Omogusii spiritual life, serving as an uplifting medium of faith, thanksgiving, prayer, and community worship. From soul-stirring hymns performed during church fellowships to high-energy contemporary praise anthems, Ekegusii gospel music inspires millions across Kenya and the diaspora. On GusiiLyrics.com, explore comprehensive transcriptions of famous Ekegusii gospel songs by vocalists like Fenny Kerubo, Embarambamba, Douglas Otiso, and local choir ensembles. Each song entry includes complete lyrics, theological context, song meanings, and direct streaming links.";
 
         $genre = Genre::where('slug', 'gospel')->first();
         $songs = Song::with(['artist', 'genre', 'album'])
@@ -80,7 +80,7 @@ class CategoryController extends Controller
         $title = "Traditional Ekegusii Songs & Cultural Music Lyrics";
         $metaDescription = "Immerse yourself in authentic Ekegusii traditional music, Obokano harp songs, cultural dance lyrics, and heritage folklore on GusiiLyrics.com.";
         $badge = "🪕 Traditional Cultural Heritage";
-        $seoContent = "Traditional Ekegusii music forms the bedrock of Abagusii cultural identity, centered around traditional instruments like the eight-stringed Obokano harp, ceremonial drums, and communal call-and-response vocal chants. Traditional songs celebrate historical milestones, harvest festivals, elder wisdom, and community proverbs. GusiiLyrics.com is committed to preserving these priceless cultural compositions in digital format, offering exact lyric transcriptions, cultural notes, and streaming videos of traditional performers.";
+        $seoContent = "Traditional Ekegusii music forms the bedrock of Omogusii cultural identity, centered around traditional instruments like the eight-stringed Obokano harp, ceremonial drums, and communal call-and-response vocal chants. Traditional songs celebrate historical milestones, harvest festivals, elder wisdom, and community proverbs. GusiiLyrics.com is committed to preserving these priceless cultural compositions in digital format, offering exact lyric transcriptions, cultural notes, and streaming videos of traditional performers.";
 
         $genre = Genre::where('slug', 'traditional')->first();
         $songs = Song::with(['artist', 'genre', 'album'])
@@ -98,7 +98,7 @@ class CategoryController extends Controller
         $title = "Gusii Wedding Songs & Matrimonial Celebration Lyrics";
         $metaDescription = "Find popular Ekegusii wedding entrance songs, bridal dance lyrics, and traditional Gusii celebration tracks on GusiiLyrics.com.";
         $badge = "💍 Gusii Wedding Songs";
-        $seoContent = "Weddings in Abagusii culture are vibrant, joyful events filled with traditional songs, dance, and festive celebrations. Ekegusii wedding music sets the tone for bridal processional entrances, parental blessings, dowry ceremonies, and reception dances. Discover popular wedding anthems, read word-for-word lyrics, and find streaming links to select the perfect soundtrack for your traditional or modern Gusii wedding.";
+        $seoContent = "Weddings in Omogusii culture are vibrant, joyful events filled with traditional songs, dance, and festive celebrations. Ekegusii wedding music sets the tone for bridal processional entrances, parental blessings, dowry ceremonies, and reception dances. Discover popular wedding anthems, read word-for-word lyrics, and find streaming links to select the perfect soundtrack for your traditional or modern Gusii wedding.";
 
         $songs = Song::with(['artist', 'genre', 'album'])
             ->where('title', 'like', '%wedding%')
