@@ -158,7 +158,8 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->name(
         Route::delete('/genres/{id}', [AdminController::class, 'genresDestroy'])->name('genres.destroy');
 
         Route::get('/pages', [AdminController::class, 'pagesIndex'])->name('pages.index');
-        Route::post('/pages', [AdminController::class, 'pagesUpdate'])->name('pages.update');
+        Route::get('/pages/{slug}/edit', [AdminController::class, 'pagesEdit'])->name('pages.edit');
+        Route::put('/pages/{slug}', [AdminController::class, 'pagesUpdate'])->name('pages.update');
 
         Route::get('/users', [AdminController::class, 'usersIndex'])->name('users.index');
         Route::get('/users/create', [AdminController::class, 'usersCreate'])->name('users.create');

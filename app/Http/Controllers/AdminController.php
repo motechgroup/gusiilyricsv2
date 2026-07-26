@@ -847,6 +847,32 @@ class AdminController extends Controller
     // --- Legal Pages Content Manager ---
     public function pagesIndex()
     {
+        $pages = [
+            [
+                'title' => 'Terms of Service',
+                'slug' => 'terms',
+                'url' => route('pages.terms'),
+                'description' => 'User agreement, educational scope, copyright protection, and payment policies.',
+                'updated_at' => Setting::get('terms_updated_at', 'Jul 26, 2026'),
+            ],
+            [
+                'title' => 'Privacy Policy',
+                'slug' => 'privacy',
+                'url' => route('pages.privacy'),
+                'description' => 'Visitor analytics collection, cookies policy, and M-Pesa transaction privacy.',
+                'updated_at' => Setting::get('privacy_updated_at', 'Jul 26, 2026'),
+            ],
+        ];
+
+        return view('admin.pages.index', compact('pages'));
+    }
+
+    public function pagesEdit($slug)
+    {
+        if (!in_array($slug, ['terms', 'privacy'])) {
+            abort(404);
+        }
+
         $defaultTerms = <<<'EOD'
 ### 1. Acceptance of Terms
 By accessing or using Gusii Lyrics Vault ("the Platform"), you agree to be bound by these Terms of Service. If you do not agree to all terms, please do not use the Platform.
@@ -896,23 +922,33 @@ We do NOT sell, rent, or trade visitor personal information to third-party adver
 We may update this Privacy Policy periodically to reflect site improvements or regulatory changes. Continued use of the Platform after changes constitutes acceptance.
 EOD;
 
-        $termsContent = Setting::get('terms_content', $defaultTerms);
-        $privacyContent = Setting::get('privacy_content', $defaultPrivacy);
+        $defaultContent = ($slug === 'terms') ? $defaultTerms : $defaultPrivacy;
+        $content = Setting::get($slug . '_content', $defaultContent);
 
-        return view('admin.pages.index', compact('termsContent', 'privacyContent'));
+        $page = [
+            'slug' => $slug,
+            'title' => $slug === 'terms' ? 'Terms of Service' : 'Privacy Policy',
+            'url' => $slug === 'terms' ? route('pages.terms') : route('pages.privacy'),
+            'content' => $content,
+        ];
+
+        return view('admin.pages.edit', compact('page'));
     }
 
-    public function pagesUpdate(Request $request)
+    public function pagesUpdate(Request $request, $slug)
     {
+        if (!in_array($slug, ['terms', 'privacy'])) {
+            abort(404);
+        }
+
         $request->validate([
-            'terms_content' => 'required|string',
-            'privacy_content' => 'required|string',
+            'content' => 'required|string',
         ]);
 
-        Setting::set('terms_content', $request->terms_content);
-        Setting::set('privacy_content', $request->privacy_content);
+        Setting::set($slug . '_content', $request->content);
+        Setting::set($slug . '_updated_at', now()->format('M d, Y H:i'));
 
-        return redirect()->back()->with('success', 'Terms of Service and Privacy Policy page content updated successfully!');
+        return redirect()->route('admin.pages.index')->with('success', ($slug === 'terms' ? 'Terms of Service' : 'Privacy Policy') . ' page content updated successfully!');
     }
 
     // --- Ad Inquiries Management Portal ---

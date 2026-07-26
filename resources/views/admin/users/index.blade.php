@@ -15,29 +15,30 @@
         </a>
     </div>
 
-    <div class="glass-panel rounded-3xl overflow-hidden border border-gray-800">
+    <!-- Staff Table (Completely Un-enclosed) -->
+    <div class="overflow-x-auto">
         <table class="w-full text-left text-xs text-gray-300">
             <thead class="bg-gray-950 text-gray-400 font-bold uppercase tracking-wider border-b border-gray-800">
                 <tr>
-                    <th class="p-4">Name</th>
-                    <th class="p-4">Email</th>
-                    <th class="p-4">Role</th>
-                    <th class="p-4">Created Date</th>
-                    <th class="p-4 text-right">Actions</th>
+                    <th class="py-3 px-4">Name</th>
+                    <th class="py-3 px-4">Email</th>
+                    <th class="py-3 px-4">Role</th>
+                    <th class="py-3 px-4">Created Date</th>
+                    <th class="py-3 px-4 text-right">Actions</th>
                 </tr>
             </thead>
-            <tbody class="divide-y divide-gray-800">
-                @foreach($users as $u)
-                    <tr class="hover:bg-gray-800/40">
-                        <td class="p-4 font-bold text-white">{{ $u->name }}</td>
-                        <td class="p-4 text-gray-300 font-mono">{{ $u->email }}</td>
-                        <td class="p-4">
+            <tbody class="divide-y divide-gray-800/80">
+                @forelse($users as $u)
+                    <tr class="hover:bg-gray-900/40 transition">
+                        <td class="py-4 px-4 font-bold text-white">{{ $u->name }}</td>
+                        <td class="py-4 px-4 text-gray-300 font-mono">{{ $u->email }}</td>
+                        <td class="py-4 px-4">
                             <span class="px-2.5 py-1 rounded text-[10px] font-bold uppercase {{ $u->role === 'admin' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-indigo-500/20 text-indigo-300' }}">
                                 {{ $u->role === 'admin' ? 'Super Admin' : 'Editor' }}
                             </span>
                         </td>
-                        <td class="p-4 text-gray-400 font-mono">{{ $u->created_at->format('M d, Y') }}</td>
-                        <td class="p-4 text-right">
+                        <td class="py-4 px-4 text-gray-400 font-mono">{{ $u->created_at->format('M d, Y') }}</td>
+                        <td class="py-4 px-4 text-right">
                             @if(Auth::id() !== $u->id)
                                 <form method="POST" action="{{ route('admin.users.destroy', $u->id) }}" class="inline" onsubmit="return confirm('Delete this staff account?');">
                                     @csrf
@@ -51,10 +52,20 @@
                             @endif
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="5" class="py-8 text-center text-gray-500 text-xs">No staff accounts found.</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
+
+    @if($users->hasPages())
+        <div class="pt-4 border-t border-gray-800/80">
+            {{ $users->links() }}
+        </div>
+    @endif
 
 </div>
 @endsection
