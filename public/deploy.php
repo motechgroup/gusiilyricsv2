@@ -33,6 +33,11 @@ $kernel->bootstrap();
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
+// Clear configuration cache so .env edits take effect immediately
+try {
+    Artisan::call('config:clear');
+} catch (\Exception $e) {}
+
 $SECRET_KEY = "deploy123";
 $providedKey = $_REQUEST['secret'] ?? '';
 
