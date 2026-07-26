@@ -61,7 +61,7 @@
         </table>
     </div>
 
-    @if($users->hasPages())
+    @if(method_exists($users, 'hasPages') && $users->hasPages())
         <div class="pt-4 border-t border-gray-800/80">
             {{ $users->links() }}
         </div>
