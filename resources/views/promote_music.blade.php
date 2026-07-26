@@ -9,10 +9,10 @@
     <!-- Hero Header (Green & Yellow Gold Contrast Theme, No Badge) -->
     <div class="text-center space-y-4 max-w-3xl mx-auto">
         <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
-            Promote Your Music to <span class="bg-gradient-to-r from-emerald-400 via-amber-300 to-emerald-400 bg-clip-text text-transparent">Abagusii Worldwide</span>
+            Promote Your Music to <span class="bg-gradient-to-r from-emerald-400 via-amber-300 to-emerald-400 bg-clip-text text-transparent">Omogusii Worldwide</span>
         </h1>
         <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
-            Get your Ekegusii song lyrics indexed on the #1 Gusii music platform, featured on our home page charts, and distributed across our social & partner network.
+            Get your song lyrics indexed on the #1 Gusii music platform, featured on our home page charts, and distributed across our social & partner network.
         </p>
     </div>
 
@@ -103,7 +103,7 @@
 
         <div class="text-center pt-8">
             <button onclick="document.getElementById('promoteFormModal').classList.remove('hidden')" class="px-9 py-4 rounded-xl bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-black text-sm sm:text-base shadow-xl shadow-amber-400/20 transition transform hover:-translate-y-1 hover:scale-105 inline-flex items-center gap-2">
-                <span>🚀 Submit Your Song Lyrics for Promotion</span>
+                <span>Submit Your Song for Promotion 🚀</span>
             </button>
         </div>
     </div>

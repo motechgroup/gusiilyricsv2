@@ -668,7 +668,7 @@ class AdminController extends Controller
             'mail_encryption' => Setting::get('mail_encryption', 'tls'),
             'mail_from_address' => Setting::get('mail_from_address', 'info@gusiilyrics.com'),
             'mail_from_name' => Setting::get('mail_from_name', 'Gusii Lyrics'),
-            'footer_description' => Setting::get('footer_description', 'Preserving Ekegusii music heritage, song lyrics, translations, and official streaming links for Omogusii worldwide.'),
+            'footer_description' => Setting::get('footer_description', 'Preserving Gusii music heritage, song lyrics, translations, and official streaming links for Omogusii worldwide.'),
         ];
 
         return view('admin.settings.index', compact('settings'));

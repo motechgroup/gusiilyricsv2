@@ -254,7 +254,7 @@
             </p>
             <div class="pt-2">
                 <a href="{{ route('promote-music') }}" class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-black text-xs shadow-lg shadow-amber-400/20 transition transform hover:-translate-y-0.5 inline-block">
-                    🚀 Promote Your Song Lyrics Now
+                    🚀 Promote Your Song Now
                 </a>
             </div>
         </div>

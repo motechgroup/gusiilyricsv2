@@ -73,6 +73,7 @@ Route::middleware(\App\Http\Middleware\TrackVisitor::class)->group(function () {
     Route::get('/donate', [DonationController::class, 'showPublicDonate'])->name('donate');
     Route::post('/donate', [DonationController::class, 'storePublicDonation'])->name('donate.store');
     Route::post('/api/mpesa/stkpush', [MpesaController::class, 'stkPush'])->name('api.mpesa.stkpush');
+    Route::post('/donate/stk-push', [MpesaController::class, 'stkPush'])->name('donate.stk-push');
 
     // Visitor Actions
     Route::post('/actions/request-lyric', [VisitorActionController::class, 'requestLyric'])->name('actions.request-lyric');

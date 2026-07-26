@@ -151,7 +151,7 @@
             <p class="text-xs text-gray-300">Amount: <strong id="mpesaFormAmountText" class="text-emerald-400 font-mono">KES 0</strong></p>
         </div>
 
-        <form method="POST" action="{{ route('donate.stk-push') }}" class="space-y-4 text-xs">
+        <form id="stkPushForm" method="POST" action="{{ route('donate.stk-push') }}" class="space-y-4 text-xs">
             @csrf
             <input type="hidden" name="amount" id="stkAmountInput" value="500">
 
@@ -165,7 +165,7 @@
                 <input type="text" name="donor_name" placeholder="e.g. Fenny Kerubo" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
             </div>
 
-            <button type="submit" class="w-full py-3.5 rounded-xl bg-[#00a651] hover:bg-emerald-400 text-slate-950 font-black text-xs shadow-lg transition">
+            <button id="stkSubmitBtn" type="submit" class="w-full py-3.5 rounded-xl bg-[#00a651] hover:bg-emerald-400 text-slate-950 font-black text-xs shadow-lg transition">
                 📱 Send M-Pesa PIN Prompt &rarr;
             </button>
         </form>
@@ -205,5 +205,37 @@
     function closeMpesaPhoneModal() {
         document.getElementById('mpesaPhoneModal').classList.add('hidden');
     }
+
+    document.getElementById('stkPushForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('stkSubmitBtn');
+        btn.disabled = true;
+        btn.textContent = 'Sending PIN Prompt...';
+
+        const formData = new FormData(this);
+        try {
+            const response = await fetch("{{ route('donate.stk-push') }}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                }
+            });
+            const res = await response.json();
+            if (res.success) {
+                alert('📲 ' + (res.message || 'M-Pesa PIN prompt sent to your phone! Please enter your PIN on your phone to complete donation.'));
+                closeMpesaPhoneModal();
+                window.location.reload();
+            } else {
+                alert('❌ ' + (res.message || 'Failed to send M-Pesa prompt. Please check your phone number and try again.'));
+            }
+        } catch (err) {
+            alert('An error occurred. Please check your network connection.');
+        } finally {
+            btn.disabled = false;
+            btn.textContent = '📱 Send M-Pesa PIN Prompt →';
+        }
+    });
 </script>
 @endsection
