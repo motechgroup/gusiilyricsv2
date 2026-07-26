@@ -16,40 +16,42 @@
     <!-- Analytics Key Metrics Grid -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Pageviews Today -->
-        <div class="glass-panel p-5 rounded-2xl border border-emerald-500/30">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-emerald-500/30">
             <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider">Pageviews Today</div>
             <div class="text-3xl font-black text-white mt-2">{{ number_format($metrics['today_pageviews']) }}</div>
             <span class="text-[10px] text-gray-400 mt-1 block">Lifetime Pageviews: {{ number_format($metrics['total_pageviews']) }}</span>
         </div>
 
         <!-- Unique Visitors Today -->
-        <div class="glass-panel p-5 rounded-2xl border border-indigo-500/30">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-indigo-500/30">
             <div class="text-[11px] font-bold text-indigo-400 uppercase tracking-wider">Unique Visitors Today</div>
             <div class="text-3xl font-black text-white mt-2">{{ number_format($metrics['today_unique_ips']) }}</div>
             <span class="text-[10px] text-gray-400 mt-1 block">Unique IPs: {{ number_format($metrics['total_unique_ips']) }}</span>
         </div>
 
         <!-- Mobile Traffic % -->
-        <div class="glass-panel p-5 rounded-2xl border border-amber-500/30">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-amber-500/30">
             <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wider">Mobile Traffic Ratio</div>
             <div class="text-3xl font-black text-white mt-2">{{ $metrics['mobile_pct'] }}%</div>
             <span class="text-[10px] text-gray-400 mt-1 block">Desktop: {{ $metrics['desktop_pct'] }}% • Tablet: {{ $metrics['tablet_pct'] }}%</span>
         </div>
 
         <!-- Server Tracker Health -->
-        <div class="glass-panel p-5 rounded-2xl border border-rose-500/30">
+        <div class="p-5 rounded-2xl bg-gray-950/80 border border-rose-500/30">
             <div class="text-[11px] font-bold text-rose-400 uppercase tracking-wider">Tracker Logging</div>
             <div class="text-3xl font-black text-white mt-2">Active</div>
             <span class="text-[10px] text-gray-400 mt-1 block">Real-time HTTP requests</span>
         </div>
     </div>
 
-    <!-- Device & Referrer Breakdown -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Device & Referrer Breakdown (Un-enclosed) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 py-4 border-t border-gray-800/80">
         
-        <!-- Device Breakdown Card -->
-        <div class="glass-panel p-6 rounded-3xl border border-gray-800 space-y-6">
-            <h3 class="text-sm font-bold text-white uppercase tracking-wider">📱 Device Type Breakdown</h3>
+        <!-- Device Breakdown -->
+        <div class="space-y-6">
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                📱 Device Type Breakdown
+            </h3>
             
             <div class="space-y-4">
                 <div>
@@ -85,12 +87,14 @@
         </div>
 
         <!-- Top Referral Sources -->
-        <div class="lg:col-span-2 glass-panel p-6 rounded-3xl border border-gray-800 space-y-4">
-            <h3 class="text-sm font-bold text-white uppercase tracking-wider">🌐 Top Traffic Referral Domains</h3>
+        <div class="lg:col-span-2 space-y-4">
+            <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                🌐 Top Traffic Referral Domains
+            </h3>
             
             <div class="space-y-2">
                 @forelse($topReferrers as $ref)
-                    <div class="p-3 rounded-xl bg-gray-950 border border-gray-800 flex items-center justify-between text-xs">
+                    <div class="p-3 rounded-xl bg-gray-950/70 border border-gray-800/80 flex items-center justify-between text-xs">
                         <span class="text-gray-300 font-mono truncate max-w-sm">{{ parse_url($ref->referrer, PHP_URL_HOST) ?? $ref->referrer }}</span>
                         <span class="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-300 font-bold text-xs">{{ number_format($ref->total) }} Visits</span>
                     </div>
@@ -128,11 +132,13 @@
         </div>
     </div>
 
-    <!-- Live Visitor Traffic Logs Table -->
-    <div class="space-y-4">
-        <h3 class="text-sm font-bold text-white uppercase tracking-wider">📑 Live Visitor Traffic Log Feed</h3>
+    <!-- Live Visitor Traffic Logs Table (Un-enclosed) -->
+    <div class="space-y-4 py-4 border-t border-gray-800/80">
+        <h3 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+            📑 Live Visitor Traffic Log Feed
+        </h3>
         
-        <div class="glass-panel rounded-3xl overflow-hidden border border-gray-800">
+        <div class="rounded-2xl overflow-hidden border border-gray-800/80 bg-gray-950/60">
             <table class="w-full text-left text-xs text-gray-300">
                 <thead class="bg-gray-950 text-gray-400 font-bold uppercase tracking-wider border-b border-gray-800">
                     <tr>
