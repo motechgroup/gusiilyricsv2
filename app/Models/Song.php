@@ -59,6 +59,18 @@ class Song extends Model
         return $this->belongsTo(Genre::class);
     }
 
+    public function getFormattedViewsAttribute(): string
+    {
+        $num = $this->views_count ?? 0;
+        if ($num >= 1000000) {
+            return round($num / 1000000, 1) . 'M';
+        }
+        if ($num >= 1000) {
+            return round($num / 1000, 1) . 'K';
+        }
+        return (string) $num;
+    }
+
     public function corrections(): HasMany
     {
         return $this->hasMany(Correction::class);

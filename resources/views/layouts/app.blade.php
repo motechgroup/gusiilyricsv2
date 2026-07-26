@@ -21,6 +21,7 @@
         $socialFacebook = \App\Models\Setting::get('social_facebook', 'https://facebook.com');
         $socialYoutube = \App\Models\Setting::get('social_youtube', '');
         $socialTiktok = \App\Models\Setting::get('social_tiktok', '');
+        $footerDescription = \App\Models\Setting::get('footer_description', 'Preserving Ekegusii music heritage, song lyrics, translations, and official streaming links for Abagusii worldwide.');
     @endphp
 
     <title>@yield('title', $defaultSeoTitle)</title>
@@ -102,34 +103,55 @@
     <!-- Header Navigation -->
     <header class="glass-nav sticky top-0 z-40 px-4 sm:px-6 lg:px-8 py-3.5 border-b border-gray-800/80">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <!-- Brand Logo -->
-            <a href="{{ route('home') }}" class="flex items-center">
-                @if($siteLogo)
-                    <img src="{{ $siteLogo }}" alt="{{ $siteName }}" class="h-10 sm:h-11 w-auto object-contain">
-                @else
-                    <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-slate-950 font-black text-base shadow-lg shadow-emerald-500/20">
-                            G
+            <!-- Left Group: Brand Logo + Repositioned Menu Links Next To It -->
+            <div class="flex items-center space-x-6 lg:space-x-8">
+                <a href="{{ route('home') }}" class="flex items-center shrink-0">
+                    @if($siteLogo)
+                        <img src="{{ $siteLogo }}" alt="{{ $siteName }}" class="h-10 sm:h-11 w-auto object-contain">
+                    @else
+                        <div class="flex items-center space-x-3">
+                            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-slate-950 font-black text-base shadow-lg shadow-emerald-500/20">
+                                G
+                            </div>
+                            <span class="text-lg sm:text-xl font-extrabold text-white tracking-tight">
+                                Gusii<span class="text-gradient-emerald">Lyrics</span>
+                            </span>
                         </div>
-                        <span class="text-lg sm:text-xl font-extrabold text-white tracking-tight">
-                            Gusii<span class="text-gradient-emerald">Lyrics</span>
-                        </span>
-                    </div>
-                @endif
-            </a>
+                    @endif
+                </a>
 
-            <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center space-x-8 text-xs font-bold uppercase tracking-wider">
-                <a href="{{ route('home') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('home') ? 'text-emerald-400' : 'text-gray-300' }}">Home</a>
-                <a href="{{ route('songs.index') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('songs.*') ? 'text-emerald-400' : 'text-gray-300' }}">Lyrics</a>
-                <a href="{{ route('artists.index') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('artists.*') ? 'text-emerald-400' : 'text-gray-300' }}">Artists</a>
-                <a href="{{ route('donate') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('donate') ? 'text-emerald-400' : 'text-gray-300' }}">Donate</a>
-            </nav>
+                <!-- Desktop Nav Links Positioned Right Next to Logo -->
+                <nav class="hidden md:flex items-center space-x-5 lg:space-x-7 text-xs font-bold uppercase tracking-wider">
+                    <a href="{{ route('home') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('home') ? 'text-emerald-400' : 'text-gray-300' }}">Home</a>
+                    <a href="{{ route('songs.index') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('songs.*') ? 'text-emerald-400' : 'text-gray-300' }}">Lyrics</a>
+                    <a href="{{ route('artists.index') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('artists.*') ? 'text-emerald-400' : 'text-gray-300' }}">Artists</a>
+                    <a href="{{ route('promote-music') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('promote-music*') ? 'text-emerald-400' : 'text-gray-300' }}">Promote Music</a>
+                    <a href="{{ route('donate') }}" class="hover:text-emerald-400 transition {{ request()->routeIs('donate') ? 'text-emerald-400' : 'text-gray-300' }}">Donate</a>
+                </nav>
+            </div>
 
-            <!-- Mobile Hamburger Toggle Button -->
-            <button id="mobileNavToggleBtn" class="md:hidden p-2 rounded-xl text-gray-300 hover:bg-gray-800/80 hover:text-white transition">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+            <!-- Right Controls: Search Icon Button (where menu was positioned) & Mobile Hamburger -->
+            <div class="flex items-center space-x-3">
+                <button id="headerSearchToggleBtn" class="p-2.5 rounded-xl bg-gray-900 hover:bg-emerald-500 hover:text-slate-950 text-emerald-400 border border-gray-800 transition flex items-center gap-2 text-xs font-bold shadow-lg" title="Search Lyrics">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <span class="hidden sm:inline">Search</span>
+                </button>
+
+                <button id="mobileNavToggleBtn" class="md:hidden p-2 rounded-xl text-gray-300 hover:bg-gray-800/80 hover:text-white transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Expandable Header Search Modal Bar -->
+        <div id="headerSearchModal" class="hidden pt-4 pb-2 border-t border-gray-800/80 mt-3 max-w-4xl mx-auto px-2">
+            <form method="GET" action="{{ route('songs.index') }}" class="relative flex items-center">
+                <svg class="w-5 h-5 absolute left-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <input type="text" name="q" placeholder="Type song title, artist name, or word (e.g. Fenny Kerubo, Ebiogo)..." class="w-full pl-12 pr-28 py-3 bg-gray-950 border border-emerald-500/50 rounded-2xl text-white placeholder-gray-400 text-sm focus:outline-none shadow-2xl">
+                <button type="submit" class="absolute right-2 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs transition">
+                    Search
+                </button>
+            </form>
         </div>
 
         <!-- Collapsible Mobile Navigation Drawer -->
@@ -137,6 +159,7 @@
             <a href="{{ route('home') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('home') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Home</a>
             <a href="{{ route('songs.index') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('songs.*') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Lyrics</a>
             <a href="{{ route('artists.index') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('artists.*') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Artists</a>
+            <a href="{{ route('promote-music') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('promote-music*') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Promote Music</a>
             <a href="{{ route('donate') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('donate') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Donate</a>
         </div>
     </header>
@@ -195,9 +218,9 @@
     <!-- Footer -->
     <footer class="bg-gray-950 border-t border-gray-800/80 py-10 mt-16 text-xs text-gray-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="space-y-1 text-center md:text-left">
-                <p class="text-white font-bold text-sm">{{ $siteName }}</p>
-                <p class="text-gray-400">Preserving Ekegusii music heritage, song lyrics & official streaming links.</p>
+            <div class="space-y-2 text-center md:text-left max-w-sm">
+                <img src="{{ asset('images/footer_logo.png') }}" alt="{{ $siteName }}" class="h-9 w-auto opacity-90 mx-auto md:mx-0 object-contain">
+                <p class="text-gray-400 text-xs leading-relaxed">{{ $footerDescription }}</p>
             </div>
 
             <!-- Circular Social Media Icons (Admin Managed) -->
@@ -451,6 +474,17 @@
                 const banner = document.getElementById('cookieConsentBanner');
                 if (banner) { banner.classList.remove('hidden'); }
             }
+
+            document.getElementById('headerSearchToggleBtn')?.addEventListener('click', function() {
+                const modal = document.getElementById('headerSearchModal');
+                if (modal) {
+                    modal.classList.toggle('hidden');
+                    const input = modal.querySelector('input[name="q"]');
+                    if (input && !modal.classList.contains('hidden')) {
+                        input.focus();
+                    }
+                }
+            });
         });
 
         function acceptCookies() {

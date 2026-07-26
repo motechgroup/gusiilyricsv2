@@ -36,4 +36,58 @@ class AdvertisementController extends Controller
 
         return redirect()->back()->with('success', 'Ebaora Mno! Your advertisement inquiry has been received. Our team will contact you shortly to review your ad campaign.');
     }
+
+    public function showPromoteMusic()
+    {
+        $stats = [
+            'total_songs' => \App\Models\Song::count(),
+            'total_artists' => \App\Models\Artist::count(),
+            'monthly_visitors' => '150,000+',
+            'youtube_subscribers' => '25,000+',
+            'instagram_followers' => '18,500+',
+            'tiktok_followers' => '32,000+',
+        ];
+
+        return view('promote_music', compact('stats'));
+    }
+
+    public function submitMusicPromotion(Request $request)
+    {
+        $validated = $request->validate([
+            'artist_name' => 'required|string|max:255',
+            'contact_person' => 'nullable|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:50',
+            'song_title' => 'required|string|max:255',
+            'song_url' => 'required|url|max:500',
+            'package_type' => 'required|string|max:100',
+            'lyrics_text' => 'nullable|string',
+            'message' => 'nullable|string',
+        ]);
+
+        $message = "MUSIC PROMOTION SUBMISSION:\n";
+        $message .= "Artist: {$validated['artist_name']}\n";
+        $message .= "Song: {$validated['song_title']}\n";
+        $message .= "Song Link: {$validated['song_url']}\n";
+        $message .= "Package: {$validated['package_type']}\n";
+        if (!empty($validated['lyrics_text'])) {
+            $message .= "\nLYRICS PROVIDED:\n{$validated['lyrics_text']}\n";
+        }
+        if (!empty($validated['message'])) {
+            $message .= "\nADDITIONAL NOTES:\n{$validated['message']}\n";
+        }
+
+        AdInquiry::create([
+            'advertiser_name' => $validated['artist_name'],
+            'company_name' => $validated['contact_person'] ?? 'Music Promotion',
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'placement_spot' => 'music_promotion',
+            'budget_range' => $validated['package_type'],
+            'message' => $message,
+            'status' => 'pending',
+        ]);
+
+        return redirect()->back()->with('success', 'Ebaora Mno! Your music promotion request has been received. Our team will review your release and contact you via Email / WhatsApp shortly!');
+    }
 }

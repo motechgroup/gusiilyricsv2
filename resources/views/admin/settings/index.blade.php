@@ -52,6 +52,11 @@
                 </div>
 
                 <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Footer Description Text</label>
+                    <textarea name="footer_description" rows="2" placeholder="Enter footer summary text..." class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">{{ $settings['footer_description'] ?? '' }}</textarea>
+                </div>
+
+                <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">Visitor Preset Donation Amounts (Comma-Separated Values)</label>
                     <input type="text" name="preset_donation_amounts" value="{{ $settings['preset_donation_amounts'] }}" placeholder="100, 250, 500, 1000, 2500, 5000" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-sm focus:outline-none focus:border-emerald-500">
                     <span class="text-[11px] text-gray-400 mt-1 block">These preset amount pills will be rendered for visitors to select during M-Pesa or Stripe donation.</span>

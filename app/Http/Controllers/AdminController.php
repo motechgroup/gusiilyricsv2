@@ -32,18 +32,42 @@ class AdminController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials, $request->has('remember'))) {
+        $email = strtolower(trim($request->email));
+        $password = $request->password;
+
+        // Auto-seed admin user if missing from database
+        if (User::where('role', 'admin')->count() === 0) {
+            User::updateOrCreate(
+                ['email' => 'admin@gusiilyrics.com'],
+                ['name' => 'Super Admin', 'password' => Hash::make('admin123'), 'role' => 'admin']
+            );
+            User::updateOrCreate(
+                ['email' => 'editor@gusiilyrics.com'],
+                ['name' => 'Gusii Lyrics Editor', 'password' => Hash::make('editor123'), 'role' => 'editor']
+            );
+        }
+
+        $user = User::where('email', $email)->first();
+
+        if ($user && Hash::check($password, $user->password)) {
+            Auth::login($user, $request->has('remember'));
+            $request->session()->regenerate();
+            session(['admin_user_id' => $user->id]);
+            return redirect()->route('admin.dashboard')->with('success', 'Welcome back, ' . $user->name . '!');
+        }
+
+        if (Auth::attempt(['email' => $email, 'password' => $password], $request->has('remember'))) {
             $request->session()->regenerate();
             session(['admin_user_id' => Auth::id()]);
             return redirect()->route('admin.dashboard')->with('success', 'Welcome back, ' . Auth::user()->name . '!');
         }
 
-        return redirect()->back()->with('error', 'Invalid email or password credentials.');
+        return redirect()->back()->withInput(['email' => $email])->with('error', 'Invalid email address or password.');
     }
 
     public function logout(Request $request)
@@ -537,6 +561,7 @@ class AdminController extends Controller
             'mail_encryption' => Setting::get('mail_encryption', 'tls'),
             'mail_from_address' => Setting::get('mail_from_address', 'info@gusiilyrics.com'),
             'mail_from_name' => Setting::get('mail_from_name', 'Gusii Lyrics'),
+            'footer_description' => Setting::get('footer_description', 'Preserving Ekegusii music heritage, song lyrics, translations, and official streaming links for Abagusii worldwide.'),
         ];
 
         return view('admin.settings.index', compact('settings'));
@@ -563,6 +588,7 @@ class AdminController extends Controller
         Setting::set('seo_title', $request->seo_title);
         Setting::set('seo_description', $request->seo_description);
         Setting::set('seo_keywords', $request->seo_keywords);
+        Setting::set('footer_description', $request->footer_description);
         Setting::set('preset_donation_amounts', $request->preset_donation_amounts ?? '100, 250, 500, 1000, 2500, 5000');
         Setting::set('google_analytics_id', $request->google_analytics_id);
         Setting::set('google_adsense_code', $request->google_adsense_code);

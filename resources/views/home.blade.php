@@ -108,6 +108,63 @@
     </div>
 </div>
 
+<!-- Daily Top 10 CHARTS Section -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-gray-900">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+            <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight uppercase">CHARTS</h2>
+            <p class="text-xs text-gray-400 mt-1">Top 10 most viewed Ekegusii song lyrics today</p>
+        </div>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gray-900 border border-gray-800 text-[11px] font-mono font-bold text-gray-300 uppercase tracking-wider self-start sm:self-auto">
+            <span>SONGS</span> / <span class="text-emerald-400">ALL GENRES</span> / <span>TODAY</span>
+        </div>
+    </div>
+
+    <div class="glass-panel rounded-3xl border border-gray-800/80 divide-y divide-gray-800/60 overflow-hidden shadow-2xl">
+        @foreach($topCharts as $index => $chartSong)
+            <a href="{{ route('songs.show-nested', ['artistSlug' => $chartSong->artist->slug, 'songSlug' => $chartSong->slug]) }}" class="flex items-center justify-between p-3.5 sm:p-4 hover:bg-gray-800/50 transition duration-200 group">
+                <div class="flex items-center space-x-3.5 sm:space-x-5 min-w-0">
+                    <!-- Rank Number -->
+                    <span class="w-6 text-center font-black text-base sm:text-lg font-mono text-gray-400 group-hover:text-emerald-400 transition shrink-0">
+                        {{ $index + 1 }}
+                    </span>
+
+                    <!-- Song Cover Thumbnail -->
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden bg-gray-950 shrink-0 border border-gray-800 shadow">
+                        <img src="{{ $chartSong->cover_art_url }}" alt="{{ $chartSong->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    </div>
+
+                    <!-- Song Title & Tag -->
+                    <div class="min-w-0">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <h3 class="font-bold text-white text-sm sm:text-base group-hover:text-emerald-400 transition truncate">
+                                {{ $chartSong->title }}
+                            </h3>
+                            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider font-mono">LYRICS</span>
+                        </div>
+                        <p class="text-xs sm:text-sm font-semibold text-gray-400 group-hover:text-gray-200 transition truncate mt-0.5 uppercase tracking-wide">
+                            {{ $chartSong->artist->name }}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Stats Badges -->
+                <div class="flex items-center space-x-4 sm:space-x-8 shrink-0 pl-2">
+                    @if($chartSong->likes_count > 0)
+                        <div class="hidden sm:flex items-center gap-1 text-xs font-mono font-bold text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-1 rounded-full">
+                            🔥 {{ number_format($chartSong->likes_count) }}
+                        </div>
+                    @endif
+                    <div class="flex items-center text-xs sm:text-sm font-mono font-extrabold text-gray-300 gap-1.5">
+                        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                        <span>{{ $chartSong->formatted_views }}</span>
+                    </div>
+                </div>
+            </a>
+        @endforeach
+    </div>
+</div>
+
 <!-- Support Banner -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-12">
     <div class="glass-panel p-8 rounded-3xl border border-amber-500/30 text-center space-y-4">

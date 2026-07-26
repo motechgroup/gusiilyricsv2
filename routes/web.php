@@ -65,6 +65,10 @@ Route::middleware(\App\Http\Middleware\TrackVisitor::class)->group(function () {
     Route::get('/advertise', [AdvertisementController::class, 'showPublicAdvertise'])->name('advertise');
     Route::post('/advertise', [AdvertisementController::class, 'submitInquiry'])->name('advertise.store');
 
+    // Dedicated Promote Your Music Page
+    Route::get('/promote-music', [AdvertisementController::class, 'showPromoteMusic'])->name('promote-music');
+    Route::post('/promote-music', [AdvertisementController::class, 'submitMusicPromotion'])->name('promote-music.store');
+
     // Dedicated Public Donation / Support Page
     Route::get('/donate', [DonationController::class, 'showPublicDonate'])->name('donate');
     Route::post('/donate', [DonationController::class, 'storePublicDonation'])->name('donate.store');

@@ -125,6 +125,20 @@ if ($action === 'full_deploy') {
     }
 } elseif ($action === 'storage_link') {
     $outputLog[] = safeStorageLink();
+} elseif ($action === 'reset_admin') {
+    try {
+        \App\Models\User::updateOrCreate(
+            ['email' => 'admin@gusiilyrics.com'],
+            ['name' => 'Super Admin', 'password' => \Illuminate\Support\Facades\Hash::make('admin123'), 'role' => 'admin']
+        );
+        \App\Models\User::updateOrCreate(
+            ['email' => 'editor@gusiilyrics.com'],
+            ['name' => 'Gusii Lyrics Editor', 'password' => \Illuminate\Support\Facades\Hash::make('editor123'), 'role' => 'editor']
+        );
+        $outputLog[] = "🔑 Staff Credentials Reset Successfully!\nSuper Admin: admin@gusiilyrics.com / admin123\nEditor: editor@gusiilyrics.com / editor123";
+    } catch (\Exception $e) {
+        $outputLog[] = "❌ Error resetting staff credentials: " . $e->getMessage();
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -184,6 +198,9 @@ if ($action === 'full_deploy') {
             </a>
             <a href="?secret=<?= urlencode($SECRET_KEY) ?>&action=storage_link" class="btn btn-secondary">
                 🔗 Create Storage Link
+            </a>
+            <a href="?secret=<?= urlencode($SECRET_KEY) ?>&action=reset_admin" class="btn btn-secondary" onclick="return confirm('Reset default admin & editor credentials?');">
+                🔑 Reset Admin Credentials
             </a>
         </div>
 

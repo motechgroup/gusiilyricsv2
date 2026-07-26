@@ -31,6 +31,11 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
+        $topCharts = Song::with(['artist', 'genre'])
+            ->orderBy('views_count', 'desc')
+            ->take(10)
+            ->get();
+
         $genres = Genre::withCount('songs')->get();
 
         $stats = [
@@ -45,6 +50,7 @@ class HomeController extends Controller
             'trendingSongs',
             'featuredArtists',
             'recentSongs',
+            'topCharts',
             'genres',
             'stats'
         ));
