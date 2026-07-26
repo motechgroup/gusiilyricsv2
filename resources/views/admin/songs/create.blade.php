@@ -16,7 +16,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Song Title <span class="text-rose-500">*</span></label>
-                <input type="text" name="title" required placeholder="e.g. Ebiogo Biang'e" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+                <input type="text" name="title" required placeholder="e.g. Nore pipo" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
             </div>
 
             <div>

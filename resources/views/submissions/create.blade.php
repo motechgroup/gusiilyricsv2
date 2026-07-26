@@ -26,7 +26,7 @@
                     <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">
                         Song Title <span class="text-rose-500">*</span>
                     </label>
-                    <input type="text" name="song_title" required value="{{ old('song_title') }}" placeholder="e.g. Ebiogo Biang'e" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl text-white focus:outline-none focus:border-emerald-500 text-sm">
+                    <input type="text" name="song_title" required value="{{ old('song_title') }}" placeholder="e.g. Tara Yeso" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl text-white focus:outline-none focus:border-emerald-500 text-sm">
                 </div>
 
                 <!-- Artist Name -->
@@ -34,7 +34,7 @@
                     <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-2">
                         Artist Name <span class="text-rose-500">*</span>
                     </label>
-                    <input type="text" name="artist_name" required value="{{ old('artist_name') }}" placeholder="e.g. Fenny Kerubo" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl text-white focus:outline-none focus:border-emerald-500 text-sm">
+                    <input type="text" name="artist_name" required value="{{ old('artist_name') }}" placeholder="e.g. Douglas Otiso" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-xl text-white focus:outline-none focus:border-emerald-500 text-sm">
                 </div>
             </div>
 

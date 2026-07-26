@@ -20,7 +20,7 @@
         <form method="GET" action="{{ route('songs.index') }}" class="max-w-2xl mx-auto pt-2">
             <div class="relative flex items-center">
                 <svg class="w-5 h-5 absolute left-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <input type="text" name="q" placeholder="Search song title, artist name, or word (e.g. Ebiogo, Fenny Kerubo)..." class="w-full pl-12 pr-28 py-3.5 bg-gray-900/90 border border-amber-400/40 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 text-sm shadow-xl">
+                <input type="text" name="q" placeholder="Search song title, artist name, or word (e.g. Tara, Douglas Otiso)..." class="w-full pl-12 pr-28 py-3.5 bg-gray-900/90 border border-amber-400/40 rounded-2xl text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 text-sm shadow-xl">
                 <button type="submit" class="absolute right-2 px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-amber-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-extrabold text-xs transition">
                     Search
                 </button>

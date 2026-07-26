@@ -177,12 +177,12 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label class="block font-bold text-gray-300 mb-1">Artist Name *</label>
-                    <input type="text" name="artist_name" required placeholder="e.g. Fenny Kerubo" class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-white">
+                    <input type="text" name="artist_name" required placeholder="e.g. Douglas Otiso" class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-white">
                 </div>
 
                 <div>
                     <label class="block font-bold text-gray-300 mb-1">Song Title *</label>
-                    <input type="text" name="song_title" required placeholder="e.g. Ebiogo Biange" class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-white">
+                    <input type="text" name="song_title" required placeholder="e.g. Tara" class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-white">
                 </div>
             </div>
 
