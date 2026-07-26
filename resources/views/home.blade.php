@@ -195,15 +195,14 @@
             <a href="{{ route('songs.index') }}" class="text-xs font-semibold text-emerald-400 hover:underline">View All Lyrics &rarr;</a>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6">
             @forelse($genres as $genre)
-                <a href="{{ route('songs.index', ['genre' => $genre->slug]) }}" class="p-4 rounded-2xl bg-gray-950/80 hover:bg-gray-900 border border-gray-800/80 hover:border-emerald-500/40 text-center space-y-2 group transition duration-300">
-                    <span class="text-3xl block group-hover:scale-110 transition-transform">{{ $genre->icon ?: '🎵' }}</span>
-                    <strong class="text-xs text-white block group-hover:text-emerald-400 transition font-bold leading-tight">{{ $genre->name }}</strong>
-                    <span class="text-[10px] text-emerald-400 font-mono block">{{ $genre->songs_count }} Songs</span>
+                <a href="{{ route('songs.index', ['genre' => $genre->slug]) }}" class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gray-950/90 hover:bg-gray-900 border border-gray-800/80 hover:border-emerald-500/50 flex flex-col items-center justify-center text-center p-3 group transition duration-300 shadow-md shrink-0">
+                    <span class="text-2xl sm:text-3xl block group-hover:scale-110 transition-transform mb-1">{{ $genre->icon ?: '🎵' }}</span>
+                    <strong class="text-[11px] sm:text-xs text-white block group-hover:text-emerald-400 transition font-bold leading-tight px-1 line-clamp-2">{{ $genre->name }}</strong>
                 </a>
             @empty
-                <div class="col-span-6 text-center py-6 text-xs text-gray-500">No genres registered yet.</div>
+                <div class="w-full text-center py-6 text-xs text-gray-500">No genres registered yet.</div>
             @endforelse
         </div>
     </div>
