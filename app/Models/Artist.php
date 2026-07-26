@@ -22,6 +22,8 @@ class Artist extends Model
         'instagram',
         'youtube',
         'spotify',
+        'tiktok',
+        'twitter',
         'bio',
         'image',
         'is_featured',
