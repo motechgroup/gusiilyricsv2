@@ -150,7 +150,7 @@
 <script>
 function openEditGenreModal(id, name, icon, description) {
     const form = document.getElementById('editGenreForm');
-    form.action = '/mkuu/genres/' + id;
+    form.action = '/admin/genres/' + id;
     document.getElementById('edit_name').value = name;
     document.getElementById('edit_icon').value = icon;
     document.getElementById('edit_description').value = description;
