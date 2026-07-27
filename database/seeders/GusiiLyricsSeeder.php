@@ -69,7 +69,8 @@ class GusiiLyricsSeeder extends Seeder
         $fenny = Artist::create([
             'name' => 'Fenny Kerubo',
             'slug' => 'fenny-kerubo',
-            'location' => 'Kisii, Kenya',
+            'type' => 'artist',
+            'location' => 'Kisii County, Kenya',
             'origin' => 'Nyaribari Chache, Kisii County',
             'active_years' => '2012 - Present',
             'label' => 'Kerubo Music Ministries',
@@ -81,7 +82,8 @@ class GusiiLyricsSeeder extends Seeder
         $douglas = Artist::create([
             'name' => 'Douglas Otiso',
             'slug' => 'douglas-otiso',
-            'location' => 'Nyamira, Kenya',
+            'type' => 'artist',
+            'location' => 'Nyamira County, Kenya',
             'origin' => 'Borabu, Nyamira County',
             'active_years' => '2015 - Present',
             'label' => 'Otiso Gospel Records',
@@ -93,7 +95,8 @@ class GusiiLyricsSeeder extends Seeder
         $embarambamba = Artist::create([
             'name' => 'Embarambamba',
             'slug' => 'embarambamba',
-            'location' => 'Kisii, Kenya',
+            'type' => 'artist',
+            'location' => 'Kisii County, Kenya',
             'origin' => 'Kitutu Chache, Kisii County',
             'active_years' => '2018 - Present',
             'label' => 'Embara Gospel Studio',
@@ -105,7 +108,8 @@ class GusiiLyricsSeeder extends Seeder
         $monyoncho = Artist::create([
             'name' => 'Christopher Monyoncho',
             'slug' => 'christopher-monyoncho',
-            'location' => 'Kisii, Kenya',
+            'type' => 'artist',
+            'location' => 'Kisii County, Kenya',
             'origin' => 'Bonchari, Kisii County',
             'active_years' => '1970 - 2013',
             'label' => 'Nyabite Boys Band',
@@ -117,11 +121,75 @@ class GusiiLyricsSeeder extends Seeder
         $kebaso = Artist::create([
             'name' => 'Kebaso Moriasi',
             'slug' => 'kebaso-moriasi',
-            'location' => 'Kisii, Kenya',
+            'type' => 'artist',
+            'location' => 'Kisii County, Kenya',
             'origin' => 'South Mugirango, Kisii County',
             'active_years' => '1985 - 2018',
             'label' => 'Mugirango Traditional Records',
             'bio' => 'Master Obokano harpist and cultural storyteller who recorded landmark traditional Ekegusii folklore.',
+            'image' => 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80',
+            'is_featured' => true,
+        ]);
+
+        // Mock Music Bands
+        $nyabiteBand = Artist::create([
+            'name' => 'Nyabite Boys Band',
+            'slug' => 'nyabite-boys-band',
+            'type' => 'band',
+            'location' => 'Kisii County, Kenya',
+            'active_years' => '1975 - Present',
+            'label' => 'Gusii Benga Records',
+            'bio' => 'Pioneer Gusii Benga music band famous across Kenya for timeless Benga guitar dance rhythms.',
+            'image' => 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80',
+            'is_featured' => true,
+        ]);
+
+        $sunekaBand = Artist::create([
+            'name' => 'Suneka Guitar Band',
+            'slug' => 'suneka-guitar-band',
+            'type' => 'band',
+            'location' => 'Kisii County, Kenya',
+            'active_years' => '2005 - Present',
+            'label' => 'Suneka Sound Productions',
+            'bio' => 'High-energy Gusii Benga guitar band performing classic and modern dance compositions.',
+            'image' => 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&auto=format&fit=crop&q=80',
+            'is_featured' => true,
+        ]);
+
+        // Mock Choirs
+        $nyanchwaChoir = Artist::create([
+            'name' => 'SDA Nyanchwa Main Choir',
+            'slug' => 'sda-nyanchwa-main-choir',
+            'type' => 'choir',
+            'location' => 'Kisii County, Kenya',
+            'active_years' => '1990 - Present',
+            'label' => 'Nyanchwa Choir Ministries',
+            'bio' => 'Acclaimed Seventh-day Adventist choir known for heavenly Ekegusii acapella and orchestral gospel hymns.',
+            'image' => 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop&q=80',
+            'is_featured' => true,
+        ]);
+
+        $cathedralChoir = Artist::create([
+            'name' => 'Catholics Nyamira Choir',
+            'slug' => 'catholics-nyamira-choir',
+            'type' => 'choir',
+            'location' => 'Nyamira County, Kenya',
+            'active_years' => '2000 - Present',
+            'label' => 'Cathedral Music Ministry',
+            'bio' => 'Renowned Catholic sanctuary choir delivering soul-enriching Ekegusii choral worship.',
+            'image' => 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80',
+            'is_featured' => true,
+        ]);
+
+        // Mock Music Groups
+        $gusiiCultural = Artist::create([
+            'name' => 'Gusii Cultural Troupe',
+            'slug' => 'gusii-cultural-troupe',
+            'type' => 'group',
+            'location' => 'Kisii County, Kenya',
+            'active_years' => '2010 - Present',
+            'label' => 'Abagusii Heritage Arts',
+            'bio' => 'Traditional Obokano, flute, and percussion cultural ensemble preserving Abagusii folklore.',
             'image' => 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80',
             'is_featured' => true,
         ]);
@@ -303,6 +371,79 @@ class GusiiLyricsSeeder extends Seeder
             'is_featured' => true,
             'lyrics_raw' => "Ing'oto ya Yesu nigo eyagetiwe iguru lelo!",
             'english_translation' => "The victory of Jesus is proclaimed today!",
+        ]);
+
+        // Songs for Mock Bands
+        Song::create([
+            'artist_id' => $nyabiteBand->id,
+            'genre_id' => $benga->id,
+            'title' => 'Benga Special (Nyabite Dance)',
+            'slug' => 'benga-special-nyabite-dance',
+            'cover_image' => 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80',
+            'views_count' => 16400,
+            'likes_count' => 1320,
+            'release_year' => 2022,
+            'is_featured' => true,
+            'lyrics_raw' => "Gusii Benga Nyabite Boys!\nNgasima abamura na abang'ina\nNchera y'omogusii nchera ya mwebetoria!",
+            'english_translation' => "Gusii Benga Nyabite Boys!\nGreetings to young men and women!",
+        ]);
+
+        Song::create([
+            'artist_id' => $sunekaBand->id,
+            'genre_id' => $benga->id,
+            'title' => 'Suneka Guitar Rhythms',
+            'slug' => 'suneka-guitar-rhythms',
+            'cover_image' => 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&auto=format&fit=crop&q=80',
+            'views_count' => 12900,
+            'likes_count' => 980,
+            'release_year' => 2023,
+            'is_featured' => true,
+            'lyrics_raw' => "Suneka Band omogusii omochia!\nNyaboke nigo akogamba amang'ana!",
+            'english_translation' => "Suneka Band praises Gusii community!",
+        ]);
+
+        // Songs for Mock Choirs
+        Song::create([
+            'artist_id' => $nyanchwaChoir->id,
+            'genre_id' => $gospel->id,
+            'title' => 'Enyasae Omoene (God Almighty)',
+            'slug' => 'enyasae-omoene',
+            'cover_image' => 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop&q=80',
+            'views_count' => 22100,
+            'likes_count' => 1950,
+            'release_year' => 2023,
+            'is_featured' => true,
+            'lyrics_raw' => "Enyasae omoene oyio magokoswa iguru\nNgasima oboboso bwango monyene\nAmen, Haleluya Nyasae!",
+            'english_translation' => "Almighty God praised in heaven above\nI glorify your Holy Grace!",
+        ]);
+
+        Song::create([
+            'artist_id' => $cathedralChoir->id,
+            'genre_id' => $gospel->id,
+            'title' => 'Amani Na Upendo (Cathedral Choral)',
+            'slug' => 'amani-na-upendo-cathedral',
+            'cover_image' => 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80',
+            'views_count' => 18700,
+            'likes_count' => 1420,
+            'release_year' => 2024,
+            'is_featured' => true,
+            'lyrics_raw' => "Amani na upendo kwanchete Tata monyene!\nNyasae wane Nyamahang'i!",
+            'english_translation' => "Peace and love from our Lord Almighty!",
+        ]);
+
+        // Songs for Mock Groups
+        Song::create([
+            'artist_id' => $gusiiCultural->id,
+            'genre_id' => $traditional->id,
+            'title' => 'Ribina Riorugano (Gusii Cultural Dance)',
+            'slug' => 'ribina-riorugano',
+            'cover_image' => 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80',
+            'views_count' => 14300,
+            'likes_count' => 1050,
+            'release_year' => 2021,
+            'is_featured' => true,
+            'lyrics_raw' => "Ribina riorugano rwachoreire Abagusii!\nEmamba yobokano nigo ekogamba!",
+            'english_translation' => "The heritage dance belongs to Abagusii!\nThe Obokano harp echoes loud!",
         ]);
     }
 }
