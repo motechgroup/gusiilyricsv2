@@ -26,6 +26,7 @@ class Artist extends Model
         'twitter',
         'bio',
         'image',
+        'genre_id',
         'is_featured',
         'followers_count',
     ];
@@ -34,6 +35,11 @@ class Artist extends Model
         'is_featured' => 'boolean',
         'followers_count' => 'integer',
     ];
+
+    public function genre(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Genre::class);
+    }
 
     public function songs(): HasMany
     {

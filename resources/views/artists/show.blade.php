@@ -21,10 +21,18 @@
 
             <!-- Artist Meta Info -->
             <div class="space-y-3 flex-grow">
-                <!-- Verified Artist Badge -->
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-bold uppercase tracking-wider">
-                    <svg class="w-4 h-4 fill-current text-blue-400" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                    <span>Verified Ekegusii Artist</span>
+                <!-- Verified Artist Badge & Primary Genre -->
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-bold uppercase tracking-wider">
+                        <svg class="w-4 h-4 fill-current text-blue-400" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                        <span>Verified Ekegusii Artist</span>
+                    </div>
+
+                    @if($artist->genre)
+                        <a href="{{ route('categories.genre', $artist->genre->slug) }}" class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold uppercase tracking-wider hover:bg-purple-500/30 transition">
+                            <span>{{ $artist->genre->icon }} {{ $artist->genre->name }}</span>
+                        </a>
+                    @endif
                 </div>
 
                 <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-none">

@@ -507,19 +507,21 @@ class AdminController extends Controller
     // --- Artist CRUD ---
     public function artistsIndex()
     {
-        $artists = Artist::withCount('songs')->orderBy('name')->paginate(10);
+        $artists = Artist::withCount('songs')->with('genre')->orderBy('name')->paginate(10);
         return view('admin.artists.index', compact('artists'));
     }
 
     public function artistsCreate()
     {
-        return view('admin.artists.create');
+        $genres = Genre::orderBy('name')->get();
+        return view('admin.artists.create', compact('genres'));
     }
 
     public function artistsStore(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'genre_id' => 'nullable|exists:genres,id',
             'location' => 'required|string|max:255',
             'origin' => 'nullable|string|max:255',
             'label' => 'nullable|string|max:255',
@@ -559,7 +561,8 @@ class AdminController extends Controller
     public function artistsEdit($id)
     {
         $artist = Artist::findOrFail($id);
-        return view('admin.artists.edit', compact('artist'));
+        $genres = Genre::orderBy('name')->get();
+        return view('admin.artists.edit', compact('artist', 'genres'));
     }
 
     public function artistsUpdate(Request $request, $id)
@@ -568,6 +571,7 @@ class AdminController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'genre_id' => 'nullable|exists:genres,id',
             'location' => 'required|string|max:255',
             'origin' => 'nullable|string|max:255',
             'label' => 'nullable|string|max:255',

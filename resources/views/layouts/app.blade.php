@@ -125,6 +125,7 @@
                     <a href="{{ route('home') }}" class="hover:text-amber-400 transition {{ request()->routeIs('home') ? 'text-amber-400 border-b-2 border-amber-400 pb-0.5' : 'text-gray-300' }}">Home</a>
                     <a href="{{ route('songs.index') }}" class="hover:text-amber-400 transition {{ request()->routeIs('songs.*') ? 'text-amber-400 border-b-2 border-amber-400 pb-0.5' : 'text-gray-300' }}">Lyrics</a>
                     <a href="{{ route('artists.index') }}" class="hover:text-amber-400 transition {{ request()->routeIs('artists.*') ? 'text-amber-400 border-b-2 border-amber-400 pb-0.5' : 'text-gray-300' }}">Artists</a>
+                    <a href="{{ route('genres.index') }}" class="hover:text-amber-400 transition {{ request()->routeIs('genres.*') || request()->routeIs('categories.*') ? 'text-amber-400 border-b-2 border-amber-400 pb-0.5' : 'text-gray-300' }}">Genres</a>
                     <a href="{{ route('promote-music') }}" class="hover:text-amber-400 transition {{ request()->routeIs('promote-music*') ? 'text-amber-400 border-b-2 border-amber-400 pb-0.5' : 'text-gray-300' }}">Promote Music</a>
                     <a href="{{ route('donate') }}" class="hover:text-amber-400 transition {{ request()->routeIs('donate') ? 'text-amber-400 border-b-2 border-amber-400 pb-0.5' : 'text-gray-300' }}">Donate</a>
                 </nav>
@@ -159,6 +160,7 @@
             <a href="{{ route('home') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('home') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Home</a>
             <a href="{{ route('songs.index') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('songs.*') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Lyrics</a>
             <a href="{{ route('artists.index') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('artists.*') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Artists</a>
+            <a href="{{ route('genres.index') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('genres.*') || request()->routeIs('categories.*') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Genres</a>
             <a href="{{ route('promote-music') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('promote-music*') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Promote Music</a>
             <a href="{{ route('donate') }}" class="block px-3 py-2.5 rounded-xl transition {{ request()->routeIs('donate') ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-300 hover:bg-gray-800' }}">Donate</a>
         </div>

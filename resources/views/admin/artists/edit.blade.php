@@ -17,7 +17,7 @@
         @csrf
         @method('PUT')
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Artist Name <span class="text-rose-500">*</span></label>
                 <input type="text" name="name" value="{{ old('name', $artist->name) }}" required class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
@@ -28,6 +28,16 @@
                 <select name="location" required class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
                     <option value="Kisii County, Kenya" {{ old('location', $artist->location) === 'Kisii County, Kenya' || old('location', $artist->location) === 'Kisii, Kenya' ? 'selected' : '' }}>Kisii County, Kenya</option>
                     <option value="Nyamira County, Kenya" {{ old('location', $artist->location) === 'Nyamira County, Kenya' || old('location', $artist->location) === 'Nyamira, Kenya' ? 'selected' : '' }}>Nyamira County, Kenya</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-purple-400 mb-1">Primary Music Genre</label>
+                <select name="genre_id" class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-500">
+                    <option value="">Select Primary Genre (Optional)...</option>
+                    @foreach($genres as $genre)
+                        <option value="{{ $genre->id }}" {{ old('genre_id', $artist->genre_id) == $genre->id ? 'selected' : '' }}>{{ $genre->icon }} {{ $genre->name }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
