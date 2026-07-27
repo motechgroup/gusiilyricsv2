@@ -243,7 +243,7 @@ class AdminController extends Controller
             $query->where('status', $request->status);
         }
 
-        $donations = $query->paginate(10);
+        $donations = $query->paginate(15)->withQueryString();
 
         $totals = [
             'total_kes' => Donation::where('status', 'completed')->where('currency', 'KES')->sum('amount'),
@@ -507,7 +507,7 @@ class AdminController extends Controller
     // --- Artist CRUD ---
     public function artistsIndex()
     {
-        $artists = Artist::withCount('songs')->with('genre')->orderBy('name')->paginate(10);
+        $artists = Artist::withCount('songs')->with('genre')->orderBy('name')->paginate(15)->withQueryString();
         return view('admin.artists.index', compact('artists'));
     }
 
@@ -679,7 +679,7 @@ class AdminController extends Controller
     // --- Requests ---
     public function requestsIndex()
     {
-        $requests = LyricRequest::latest()->paginate(10);
+        $requests = LyricRequest::latest()->paginate(15)->withQueryString();
         return view('admin.requests.index', compact('requests'));
     }
 
@@ -693,7 +693,7 @@ class AdminController extends Controller
     // --- Corrections ---
     public function correctionsIndex()
     {
-        $corrections = Correction::with('song')->latest()->paginate(10);
+        $corrections = Correction::with('song')->latest()->paginate(15)->withQueryString();
         return view('admin.corrections.index', compact('corrections'));
     }
 

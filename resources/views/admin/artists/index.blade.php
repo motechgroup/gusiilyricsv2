@@ -58,9 +58,11 @@
         </table>
     </div>
 
-    <div class="mt-6">
-        {{ $artists->links() }}
-    </div>
+    @if($artists->hasPages())
+        <div class="mt-6">
+            {{ $artists->links() }}
+        </div>
+    @endif
 
 </div>
 @endsection
