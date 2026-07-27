@@ -31,21 +31,31 @@ class ArtistController extends Controller
             }
         }
 
-        // Sorting
-        $sort = $request->get('sort', 'asc');
-        if ($sort === 'desc') {
+        // Artist Type Filter (artist, band, choir, group)
+        $selectedType = $request->get('type', '');
+        if ($selectedType && in_array($selectedType, ['artist', 'band', 'choir', 'group'])) {
+            $query->where('type', $selectedType);
+        }
+
+        // Sorting (Default to popular/traffic ranking)
+        $sort = $request->get('sort', 'traffic');
+        if ($sort === 'followers') {
+            $query->orderBy('followers_count', 'desc');
+        } elseif ($sort === 'traffic' || $sort === 'popular') {
+            $query->withSum('songs', 'views_count')
+                ->orderBy('songs_sum_views_count', 'desc')
+                ->orderBy('songs_count', 'desc');
+        } elseif ($sort === 'desc') {
             $query->orderBy('name', 'desc');
-        } elseif ($sort === 'popular') {
-            $query->orderBy('songs_count', 'desc');
         } else {
             $query->orderBy('name', 'asc');
         }
 
-        $artists = $query->paginate(15)->withQueryString();
+        $artists = $query->paginate(24)->withQueryString();
         $selectedLetter = strtoupper($request->get('letter', ''));
         $selectedSort = $sort;
 
-        return view('artists.index', compact('artists', 'selectedLetter', 'selectedSort'));
+        return view('artists.index', compact('artists', 'selectedLetter', 'selectedSort', 'selectedType'));
     }
 
     public function show($slug)

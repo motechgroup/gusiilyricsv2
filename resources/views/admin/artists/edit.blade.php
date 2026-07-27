@@ -17,10 +17,20 @@
         @csrf
         @method('PUT')
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Artist Name <span class="text-rose-500">*</span></label>
                 <input type="text" name="name" value="{{ old('name', $artist->name) }}" required class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-sm focus:outline-none focus:border-emerald-500">
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">Artist Type / Category <span class="text-rose-500">*</span></label>
+                <select name="type" required class="w-full px-4 py-3 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-amber-400 font-bold">
+                    <option value="artist" {{ old('type', $artist->type) === 'artist' ? 'selected' : '' }}>🎤 Solo Artist</option>
+                    <option value="band" {{ old('type', $artist->type) === 'band' ? 'selected' : '' }}>🎸 Band</option>
+                    <option value="choir" {{ old('type', $artist->type) === 'choir' ? 'selected' : '' }}>🎼 Choir</option>
+                    <option value="group" {{ old('type', $artist->type) === 'group' ? 'selected' : '' }}>👥 Music Group</option>
+                </select>
             </div>
 
             <div>

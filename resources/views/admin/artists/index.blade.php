@@ -20,6 +20,7 @@
             <thead class="bg-gray-950 text-gray-400 font-bold uppercase tracking-wider border-b border-gray-800">
                 <tr>
                     <th class="p-4">Artist Name</th>
+                    <th class="p-4">Category / Type</th>
                     <th class="p-4">Location</th>
                     <th class="p-4">Total Lyrics</th>
                     <th class="p-4 text-right">Actions</th>
@@ -31,6 +32,11 @@
                         <td class="p-4 font-bold text-white flex items-center gap-3">
                             <img src="{{ $artist->avatar_url }}" class="w-9 h-9 rounded-full object-cover border border-gray-700">
                             <span>{{ $artist->name }}</span>
+                        </td>
+                        <td class="p-4">
+                            <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-bold font-mono text-[11px]">
+                                {{ $artist->type_badge }}
+                            </span>
                         </td>
                         <td class="p-4 text-gray-400 font-mono">{{ $artist->location }}</td>
                         <td class="p-4 font-mono">{{ $artist->songs_count }} Lyrics</td>

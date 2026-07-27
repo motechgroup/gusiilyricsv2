@@ -46,6 +46,8 @@
                 @endphp
 
                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs font-mono text-gray-300">
+                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold">{{ $artist->type_badge }}</span>
+                    <span>•</span>
                     <span>📍 Region: <strong class="text-emerald-400 font-bold">{{ $artist->location }}</strong></span>
                     <span>•</span>
                     <span>🎶 <strong class="text-emerald-400">{{ $allSongs->count() }} Songs</strong></span>

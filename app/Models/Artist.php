@@ -13,6 +13,7 @@ class Artist extends Model
     protected $fillable = [
         'name',
         'slug',
+        'type',
         'location',
         'origin',
         'active_years',
@@ -30,6 +31,26 @@ class Artist extends Model
         'is_featured',
         'followers_count',
     ];
+
+    public function getTypeLabelAttribute(): string
+    {
+        return match($this->type) {
+            'band' => 'Music Band',
+            'choir' => 'Gospel Choir',
+            'group' => 'Music Group',
+            default => 'Solo Artist',
+        };
+    }
+
+    public function getTypeBadgeAttribute(): string
+    {
+        return match($this->type) {
+            'band' => '🎸 Band',
+            'choir' => '🎼 Choir',
+            'group' => '👥 Group',
+            default => '🎤 Solo Artist',
+        };
+    }
 
     protected $casts = [
         'is_featured' => 'boolean',

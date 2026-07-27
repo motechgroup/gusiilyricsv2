@@ -521,6 +521,7 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'type' => 'nullable|string|in:artist,band,choir,group',
             'genre_id' => 'nullable|exists:genres,id',
             'location' => 'required|string|max:255',
             'origin' => 'nullable|string|max:255',
@@ -538,6 +539,10 @@ class AdminController extends Controller
             'image' => 'nullable|string',
             'is_featured' => 'nullable|boolean',
         ]);
+
+        if (empty($validated['type'])) {
+            $validated['type'] = 'artist';
+        }
 
         if ($request->hasFile('image_file')) {
             $file = $request->file('image_file');
@@ -571,6 +576,7 @@ class AdminController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'type' => 'nullable|string|in:artist,band,choir,group',
             'genre_id' => 'nullable|exists:genres,id',
             'location' => 'required|string|max:255',
             'origin' => 'nullable|string|max:255',
@@ -588,6 +594,10 @@ class AdminController extends Controller
             'image' => 'nullable|string',
             'is_featured' => 'nullable|boolean',
         ]);
+
+        if (empty($validated['type'])) {
+            $validated['type'] = 'artist';
+        }
 
         if ($request->hasFile('image_file')) {
             $file = $request->file('image_file');

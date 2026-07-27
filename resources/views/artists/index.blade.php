@@ -13,11 +13,33 @@
         <p class="text-gray-400 text-sm mt-1">Discover the voices, legends, and gospel praise leaders of Ekegusii music.</p>
     </div>
 
+    <!-- Artist Category / Type Filter Tabs (All, Solo Artists, Bands, Choirs, Groups) -->
+    <div class="flex flex-wrap items-center gap-2 mb-6">
+        <a href="{{ request()->fullUrlWithQuery(['type' => null]) }}" class="px-4 py-2 rounded-2xl text-xs font-extrabold transition border {{ empty($selectedType) ? 'bg-gradient-to-r from-emerald-500 to-amber-400 text-slate-950 border-emerald-400 shadow-lg' : 'bg-gray-900 text-gray-300 hover:bg-gray-800 border-gray-800' }}">
+            🌟 All Categories
+        </a>
+        <a href="{{ request()->fullUrlWithQuery(['type' => 'artist']) }}" class="px-4 py-2 rounded-2xl text-xs font-extrabold transition border {{ $selectedType === 'artist' ? 'bg-gradient-to-r from-emerald-500 to-amber-400 text-slate-950 border-emerald-400 shadow-lg' : 'bg-gray-900 text-gray-300 hover:bg-gray-800 border-gray-800' }}">
+            🎤 Solo Artists
+        </a>
+        <a href="{{ request()->fullUrlWithQuery(['type' => 'band']) }}" class="px-4 py-2 rounded-2xl text-xs font-extrabold transition border {{ $selectedType === 'band' ? 'bg-gradient-to-r from-emerald-500 to-amber-400 text-slate-950 border-emerald-400 shadow-lg' : 'bg-gray-900 text-gray-300 hover:bg-gray-800 border-gray-800' }}">
+            🎸 Music Bands
+        </a>
+        <a href="{{ request()->fullUrlWithQuery(['type' => 'choir']) }}" class="px-4 py-2 rounded-2xl text-xs font-extrabold transition border {{ $selectedType === 'choir' ? 'bg-gradient-to-r from-emerald-500 to-amber-400 text-slate-950 border-emerald-400 shadow-lg' : 'bg-gray-900 text-gray-300 hover:bg-gray-800 border-gray-800' }}">
+            🎼 Gospel Choirs
+        </a>
+        <a href="{{ request()->fullUrlWithQuery(['type' => 'group']) }}" class="px-4 py-2 rounded-2xl text-xs font-extrabold transition border {{ $selectedType === 'group' ? 'bg-gradient-to-r from-emerald-500 to-amber-400 text-slate-950 border-emerald-400 shadow-lg' : 'bg-gray-900 text-gray-300 hover:bg-gray-800 border-gray-800' }}">
+            👥 Music Groups
+        </a>
+    </div>
+
     <!-- Search & Filter Bar (Un-enclosed) -->
     <form method="GET" action="{{ route('artists.index') }}" class="mb-6 flex flex-col md:flex-row gap-4 items-center">
-        <!-- Preserve selected letter if any -->
+        <!-- Preserve selected letter or type if any -->
         @if(request('letter'))
             <input type="hidden" name="letter" value="{{ request('letter') }}">
+        @endif
+        @if(request('type'))
+            <input type="hidden" name="type" value="{{ request('type') }}">
         @endif
 
         <!-- Search Input -->
@@ -25,23 +47,24 @@
             <svg class="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
-            <input type="text" name="q" value="{{ request('q') }}" placeholder="Search artist name..." class="w-full pl-11 pr-4 py-2.5 bg-gray-900 border border-gray-800 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 text-sm">
+            <input type="text" name="q" value="{{ request('q') }}" placeholder="Search artist, choir, or band name..." class="w-full pl-11 pr-4 py-2.5 bg-gray-900 border border-gray-800 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 text-sm">
         </div>
 
         <!-- Sort Dropdown -->
-        <div class="w-full md:w-56">
+        <div class="w-full md:w-64">
             <select name="sort" onchange="this.form.submit()" class="w-full px-4 py-2.5 bg-gray-900 border border-gray-800 rounded-xl text-gray-300 focus:outline-none focus:border-emerald-500 text-sm">
-                <option value="asc" {{ ($selectedSort ?? 'asc') === 'asc' ? 'selected' : '' }}>Artist Name (A - Z)</option>
-                <option value="desc" {{ ($selectedSort ?? '') === 'desc' ? 'selected' : '' }}>Artist Name (Z - A)</option>
-                <option value="popular" {{ ($selectedSort ?? '') === 'popular' ? 'selected' : '' }}>Most Songs / Popular</option>
+                <option value="traffic" {{ ($selectedSort ?? 'traffic') === 'traffic' ? 'selected' : '' }}>🔥 Top Traffic / Views</option>
+                <option value="followers" {{ ($selectedSort ?? '') === 'followers' ? 'selected' : '' }}>👥 Most Followers</option>
+                <option value="asc" {{ ($selectedSort ?? '') === 'asc' ? 'selected' : '' }}>Name (A - Z)</option>
+                <option value="desc" {{ ($selectedSort ?? '') === 'desc' ? 'selected' : '' }}>Name (Z - A)</option>
             </select>
         </div>
 
         <!-- Submit Button -->
         <button type="submit" class="w-full md:w-auto px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition shrink-0">
-            Filter Artists
+            Filter
         </button>
-        @if(request('q') || request('letter') || request('sort'))
+        @if(request('q') || request('letter') || request('sort') || request('type'))
             <a href="{{ route('artists.index') }}" class="px-4 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-300 text-sm font-semibold">
                 Reset
             </a>
@@ -51,7 +74,7 @@
     <!-- A-Z Alphabetical Index Filter Bar (Un-enclosed) -->
     <div class="mb-10 py-3 border-t border-b border-gray-800/80">
         <div class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400 mb-2 px-2 flex items-center justify-between">
-            <span>🔤 Alphabetical Artists Index</span>
+            <span>🔤 Alphabetical Index</span>
             @if(request('letter'))
                 <span class="text-emerald-400">Filtering by starting letter: <strong>{{ strtoupper(request('letter')) }}</strong></span>
             @endif
@@ -80,7 +103,7 @@
                         <img src="{{ $artist->avatar_url }}" alt="{{ $artist->name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                     </div>
                     <h3 class="font-bold text-white text-sm group-hover:text-emerald-400 truncate w-full">{{ $artist->name }}</h3>
-                    <p class="text-[11px] text-gray-400 font-mono mt-0.5">Artist</p>
+                    <p class="text-[11px] text-emerald-400 font-mono mt-0.5">{{ $artist->type_badge }}</p>
                 </a>
             @endforeach
         </div>
