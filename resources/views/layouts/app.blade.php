@@ -79,9 +79,16 @@
         </script>
     @endif
 
-    <!-- Google AdSense Code -->
+    <!-- Google AdSense Auto Ads Script -->
     @if($adsenseCode)
-        {!! $adsenseCode !!}
+        @if(str_contains($adsenseCode, '<script'))
+            {!! $adsenseCode !!}
+        @else
+            @php
+                $clientPubId = str_starts_with($adsenseCode, 'ca-pub-') ? $adsenseCode : (str_starts_with($adsenseCode, 'pub-') ? 'ca-' . $adsenseCode : 'ca-pub-' . $adsenseCode);
+            @endphp
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ $clientPubId }}" crossorigin="anonymous"></script>
+        @endif
     @endif
     <!-- WebSite Sitelinks Search Box JSON-LD Schema -->
     <script type="application/ld+json">

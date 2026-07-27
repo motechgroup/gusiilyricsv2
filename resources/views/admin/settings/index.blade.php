@@ -330,8 +330,8 @@
                     <input type="text" name="google_analytics_id" value="{{ $settings['google_analytics_id'] ?? '' }}" placeholder="G-XXXXXXXXXX" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-emerald-500">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Google AdSense Publisher ID</label>
-                    <input type="text" name="google_adsense_code" value="{{ $settings['google_adsense_code'] ?? '' }}" placeholder="ca-pub-XXXXXXXXXXXXXXXX" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-emerald-500">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Google AdSense Code / Publisher ID</label>
+                    <input type="text" name="google_adsense_code" value="{{ $settings['google_adsense_code'] ?? '' }}" placeholder="ca-pub-XXXXXXXXXXXXXXXX or full <script> tag" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-emerald-500">
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Meta Pixel ID</label>

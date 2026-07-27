@@ -180,6 +180,14 @@
         $inLyricsAd = \App\Models\SiteAd::getAdForSpot('in_lyrics');
         $lyricsBelowAd = \App\Models\SiteAd::getAdForSpot('lyrics_below');
         $adsenseCode = \App\Models\Setting::get('google_adsense_code', '');
+        $adsensePubId = '';
+        if ($adsenseCode) {
+            if (preg_match('/ca-pub-\d+/', $adsenseCode, $m)) {
+                $adsensePubId = $m[0];
+            } else {
+                $adsensePubId = str_starts_with($adsenseCode, 'ca-pub-') ? $adsenseCode : (str_starts_with($adsenseCode, 'pub-') ? 'ca-' . $adsenseCode : 'ca-pub-' . $adsenseCode);
+            }
+        }
 
         // Split raw lyrics into stanzas by double line breaks
         $rawBlocks = array_values(array_filter(preg_split('/\n\s*\n/', trim($song->lyrics_raw))));
@@ -268,7 +276,7 @@
                              style="display:block; text-align:center;"
                              data-ad-layout="in-article"
                              data-ad-format="fluid"
-                             data-ad-client="{{ $adsenseCode }}"
+                             data-ad-client="{{ $adsensePubId }}"
                              data-ad-slot="1234567890"></ins>
                         <script>
                              (adsbygoogle = window.adsbygoogle || []).push({});
