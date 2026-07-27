@@ -6,6 +6,18 @@ use App\Models\Setting;
 
 class LegalPageController extends Controller
 {
+    public function about()
+    {
+        $stats = [
+            'total_songs' => \App\Models\Song::count(),
+            'total_artists' => \App\Models\Artist::count(),
+            'total_genres' => \App\Models\Genre::count(),
+            'total_views' => \App\Models\Song::sum('views_count'),
+        ];
+
+        return view('pages.about', compact('stats'));
+    }
+
     public function terms()
     {
         $defaultTerms = <<<'EOD'

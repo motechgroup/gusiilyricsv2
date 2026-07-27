@@ -58,7 +58,8 @@ Route::middleware(\App\Http\Middleware\TrackVisitor::class)->group(function () {
     Route::get('/trending-artists', [CategoryController::class, 'trendingArtists'])->name('categories.trending-artists');
     Route::get('/new-releases', [CategoryController::class, 'latestSongs'])->name('categories.new-releases');
 
-    // Dedicated Public Legal Pages
+    // Dedicated Public Legal & About Pages
+    Route::get('/about', [LegalPageController::class, 'about'])->name('about');
     Route::get('/terms', [LegalPageController::class, 'terms'])->name('pages.terms');
     Route::get('/privacy', [LegalPageController::class, 'privacy'])->name('pages.privacy');
 

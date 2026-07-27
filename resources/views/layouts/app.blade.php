@@ -217,8 +217,8 @@
         </div>
     @endif
 
-    <!-- Site Frequently Asked Questions (Clickable Accordion FAQ Section Above Footer) -->
-    @if(!request()->routeIs('admin.login*') && !request()->is('mkuu*') && !request()->is('login*'))
+    <!-- Site Frequently Asked Questions (Clickable Accordion FAQ Section Homepage Only) -->
+    @if(request()->routeIs('home'))
         <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 my-6 border-t border-gray-900">
             <div class="text-center max-w-3xl mx-auto mb-10 space-y-2">
                 <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center justify-center gap-2">
@@ -399,6 +399,7 @@
             </div>
 
             <div class="flex flex-wrap items-center justify-center md:justify-end space-x-4 sm:space-x-6 gap-y-2 text-xs">
+                <a href="{{ route('about') }}" class="hover:text-emerald-400 font-bold text-gray-200">About Us</a>
                 <a href="{{ route('categories.top-100') }}" class="hover:text-emerald-400">Top 100 Songs</a>
                 <a href="{{ route('categories.gospel') }}" class="hover:text-emerald-400">Gospel Songs</a>
                 <a href="{{ route('categories.traditional') }}" class="hover:text-emerald-400">Traditional</a>
