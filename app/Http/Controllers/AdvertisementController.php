@@ -112,4 +112,35 @@ class AdvertisementController extends Controller
 
         return redirect()->back()->with('success', 'Mbuya Mono! Your music promotion request has been received. Our team will review your release and contact you via Email / WhatsApp shortly!');
     }
+
+    public function submitContactForm(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:50',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string|min:10',
+        ]);
+
+        $fullMessage = "GENERAL CONTACT FORM SUBMISSION:\n";
+        $fullMessage .= "Subject: {$validated['subject']}\n";
+        $fullMessage .= "Sender Name: {$validated['name']}\n";
+        if (!empty($validated['phone'])) {
+            $fullMessage .= "Phone: {$validated['phone']}\n";
+        }
+        $fullMessage .= "\nMESSAGE:\n{$validated['message']}\n";
+
+        AdInquiry::create([
+            'advertiser_name' => $validated['name'],
+            'company_name' => $validated['subject'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'] ?? 'N/A',
+            'placement_spot' => 'contact_us',
+            'message' => $fullMessage,
+            'status' => 'pending',
+        ]);
+
+        return redirect()->back()->with('success', 'Mbuya Mono! Your message has been sent to the Gusii Lyrics team. We will respond to your inquiry shortly.');
+    }
 }

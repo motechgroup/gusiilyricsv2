@@ -60,6 +60,7 @@ Route::middleware(\App\Http\Middleware\TrackVisitor::class)->group(function () {
 
     // Dedicated Public Legal & About Pages
     Route::get('/about', [LegalPageController::class, 'about'])->name('about');
+    Route::post('/contact', [AdvertisementController::class, 'submitContactForm'])->name('contact.store');
     Route::get('/terms', [LegalPageController::class, 'terms'])->name('pages.terms');
     Route::get('/privacy', [LegalPageController::class, 'privacy'])->name('pages.privacy');
 

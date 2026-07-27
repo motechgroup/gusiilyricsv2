@@ -19,39 +19,10 @@
         <p class="text-gray-300 text-base sm:text-lg leading-relaxed max-w-3xl">
             Gusii Lyrics is a premier digital music archive dedicated to indexing, translating, and celebrating Ekegusii song lyrics, Gospel praise anthems, live Benga compositions, and traditional Obokano folklore from Kisii and Nyamira counties.
         </p>
-
-        <!-- Inline Impact Metric Bar (No Enclosed Boxes) -->
-        <div class="pt-4 flex flex-wrap items-center gap-6 sm:gap-12 border-t border-b border-gray-900 py-6 text-xs sm:text-sm">
-            <div>
-                <span class="text-2xl sm:text-3xl font-black text-emerald-400 font-mono block">{{ number_format($stats['total_songs']) }}+</span>
-                <span class="text-gray-400 uppercase tracking-wider text-[11px] font-bold">Indexed Lyrics</span>
-            </div>
-
-            <div class="hidden sm:block w-px h-8 bg-gray-900"></div>
-
-            <div>
-                <span class="text-2xl sm:text-3xl font-black text-amber-400 font-mono block">{{ number_format($stats['total_artists']) }}+</span>
-                <span class="text-gray-400 uppercase tracking-wider text-[11px] font-bold">Artists, Bands & Choirs</span>
-            </div>
-
-            <div class="hidden sm:block w-px h-8 bg-gray-900"></div>
-
-            <div>
-                <span class="text-2xl sm:text-3xl font-black text-cyan-400 font-mono block">{{ number_format($stats['total_genres']) }}</span>
-                <span class="text-gray-400 uppercase tracking-wider text-[11px] font-bold">Music Categories</span>
-            </div>
-
-            <div class="hidden sm:block w-px h-8 bg-gray-900"></div>
-
-            <div>
-                <span class="text-2xl sm:text-3xl font-black text-pink-400 font-mono block">{{ number_format($stats['total_views']) }}+</span>
-                <span class="text-gray-400 uppercase tracking-wider text-[11px] font-bold">Lyrics Read & Streamed</span>
-            </div>
-        </div>
     </div>
 
     <!-- Section 1: Executive Overview & Mission -->
-    <div class="space-y-6 pt-4">
+    <div class="space-y-6 border-t border-gray-900 pt-10">
         <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-3">
             <span class="text-emerald-400 font-mono">01.</span> Executive Overview & Cultural Mission
         </h2>
@@ -210,14 +181,76 @@
     </div>
 
     <!-- Section 4: Contact & Institutional Engagement -->
-    <div class="space-y-4 border-t border-gray-900 pt-10">
+    <div class="space-y-6 border-t border-gray-900 pt-10">
         <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-3">
             <span class="text-emerald-400 font-mono">04.</span> Contact & Partnerships
         </h2>
         <p class="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-3xl">
-            For press inquiries, music archiving partnerships, copyright inquiries, or institutional collaboration, reach out to our editorial team directly at <a href="mailto:info@gusiilyrics.com" class="text-emerald-400 font-bold underline">info@gusiilyrics.com</a> or via our official communication channels.
+            For press inquiries, music archiving partnerships, copyright inquiries, or general feedback, click the button below to open our interactive contact form or send an email directly to our editorial desk.
         </p>
+
+        <div class="pt-2 flex flex-wrap items-center gap-4">
+            <button onclick="document.getElementById('contactUsModal').classList.remove('hidden')" class="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 via-amber-400 to-emerald-400 hover:from-emerald-400 hover:to-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider inline-flex items-center gap-2 shadow-xl hover:scale-105 transition cursor-pointer select-none">
+                <span>Open Contact Form ✉️</span>
+            </button>
+            <a href="mailto:info@gusiilyrics.com" class="px-5 py-3.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold text-xs border border-gray-800 transition">
+                Email: info@gusiilyrics.com
+            </a>
+        </div>
     </div>
 
+</div>
+
+<!-- Interactive Contact Us Modal Form -->
+<div id="contactUsModal" class="{{ $errors->any() ? '' : 'hidden' }} fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-emerald-500/40 shadow-2xl space-y-6 max-w-xl w-full my-8">
+        <div class="flex items-center justify-between border-b border-gray-800 pb-4">
+            <div>
+                <h2 class="text-xl font-extrabold text-white flex items-center gap-2">
+                    <span>✉️</span> Contact Gusii Lyrics Team
+                </h2>
+                <p class="text-xs text-emerald-400 font-semibold mt-0.5">Send us your message, feedback, or partnership request.</p>
+            </div>
+            <button onclick="document.getElementById('contactUsModal').classList.add('hidden')" class="text-gray-400 hover:text-white text-xl font-bold">&times;</button>
+        </div>
+
+        <form method="POST" action="{{ route('contact.store') }}" class="space-y-4 text-xs">
+            @csrf
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Your Full Name *</label>
+                    <input type="text" name="name" required value="{{ old('name') }}" placeholder="e.g. Ombati John" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-400">
+                </div>
+
+                <div>
+                    <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Email Address *</label>
+                    <input type="email" name="email" required value="{{ old('email') }}" placeholder="you@example.com" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-400">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Phone / WhatsApp (Optional)</label>
+                    <input type="text" name="phone" value="{{ old('phone') }}" placeholder="e.g. +254 700 000 000" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-400">
+                </div>
+
+                <div>
+                    <label class="block font-bold uppercase tracking-wider text-amber-400 mb-1">Inquiry Subject *</label>
+                    <input type="text" name="subject" required value="{{ old('subject') }}" placeholder="e.g. Partnership / General Inquiry" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-400">
+                </div>
+            </div>
+
+            <div>
+                <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Your Message *</label>
+                <textarea name="message" rows="4" required placeholder="Type your detailed message here..." class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-emerald-400">{{ old('message') }}</textarea>
+            </div>
+
+            <div class="pt-2 flex justify-end gap-3">
+                <button type="button" onclick="document.getElementById('contactUsModal').classList.add('hidden')" class="px-4 py-2.5 rounded-xl bg-gray-800 text-gray-300 font-bold">Cancel</button>
+                <button type="submit" class="px-6 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold">Send Message &rarr;</button>
+            </div>
+        </form>
+    </div>
 </div>
 @endsection
