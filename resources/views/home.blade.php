@@ -49,6 +49,54 @@
     </div>
 </div>
 
+<!-- Latest Songs & Lyrics Section (This Week) -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-b border-gray-800/60">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h2 class="text-2xl font-black text-white tracking-tight flex items-center gap-2">
+                <span>✨</span> Latest Released Songs & Lyrics <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold font-mono uppercase">This Week</span>
+            </h2>
+            <p class="text-gray-400 text-xs mt-1">Freshly published Ekegusii song releases and verified lyrics added this week.</p>
+        </div>
+        <a href="{{ route('songs.index') }}" class="text-xs font-bold text-emerald-400 hover:text-emerald-300 uppercase tracking-wider shrink-0">
+            View All &rarr;
+        </a>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-5">
+        @foreach($weeklyLatestSongs as $song)
+            <a href="{{ route('songs.show', $song->slug) }}" class="group p-4 rounded-2xl bg-[#121927]/80 hover:bg-[#1c273c] border border-gray-800/80 hover:border-emerald-500/40 transition duration-300 flex flex-col justify-between shadow-lg">
+                <!-- Cover Artwork -->
+                <div class="relative aspect-square w-full rounded-xl overflow-hidden mb-3.5 bg-gray-950 shadow-md">
+                    <img src="{{ $song->cover_art_url }}" alt="{{ $song->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                    
+                    <div class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-emerald-500 text-slate-950 font-black text-[10px] uppercase tracking-wider shadow-lg">
+                        NEW
+                    </div>
+
+                    <!-- Floating Play Icon -->
+                    <div class="absolute bottom-2 right-2 w-10 h-10 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition duration-300">
+                        <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <h3 class="font-bold text-white text-sm truncate group-hover:text-emerald-400 transition leading-snug">
+                        {{ $song->title }}
+                    </h3>
+                    <p class="text-xs text-gray-400 truncate">
+                        {{ $song->artist ? $song->artist->name : 'Unknown Artist' }}
+                    </p>
+                    <div class="flex items-center justify-between text-[11px] text-gray-500 pt-1">
+                        <span>{{ $song->genre ? $song->genre->name : 'Gusii' }}</span>
+                        <span>👁️ {{ number_format($song->views_count) }}</span>
+                    </div>
+                </div>
+            </a>
+        @endforeach
+    </div>
+</div>
+
 <!-- Popular Albums and Singles (Spotify Card Grid) -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <!-- Spotify Section Header -->

@@ -31,6 +31,19 @@ class HomeController extends Controller
             ->take(8)
             ->get();
 
+        $weeklyLatestSongs = Song::with(['artist', 'genre'])
+            ->where('created_at', '>=', now()->subDays(7))
+            ->latest()
+            ->take(8)
+            ->get();
+
+        if ($weeklyLatestSongs->count() < 4) {
+            $weeklyLatestSongs = Song::with(['artist', 'genre'])
+                ->latest()
+                ->take(8)
+                ->get();
+        }
+
         $topCharts = Song::with(['artist', 'genre'])
             ->orderBy('views_count', 'desc')
             ->take(10)
@@ -50,6 +63,7 @@ class HomeController extends Controller
             'trendingSongs',
             'featuredArtists',
             'recentSongs',
+            'weeklyLatestSongs',
             'topCharts',
             'genres',
             'stats'
