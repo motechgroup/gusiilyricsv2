@@ -88,7 +88,8 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
-        $genres = Cache::remember('home_genres', 3600, fn() => Genre::withCount('songs')->get());
+        Cache::forget('home_genres');
+        $genres = Genre::withCount('songs')->get();
 
         $stats = Cache::remember('home_stats', 600, fn() => [
             'total_songs' => Song::count(),

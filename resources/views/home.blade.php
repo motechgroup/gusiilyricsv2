@@ -482,15 +482,12 @@
 
         <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 sm:gap-6 py-4">
             @forelse($genres as $genre)
-                @php
-                    $gSlug = is_object($genre) ? ($genre->slug ?? '') : (is_array($genre) ? ($genre['slug'] ?? '') : '');
-                    $gIcon = is_object($genre) ? ($genre->icon ?? '🎵') : (is_array($genre) ? ($genre['icon'] ?? '🎵') : '🎵');
-                    $gName = is_object($genre) ? ($genre->name ?? '') : (is_array($genre) ? ($genre['name'] ?? '') : (string)$genre);
-                @endphp
-                <a href="{{ route('songs.index', ['genre' => $gSlug]) }}" class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gray-950/90 hover:bg-gray-900 border border-gray-800/80 hover:border-amber-400/60 flex flex-col items-center justify-center text-center p-3 group transition duration-300 shadow-md shrink-0">
-                    <span class="text-2xl sm:text-3xl block group-hover:scale-110 transition-transform mb-1">{{ $gIcon ?: '🎵' }}</span>
-                    <strong class="text-[11px] sm:text-xs text-white block group-hover:text-amber-300 transition font-bold leading-tight px-1 line-clamp-2">{{ $gName }}</strong>
-                </a>
+                @if(is_object($genre) && isset($genre->name))
+                    <a href="{{ route('songs.index', ['genre' => $genre->slug]) }}" class="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gray-950/90 hover:bg-gray-900 border border-gray-800/80 hover:border-amber-400/60 flex flex-col items-center justify-center text-center p-3 group transition duration-300 shadow-md shrink-0">
+                        <span class="text-2xl sm:text-3xl block group-hover:scale-110 transition-transform mb-1">{{ $genre->icon ?: '🎵' }}</span>
+                        <strong class="text-[11px] sm:text-xs text-white block group-hover:text-amber-300 transition font-bold leading-tight px-1 line-clamp-2">{{ $genre->name }}</strong>
+                    </a>
+                @endif
             @empty
                 <div class="w-full text-center py-6 text-xs text-gray-500">No genres registered yet.</div>
             @endforelse
