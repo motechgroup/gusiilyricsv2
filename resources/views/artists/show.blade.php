@@ -120,56 +120,6 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
 
-    <!-- Top Most Viewed & Searched Songs by Artist -->
-    @if($allSongs->count() > 0)
-        <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-gray-800 space-y-5">
-            <div class="flex items-center justify-between border-b border-gray-800/80 pb-4">
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
-                        <span>🔥</span> Top Most Searched & Viewed Lyrics
-                    </h2>
-                    <p class="text-xs text-gray-400 mt-0.5">The highest ranking and most popular Ekegusii song lyrics by {{ $artist->name }}.</p>
-                </div>
-                <span class="px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 border border-amber-400/30 text-xs font-bold font-mono uppercase shrink-0">
-                    TOP HITS
-                </span>
-            </div>
-
-            <div class="divide-y divide-gray-800/60">
-                @foreach($allSongs->take(5) as $index => $song)
-                    <a href="{{ route('songs.show', $song->slug) }}" class="group py-3.5 px-3 rounded-2xl hover:bg-gray-900/80 transition flex items-center justify-between gap-4">
-                        <div class="flex items-center gap-3.5 truncate">
-                            <span class="w-6 text-center font-black font-mono text-sm {{ $index == 0 ? 'text-amber-400' : ($index == 1 ? 'text-gray-300' : ($index == 2 ? 'text-amber-600' : 'text-gray-500')) }}">
-                                {{ $index + 1 }}
-                            </span>
-                            <div class="w-12 h-12 rounded-xl overflow-hidden bg-gray-950 shrink-0 border border-gray-800 shadow-md">
-                                <img src="{{ $song->cover_art_url }}" alt="{{ $song->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                            </div>
-                            <div class="truncate">
-                                <h3 class="font-bold text-white text-sm sm:text-base truncate group-hover:text-emerald-400 transition leading-snug">
-                                    {{ $song->title }}
-                                </h3>
-                                <p class="text-xs text-gray-400 truncate">
-                                    {{ $song->display_artist_names }}
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-4 shrink-0">
-                            <div class="text-right hidden sm:block">
-                                <div class="text-xs font-bold text-emerald-400 font-mono">👁️ {{ number_format($song->views_count) }} views</div>
-                                <div class="text-[10px] text-gray-500 uppercase">{{ $song->genre ? $song->genre->name : 'Gusii' }}</div>
-                            </div>
-                            <div class="w-8 h-8 rounded-full bg-emerald-500/10 group-hover:bg-emerald-500 text-emerald-400 group-hover:text-slate-950 flex items-center justify-center transition">
-                                <svg class="w-4 h-4 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                            </div>
-                        </div>
-                    </a>
-                @endforeach
-            </div>
-        </div>
-    @endif
-
     <!-- Song Lyrics Section: Spotify Card Grid -->
     <div>
         <div class="flex items-center justify-between mb-6">

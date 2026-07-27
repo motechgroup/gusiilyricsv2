@@ -34,13 +34,13 @@ class HomeController extends Controller
         $weeklyLatestSongs = Song::with(['artist', 'genre'])
             ->where('created_at', '>=', now()->subDays(7))
             ->latest()
-            ->take(8)
+            ->take(5)
             ->get();
 
-        if ($weeklyLatestSongs->count() < 4) {
+        if ($weeklyLatestSongs->count() < 3) {
             $weeklyLatestSongs = Song::with(['artist', 'genre'])
                 ->latest()
-                ->take(8)
+                ->take(5)
                 ->get();
         }
 

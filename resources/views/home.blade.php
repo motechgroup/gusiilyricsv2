@@ -49,51 +49,59 @@
     </div>
 </div>
 
-<!-- Latest Songs & Lyrics Section (This Week) -->
+<!-- Latest Songs & Lyrics Section (This Week - List Style) -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-b border-gray-800/60">
     <div class="flex items-center justify-between mb-6">
         <div>
             <h2 class="text-2xl font-black text-white tracking-tight flex items-center gap-2">
                 <span>✨</span> Latest Released Songs & Lyrics <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold font-mono uppercase">This Week</span>
             </h2>
-            <p class="text-gray-400 text-xs mt-1">Freshly published Ekegusii song releases and verified lyrics added this week.</p>
+            <p class="text-gray-400 text-xs mt-1">Freshly published Gusii song releases and verified lyrics added this week.</p>
         </div>
-        <a href="{{ route('songs.index') }}" class="text-xs font-bold text-emerald-400 hover:text-emerald-300 uppercase tracking-wider shrink-0">
-            View All &rarr;
-        </a>
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-5">
-        @foreach($weeklyLatestSongs as $song)
-            <a href="{{ route('songs.show', $song->slug) }}" class="group p-4 rounded-2xl bg-[#121927]/80 hover:bg-[#1c273c] border border-gray-800/80 hover:border-emerald-500/40 transition duration-300 flex flex-col justify-between shadow-lg">
-                <!-- Cover Artwork -->
-                <div class="relative aspect-square w-full rounded-xl overflow-hidden mb-3.5 bg-gray-950 shadow-md">
-                    <img src="{{ $song->cover_art_url }}" alt="{{ $song->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                    
-                    <div class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-emerald-500 text-slate-950 font-black text-[10px] uppercase tracking-wider shadow-lg">
-                        NEW
+    <!-- List Style Container -->
+    <div class="glass-panel rounded-3xl border border-gray-800 p-2 sm:p-4 divide-y divide-gray-800/60 shadow-xl">
+        @foreach($weeklyLatestSongs->take(5) as $index => $song)
+            <a href="{{ route('songs.show', $song->slug) }}" class="group py-3 px-3 sm:px-4 rounded-2xl hover:bg-gray-900/80 transition flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3 sm:gap-4 truncate">
+                    <span class="w-5 text-center font-mono font-bold text-xs text-gray-500 group-hover:text-emerald-400 transition">
+                        0{{ $index + 1 }}
+                    </span>
+                    <div class="relative w-12 h-12 rounded-xl overflow-hidden bg-gray-950 shrink-0 border border-gray-800 shadow-md">
+                        <img src="{{ $song->cover_art_url }}" alt="{{ $song->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        <div class="absolute inset-0 bg-emerald-500/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                            <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
                     </div>
-
-                    <!-- Floating Play Icon -->
-                    <div class="absolute bottom-2 right-2 w-10 h-10 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shadow-xl opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition duration-300">
-                        <svg class="w-5 h-5 fill-current ml-0.5" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <div class="truncate">
+                        <h3 class="font-bold text-white text-sm sm:text-base truncate group-hover:text-emerald-400 transition leading-snug">
+                            {{ $song->title }}
+                        </h3>
+                        <p class="text-xs text-gray-400 truncate">
+                            {{ $song->artist ? $song->artist->name : 'Unknown Artist' }}
+                        </p>
                     </div>
                 </div>
 
-                <div class="space-y-1">
-                    <h3 class="font-bold text-white text-sm truncate group-hover:text-emerald-400 transition leading-snug">
-                        {{ $song->title }}
-                    </h3>
-                    <p class="text-xs text-gray-400 truncate">
-                        {{ $song->artist ? $song->artist->name : 'Unknown Artist' }}
-                    </p>
-                    <div class="flex items-center justify-between text-[11px] text-gray-500 pt-1">
-                        <span>{{ $song->genre ? $song->genre->name : 'Gusii' }}</span>
-                        <span>👁️ {{ number_format($song->views_count) }}</span>
+                <div class="flex items-center gap-4 shrink-0">
+                    <span class="hidden sm:inline-block px-2.5 py-1 rounded-full bg-gray-900 border border-gray-800 text-[11px] font-semibold text-gray-400">
+                        {{ $song->genre ? $song->genre->name : 'Gusii' }}
+                    </span>
+                    <div class="text-right">
+                        <span class="text-xs font-bold text-emerald-400 font-mono">👁️ {{ number_format($song->views_count) }}</span>
                     </div>
                 </div>
             </a>
         @endforeach
+    </div>
+
+    <!-- View More Button -->
+    <div class="mt-6 text-center">
+        <a href="{{ route('songs.index') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-gray-900 hover:bg-emerald-500 text-gray-300 hover:text-slate-950 font-bold text-xs border border-gray-800 hover:border-emerald-400 transition duration-300 shadow-lg">
+            <span>View More Songs & Lyrics</span>
+            <span>&rarr;</span>
+        </a>
     </div>
 </div>
 
