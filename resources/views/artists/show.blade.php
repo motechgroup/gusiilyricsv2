@@ -14,26 +14,28 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div class="flex flex-col md:flex-row items-center md:items-end gap-6 sm:gap-8 text-center md:text-left">
             
-            <!-- Artist Profile Picture -->
-            <div class="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden shrink-0 shadow-2xl border-4 border-emerald-500/30">
-                <img src="{{ $artist->avatar_url }}" alt="{{ $artist->name }}" class="w-full h-full object-cover">
+            <!-- Artist Profile Picture with Floating Verified Badge -->
+            <div class="relative shrink-0">
+                <div class="w-36 h-36 sm:w-48 sm:h-48 rounded-full overflow-hidden shadow-2xl border-4 border-emerald-500/40 bg-gray-950">
+                    <img src="{{ $artist->avatar_url }}" alt="{{ $artist->name }}" class="w-full h-full object-cover">
+                </div>
+                <!-- Blue Verified Checkmark Badge on Profile Picture -->
+                <div class="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-2xl border-2 border-[#090d16]" title="Verified Ekegusii Artist">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
             </div>
 
             <!-- Artist Meta Info -->
             <div class="space-y-3 flex-grow">
-                <!-- Verified Artist Badge & Primary Genre -->
-                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2">
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30 text-xs font-bold uppercase tracking-wider">
-                        <svg class="w-4 h-4 fill-current text-blue-400" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-                        <span>Verified Ekegusii Artist</span>
-                    </div>
-
-                    @if($artist->genre)
+                @if($artist->genre)
+                    <div>
                         <a href="{{ route('categories.genre', $artist->genre->slug) }}" class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-bold uppercase tracking-wider hover:bg-purple-500/30 transition">
                             <span>{{ $artist->genre->icon }} {{ $artist->genre->name }}</span>
                         </a>
-                    @endif
-                </div>
+                    </div>
+                @endif
 
                 <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-none">
                     {{ $artist->name }}
