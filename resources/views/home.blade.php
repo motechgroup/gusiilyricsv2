@@ -9,7 +9,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-5">
 
         <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mx-auto">
-            Discover Gusii<span class="text-gradient-emerald"> Song Lyrics</span>
+            Discover Gusii<span class="text-gradient-emerald"> Songs Lyrics</span>
         </h1>
 
         <p class="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">

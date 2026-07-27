@@ -13,8 +13,8 @@
         <p class="text-gray-400 text-sm mt-1">Browse and search official Gusii music lyrics & stream links.</p>
     </div>
 
-    <!-- Search & Filter Bar -->
-    <form method="GET" action="{{ route('songs.index') }}" class="glass-panel p-4 rounded-2xl mb-6 flex flex-col md:flex-row gap-4 items-center">
+    <!-- Search & Filter Bar (Un-enclosed) -->
+    <form method="GET" action="{{ route('songs.index') }}" class="mb-6 flex flex-col md:flex-row gap-4 items-center">
         <!-- Preserve selected letter if any -->
         @if(request('letter'))
             <input type="hidden" name="letter" value="{{ request('letter') }}">
@@ -61,8 +61,8 @@
         @endif
     </form>
 
-    <!-- A-Z Alphabetical Index Filter Bar -->
-    <div class="mb-10 p-3 rounded-2xl glass-panel border border-gray-800/80">
+    <!-- A-Z Alphabetical Index Filter Bar (Un-enclosed) -->
+    <div class="mb-10 py-3 border-t border-b border-gray-800/80">
         <div class="text-[10px] font-extrabold uppercase tracking-wider text-gray-400 mb-2 px-2 flex items-center justify-between">
             <span>🔤 Alphabetical Lyrics Index</span>
             @if(request('letter'))
