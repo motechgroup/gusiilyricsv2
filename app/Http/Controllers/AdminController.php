@@ -933,6 +933,14 @@ class AdminController extends Controller
         $fromAddress = Setting::get('mail_from_address', 'info@gusiilyrics.com');
         $fromName = Setting::get('mail_from_name', 'Gusii Lyrics');
 
+        $encLower = strtolower(trim((string)$encryption));
+        $scheme = null;
+        if (in_array($encLower, ['ssl', 'smtps']) || (int)$port === 465) {
+            $scheme = 'smtps';
+        } elseif (in_array($encLower, ['tls', 'smtp']) || (int)$port === 587) {
+            $scheme = 'smtp';
+        }
+
         config([
             'mail.default' => $mailer,
             'mail.mailers.smtp.transport' => 'smtp',
@@ -940,7 +948,7 @@ class AdminController extends Controller
             'mail.mailers.smtp.port' => (int)$port,
             'mail.mailers.smtp.username' => $username,
             'mail.mailers.smtp.password' => $password,
-            'mail.mailers.smtp.scheme' => ($encryption === 'null' || empty($encryption)) ? null : $encryption,
+            'mail.mailers.smtp.scheme' => $scheme,
             'mail.from.address' => $fromAddress,
             'mail.from.name' => $fromName,
         ]);
