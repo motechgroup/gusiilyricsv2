@@ -68,44 +68,39 @@
                             </svg>
                             <span id="follow-text">{{ $isFollowed ? 'Following' : 'Follow Artist' }}</span>
                         </button>
-                    </form>
+                                    @php
+                        $ytUrl = $artist->youtube ?: 'https://www.youtube.com/results?search_query=' . urlencode($artist->name . ' Ekegusii');
+                        $spUrl = $artist->spotify ?: 'https://open.spotify.com/search/' . urlencode($artist->name);
+                        $igUrl = $artist->instagram ?: 'https://www.instagram.com/explore/tags/' . urlencode(Str::slug($artist->name, ''));
+                        $fbUrl = $artist->facebook ?: 'https://www.facebook.com/search/top?q=' . urlencode($artist->name);
+                        $tkUrl = $artist->tiktok ?: 'https://www.tiktok.com/search?q=' . urlencode($artist->name);
+                        $webUrl = $artist->website ?: route('artists.show', $artist->slug);
+                    @endphp
 
-                    <!-- Social Icons Next to Follow Button -->
-                    @if($artist->youtube)
-                        <a href="{{ $artist->youtube }}" target="_blank" rel="noopener" title="YouTube Channel" class="w-9 h-9 rounded-full bg-rose-500/15 hover:bg-rose-500/30 text-rose-400 border border-rose-500/30 hover:scale-110 transition flex items-center justify-center">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                        </a>
-                    @endif
+                    <!-- Social Icons Next to Follow Button (Always Active) -->
+                    <a href="{{ $ytUrl }}" target="_blank" rel="noopener" title="YouTube Channel - {{ $artist->name }}" class="w-9 h-9 rounded-full bg-rose-500/15 hover:bg-rose-500/30 text-rose-400 border border-rose-500/30 hover:scale-110 transition flex items-center justify-center">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
 
-                    @if($artist->spotify)
-                        <a href="{{ $artist->spotify }}" target="_blank" rel="noopener" title="Spotify Artist" class="w-9 h-9 rounded-full bg-emerald-500/15 hover:bg-emerald-500/30 text-[#1DB954] border border-[#1DB954]/30 hover:scale-110 transition flex items-center justify-center">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.503 17.306c-.22.36-.688.473-1.047.252-2.868-1.754-6.478-2.152-10.73-1.18-.41.094-.82-.164-.913-.574-.094-.41.164-.82.574-.913 4.654-1.064 8.653-.615 11.864 1.348.36.22.473.687.252 1.067zm1.47-3.267c-.276.45-.866.592-1.316.315-3.282-2.017-8.287-2.602-12.17-1.423-.505.153-1.04-.132-1.193-.637-.153-.505.132-1.04.637-1.193 4.437-1.346 9.948-.7 13.727 1.622.45.277.592.866.315 1.316zm.126-3.41c-3.935-2.337-10.428-2.553-14.205-1.406-.605.183-1.246-.164-1.43-.769-.183-.605.164-1.246.769-1.43 4.337-1.316 11.5-1.06 16.027 1.628.544.323.72 1.026.397 1.57-.323.545-1.026.72-1.558.397z"/></svg>
-                        </a>
-                    @endif
+                    <a href="{{ $spUrl }}" target="_blank" rel="noopener" title="Spotify Artist - {{ $artist->name }}" class="w-9 h-9 rounded-full bg-emerald-500/15 hover:bg-emerald-500/30 text-[#1DB954] border border-[#1DB954]/30 hover:scale-110 transition flex items-center justify-center">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.503 17.306c-.22.36-.688.473-1.047.252-2.868-1.754-6.478-2.152-10.73-1.18-.41.094-.82-.164-.913-.574-.094-.41.164-.82.574-.913 4.654-1.064 8.653-.615 11.864 1.348.36.22.473.687.252 1.067zm1.47-3.267c-.276.45-.866.592-1.316.315-3.282-2.017-8.287-2.602-12.17-1.423-.505.153-1.04-.132-1.193-.637-.153-.505.132-1.04.637-1.193 4.437-1.346 9.948-.7 13.727 1.622.45.277.592.866.315 1.316zm.126-3.41c-3.935-2.337-10.428-2.553-14.205-1.406-.605.183-1.246-.164-1.43-.769-.183-.605.164-1.246.769-1.43 4.337-1.316 11.5-1.06 16.027 1.628.544.323.72 1.026.397 1.57-.323.545-1.026.72-1.558.397z"/></svg>
+                    </a>
 
-                    @if($artist->instagram)
-                        <a href="{{ $artist->instagram }}" target="_blank" rel="noopener" title="Instagram Profile" class="w-9 h-9 rounded-full bg-pink-500/15 hover:bg-pink-500/30 text-pink-400 border border-pink-500/30 hover:scale-110 transition flex items-center justify-center">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                        </a>
-                    @endif
+                    <a href="{{ $igUrl }}" target="_blank" rel="noopener" title="Instagram Profile - {{ $artist->name }}" class="w-9 h-9 rounded-full bg-pink-500/15 hover:bg-pink-500/30 text-pink-400 border border-pink-500/30 hover:scale-110 transition flex items-center justify-center">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
 
-                    @if($artist->facebook)
-                        <a href="{{ $artist->facebook }}" target="_blank" rel="noopener" title="Facebook Page" class="w-9 h-9 rounded-full bg-sky-500/15 hover:bg-sky-500/30 text-sky-400 border border-sky-500/30 hover:scale-110 transition flex items-center justify-center">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                        </a>
-                    @endif
+                    <a href="{{ $fbUrl }}" target="_blank" rel="noopener" title="Facebook Page - {{ $artist->name }}" class="w-9 h-9 rounded-full bg-sky-500/15 hover:bg-sky-500/30 text-sky-400 border border-sky-500/30 hover:scale-110 transition flex items-center justify-center">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
 
-                    @if($artist->tiktok)
-                        <a href="{{ $artist->tiktok }}" target="_blank" rel="noopener" title="TikTok Profile" class="w-9 h-9 rounded-full bg-cyan-500/15 hover:bg-cyan-500/30 text-cyan-400 border border-cyan-500/30 hover:scale-110 transition flex items-center justify-center">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.82.56-1.36 1.47-1.41 2.45-.04 1.02.43 2.05 1.22 2.68.85.67 2.03.88 3.06.57 1.05-.3 1.89-1.13 2.17-2.18.15-.65.17-1.32.17-1.99V.02z"/></svg>
-                        </a>
-                    @endif
+                    <a href="{{ $tkUrl }}" target="_blank" rel="noopener" title="TikTok Profile - {{ $artist->name }}" class="w-9 h-9 rounded-full bg-cyan-500/15 hover:bg-cyan-500/30 text-cyan-400 border border-cyan-500/30 hover:scale-110 transition flex items-center justify-center">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.82.56-1.36 1.47-1.41 2.45-.04 1.02.43 2.05 1.22 2.68.85.67 2.03.88 3.06.57 1.05-.3 1.89-1.13 2.17-2.18.15-.65.17-1.32.17-1.99V.02z"/></svg>
+                    </a>
 
-                    @if($artist->website)
-                        <a href="{{ $artist->website }}" target="_blank" rel="noopener" title="Official Website" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 hover:scale-110 transition flex items-center justify-center">
-                            <svg class="w-4 h-4 stroke-current fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-                        </a>
-                    @endif
+                    <a href="{{ $webUrl }}" target="_blank" rel="noopener" title="Official Website - {{ $artist->name }}" class="w-9 h-9 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-700 hover:scale-110 transition flex items-center justify-center">
+                        <svg class="w-4 h-4 stroke-current fill-none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                    </a>
                 </div>
 
                 @if($artist->bio)
