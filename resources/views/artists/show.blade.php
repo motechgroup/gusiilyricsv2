@@ -31,14 +31,33 @@
                     {{ $artist->name }}
                 </h1>
 
+                @php
+                    $isFollowed = $artist->isFollowedByVisitor();
+                @endphp
+
                 <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs font-mono text-gray-300">
                     <span>📍 Region: <strong class="text-emerald-400 font-bold">{{ $artist->location }}</strong></span>
                     <span>•</span>
-                    <span>⏳ Active: <strong class="text-white">{{ $artist->active_years ?: '2010 - Present' }}</strong></span>
+                    <span>🎶 <strong class="text-emerald-400">{{ $allSongs->count() }} Songs</strong></span>
                     <span>•</span>
-                    <span>🏷️ Label: <strong class="text-white">{{ $artist->label ?: 'Independent / Gusii Music' }}</strong></span>
-                    <span>•</span>
-                    <span>🎶 <strong class="text-emerald-400">{{ $allSongs->count() }} Songs & Collaborations</strong></span>
+                    <span>👥 <strong id="follower-count" class="text-emerald-400 font-bold">{{ $artist->formatted_followers }}</strong> Followers</span>
+                </div>
+
+                <!-- Follow Artist Button -->
+                <div class="pt-1.5 flex items-center justify-center md:justify-start gap-3">
+                    <form id="follow-artist-form" action="{{ route('artists.follow', $artist->id) }}" method="POST" class="inline-block">
+                        @csrf
+                        <button type="submit" id="follow-btn" class="px-5 py-2 rounded-full text-xs font-extrabold transition duration-300 flex items-center gap-2 shadow-xl cursor-pointer select-none {{ $isFollowed ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-rose-500/20 hover:text-rose-300 hover:border-rose-500/40' : 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 hover:scale-105' }}">
+                            <svg id="follow-icon" class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                @if($isFollowed)
+                                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                                @else
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                @endif
+                            </svg>
+                            <span id="follow-text">{{ $isFollowed ? 'Following' : 'Follow Artist' }}</span>
+                        </button>
+                    </form>
                 </div>
 
                 <!-- Artist Official Social Media & Streaming Links -->
@@ -223,6 +242,48 @@
     }
   }]
 }
+</script>
+
+<script>
+document.getElementById('follow-artist-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('follow-btn');
+    const text = document.getElementById('follow-text');
+    const icon = document.getElementById('follow-icon');
+    const countEl = document.getElementById('follower-count');
+
+    btn.style.opacity = '0.7';
+
+    fetch(this.action, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.style.opacity = '1';
+        if (data.success) {
+            if (data.is_following) {
+                btn.className = 'px-5 py-2 rounded-full text-xs font-extrabold transition duration-300 flex items-center gap-2 shadow-xl cursor-pointer select-none bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-rose-500/20 hover:text-rose-300 hover:border-rose-500/40';
+                text.textContent = 'Following';
+                icon.innerHTML = '<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>';
+            } else {
+                btn.className = 'px-5 py-2 rounded-full text-xs font-extrabold transition duration-300 flex items-center gap-2 shadow-xl cursor-pointer select-none bg-emerald-500 hover:bg-emerald-400 text-slate-950 hover:scale-105';
+                text.textContent = 'Follow Artist';
+                icon.innerHTML = '<path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>';
+            }
+            if (countEl && data.formatted_followers !== undefined) {
+                countEl.textContent = data.formatted_followers;
+            }
+        }
+    })
+    .catch(() => {
+        btn.style.opacity = '1';
+    });
+});
 </script>
 
 @endsection

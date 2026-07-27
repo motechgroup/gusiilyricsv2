@@ -79,4 +79,73 @@ class ArtistController extends Controller
 
         return view('artists.show', compact('artist', 'allSongs'));
     }
+
+    public function follow(Request $request, $id)
+    {
+        $artist = Artist::findOrFail($id);
+        $ip = $request->ip();
+
+        $visitorToken = $request->cookie('visitor_token');
+        if (!$visitorToken) {
+            $visitorToken = \Illuminate\Support\Str::uuid()->toString();
+            cookie()->queue('visitor_token', $visitorToken, 525600);
+        }
+
+        $isFollowing = false;
+        $message = '';
+
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('artist_followers')) {
+                $existing = \Illuminate\Support\Facades\DB::table('artist_followers')
+                    ->where('artist_id', $artist->id)
+                    ->where(function ($q) use ($ip, $visitorToken) {
+                        $q->where('ip_address', $ip);
+                        if ($visitorToken) {
+                            $q->orWhere('visitor_token', $visitorToken);
+                        }
+                    })->first();
+
+                if ($existing) {
+                    \Illuminate\Support\Facades\DB::table('artist_followers')->where('id', $existing->id)->delete();
+                    $artist->decrement('followers_count');
+                    $isFollowing = false;
+                    $message = 'You unfollowed ' . $artist->name;
+                } else {
+                    \Illuminate\Support\Facades\DB::table('artist_followers')->insert([
+                        'artist_id' => $artist->id,
+                        'ip_address' => $ip,
+                        'visitor_token' => $visitorToken,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                    $artist->increment('followers_count');
+                    $isFollowing = true;
+                    $message = 'You are now following ' . $artist->name . '! 🎉';
+                }
+            } else {
+                $artist->increment('followers_count');
+                $isFollowing = true;
+                $message = 'You are now following ' . $artist->name . '! 🎉';
+            }
+        } catch (\Throwable $e) {
+            $artist->increment('followers_count');
+            $isFollowing = true;
+            $message = 'Thank you for following ' . $artist->name;
+        }
+
+        $freshCount = max(0, $artist->fresh()->followers_count);
+        $formattedCount = $artist->fresh()->formatted_followers;
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'is_following' => $isFollowing,
+                'followers_count' => $freshCount,
+                'formatted_followers' => $formattedCount,
+                'message' => $message,
+            ]);
+        }
+
+        return redirect()->back()->with('success', $message);
+    }
 }

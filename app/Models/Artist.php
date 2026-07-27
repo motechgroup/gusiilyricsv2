@@ -27,10 +27,12 @@ class Artist extends Model
         'bio',
         'image',
         'is_featured',
+        'followers_count',
     ];
 
     protected $casts = [
         'is_featured' => 'boolean',
+        'followers_count' => 'integer',
     ];
 
     public function songs(): HasMany
@@ -80,5 +82,40 @@ class Artist extends Model
         }
 
         return asset($clean);
+    }
+
+    public function getFormattedFollowersAttribute(): string
+    {
+        $count = $this->followers_count ?? 0;
+        if ($count >= 1000000) {
+            return round($count / 1000000, 1) . 'M';
+        }
+        if ($count >= 1000) {
+            return round($count / 1000, 1) . 'K';
+        }
+        return (string) $count;
+    }
+
+    public function isFollowedByVisitor(?string $ipAddress = null, ?string $visitorToken = null): bool
+    {
+        $ip = $ipAddress ?: request()->ip();
+        $token = $visitorToken ?: request()->cookie('visitor_token');
+
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('artist_followers')) {
+                return \Illuminate\Support\Facades\DB::table('artist_followers')
+                    ->where('artist_id', $this->id)
+                    ->where(function ($q) use ($ip, $token) {
+                        $q->where('ip_address', $ip);
+                        if ($token) {
+                            $q->orWhere('visitor_token', $token);
+                        }
+                    })->exists();
+            }
+        } catch (\Throwable $e) {
+            // Graceful fallback
+        }
+
+        return false;
     }
 }
