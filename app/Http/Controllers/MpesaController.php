@@ -11,6 +11,13 @@ class MpesaController extends Controller
 {
     public function stkPush(Request $request)
     {
+        if (\App\Models\Setting::get('enable_mpesa', '1') === '0') {
+            return response()->json([
+                'success' => false,
+                'message' => 'M-Pesa payment gateway is currently disabled by system administrator.',
+            ], 403);
+        }
+
         $validated = $request->validate([
             'phone' => 'required|string|min:9',
             'amount' => 'required|numeric|min:1',

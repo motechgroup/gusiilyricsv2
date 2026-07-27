@@ -774,12 +774,14 @@ class AdminController extends Controller
             'google_adsense_code' => Setting::get('google_adsense_code', ''),
             'meta_pixel_id' => Setting::get('meta_pixel_id', ''),
             'mpesa_env' => Setting::get('mpesa_env', 'sandbox'),
+            'enable_mpesa' => Setting::get('enable_mpesa', '1'),
             'mpesa_consumer_key' => Setting::get('mpesa_consumer_key', ''),
             'mpesa_consumer_secret' => Setting::get('mpesa_consumer_secret', ''),
             'mpesa_passkey' => Setting::get('mpesa_passkey', ''),
             'mpesa_shortcode' => Setting::get('mpesa_shortcode', ''),
             'mpesa_till' => Setting::get('mpesa_till', ''),
             'mpesa_paybill' => Setting::get('mpesa_paybill', ''),
+            'enable_stripe' => Setting::get('enable_stripe', '1'),
             'stripe_publishable_key' => Setting::get('stripe_publishable_key', ''),
             'stripe_secret_key' => Setting::get('stripe_secret_key', ''),
             'stripe_webhook_secret' => Setting::get('stripe_webhook_secret', ''),
@@ -861,6 +863,7 @@ class AdminController extends Controller
 
         // 2. M-Pesa STK Push Section
         if ($section === 'mpesa') {
+            Setting::set('enable_mpesa', $request->has('enable_mpesa') ? '1' : '0');
             if ($request->has('mpesa_env')) Setting::set('mpesa_env', $request->mpesa_env);
             if ($request->has('mpesa_consumer_key')) Setting::set('mpesa_consumer_key', $request->mpesa_consumer_key);
             if ($request->has('mpesa_consumer_secret')) Setting::set('mpesa_consumer_secret', $request->mpesa_consumer_secret);
@@ -874,6 +877,7 @@ class AdminController extends Controller
 
         // 3. Stripe API Credentials Section
         if ($section === 'stripe') {
+            Setting::set('enable_stripe', $request->has('enable_stripe') ? '1' : '0');
             if ($request->has('stripe_publishable_key')) Setting::set('stripe_publishable_key', $request->stripe_publishable_key);
             if ($request->has('stripe_secret_key')) Setting::set('stripe_secret_key', $request->stripe_secret_key);
             if ($request->has('stripe_webhook_secret')) Setting::set('stripe_webhook_secret', $request->stripe_webhook_secret);

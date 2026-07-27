@@ -108,21 +108,23 @@
 
         <div class="space-y-3 pt-2">
             <!-- Option 1: M-Pesa STK Push -->
-            <button onclick="openMpesaPhoneForm()" class="w-full p-4 rounded-2xl bg-[#00a651]/15 hover:bg-[#00a651]/25 border border-[#00a651]/50 text-left flex items-center justify-between group transition">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-[#00a651] text-white flex items-center justify-center font-black text-sm">
-                        M
+            @if($settings['enable_mpesa'])
+                <button onclick="openMpesaPhoneForm()" class="w-full p-4 rounded-2xl bg-[#00a651]/15 hover:bg-[#00a651]/25 border border-[#00a651]/50 text-left flex items-center justify-between group transition">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-[#00a651] text-white flex items-center justify-center font-black text-sm">
+                            M
+                        </div>
+                        <div>
+                            <h4 class="font-extrabold text-white text-sm group-hover:text-[#00a651] transition">M-Pesa Express / STK Push</h4>
+                            <p class="text-[11px] text-gray-400">Receive PIN prompt directly on phone</p>
+                        </div>
                     </div>
-                    <div>
-                        <h4 class="font-extrabold text-white text-sm group-hover:text-[#00a651] transition">M-Pesa Express / STK Push</h4>
-                        <p class="text-[11px] text-gray-400">Receive PIN prompt directly on phone</p>
-                    </div>
-                </div>
-                <span class="text-gray-400 group-hover:text-white font-bold">&rarr;</span>
-            </button>
+                    <span class="text-gray-400 group-hover:text-white font-bold">&rarr;</span>
+                </button>
+            @endif
 
             <!-- Option 2: Stripe / Card -->
-            @if(!empty($settings['stripe_url']))
+            @if($settings['enable_stripe'] && !empty($settings['stripe_url']))
                 <a id="stripeChoiceBtn" href="{{ $settings['stripe_url'] }}" target="_blank" class="w-full p-4 rounded-2xl bg-[#635bff]/15 hover:bg-[#635bff]/25 border border-[#635bff]/50 text-left flex items-center justify-between group transition block">
                     <div class="flex items-center gap-3">
                         <div class="w-10 h-10 rounded-xl bg-[#635bff] text-white flex items-center justify-center font-black text-sm shrink-0">
@@ -135,6 +137,12 @@
                     </div>
                     <span class="text-gray-400 group-hover:text-white font-bold">&rarr;</span>
                 </a>
+            @endif
+
+            @if(!$settings['enable_mpesa'] && (!$settings['enable_stripe'] || empty($settings['stripe_url'])))
+                <div class="p-4 text-center text-xs text-amber-400 bg-amber-500/10 rounded-2xl border border-amber-500/20 font-medium">
+                    Online automated gateways are currently undergoing routine maintenance. Please contact site management or use offline details below.
+                </div>
             @endif
         </div>
     </div>

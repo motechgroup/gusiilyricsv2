@@ -94,6 +94,17 @@
                 <span class="text-[10px] text-gray-500 uppercase tracking-widest font-mono">Standalone Save</span>
             </div>
 
+            <div class="flex items-center justify-between p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+                <div>
+                    <h4 class="text-xs font-bold text-emerald-400">Enable M-Pesa Gateway</h4>
+                    <p class="text-[10px] text-gray-400">Allow visitors to donate via M-Pesa Express STK push and till number.</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" name="enable_mpesa" value="1" {{ ($settings['enable_mpesa'] ?? '1') === '1' ? 'checked' : '' }} class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                </label>
+            </div>
+
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
                     <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">M-Pesa API Environment</label>
@@ -146,6 +157,17 @@
                     💳 Stripe API Credentials & Payment Link
                 </h3>
                 <span class="text-[10px] text-gray-500 uppercase tracking-widest font-mono">Standalone Save</span>
+            </div>
+
+            <div class="flex items-center justify-between p-3 rounded-2xl bg-indigo-500/10 border border-indigo-500/20">
+                <div>
+                    <h4 class="text-xs font-bold text-indigo-400">Enable Stripe Gateway</h4>
+                    <p class="text-[10px] text-gray-400">Allow international visitors to donate via Visa, Mastercard, and Apple Pay.</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" name="enable_stripe" value="1" {{ ($settings['enable_stripe'] ?? '1') === '1' ? 'checked' : '' }} class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-500"></div>
+                </label>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
