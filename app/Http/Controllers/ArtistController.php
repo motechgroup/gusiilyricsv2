@@ -53,15 +53,29 @@ class ArtistController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        $allSongs = Song::with(['artist', 'artists', 'genre'])
-            ->where(function ($query) use ($artist) {
-                $query->where('artist_id', $artist->id)
-                    ->orWhereHas('artists', function ($q) use ($artist) {
-                        $q->where('artists.id', $artist->id);
-                    });
-            })
-            ->orderBy('views_count', 'desc')
-            ->get();
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('artist_song')) {
+                $allSongs = Song::with(['artist', 'artists', 'genre'])
+                    ->where(function ($query) use ($artist) {
+                        $query->where('artist_id', $artist->id)
+                            ->orWhereHas('artists', function ($q) use ($artist) {
+                                $q->where('artists.id', $artist->id);
+                            });
+                    })
+                    ->orderBy('views_count', 'desc')
+                    ->get();
+            } else {
+                $allSongs = Song::with(['artist', 'genre'])
+                    ->where('artist_id', $artist->id)
+                    ->orderBy('views_count', 'desc')
+                    ->get();
+            }
+        } catch (\Throwable $e) {
+            $allSongs = Song::with(['artist', 'genre'])
+                ->where('artist_id', $artist->id)
+                ->orderBy('views_count', 'desc')
+                ->get();
+        }
 
         return view('artists.show', compact('artist', 'allSongs'));
     }

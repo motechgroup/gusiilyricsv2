@@ -60,29 +60,44 @@ class Song extends Model
     public function getAllArtistsAttribute()
     {
         $primary = $this->artist;
-        $collaborators = $this->artists;
-        
         $all = collect();
         if ($primary) {
             $all->push($primary);
         }
-        foreach ($collaborators as $c) {
-            if (!$primary || $c->id !== $primary->id) {
-                $all->push($c);
+
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('artist_song')) {
+                $collaborators = $this->artists;
+                foreach ($collaborators as $c) {
+                    if (!$primary || $c->id !== $primary->id) {
+                        $all->push($c);
+                    }
+                }
             }
+        } catch (\Throwable $e) {
+            // Gracefully handle if table does not exist on production yet
         }
+
         return $all->unique('id')->values();
     }
 
     public function getDisplayArtistNamesAttribute(): string
     {
         $primaryName = $this->artist ? $this->artist->name : 'Unknown Artist';
-        $collabNames = $this->artists->reject(fn($a) => $this->artist && $a->id === $this->artist->id)->pluck('name');
-        
-        if ($collabNames->isEmpty()) {
+
+        try {
+            if (!\Illuminate\Support\Facades\Schema::hasTable('artist_song')) {
+                return $primaryName;
+            }
+            $collabNames = $this->artists->reject(fn($a) => $this->artist && $a->id === $this->artist->id)->pluck('name');
+            
+            if ($collabNames->isEmpty()) {
+                return $primaryName;
+            }
+            return $primaryName . ' ft. ' . $collabNames->implode(', ');
+        } catch (\Throwable $e) {
             return $primaryName;
         }
-        return $primaryName . ' ft. ' . $collabNames->implode(', ');
     }
 
     public function album(): BelongsTo
