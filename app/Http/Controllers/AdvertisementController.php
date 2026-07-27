@@ -55,6 +55,7 @@ class AdvertisementController extends Controller
     {
         $validated = $request->validate([
             'artist_name' => 'required|string|max:255',
+            'artist_type' => 'nullable|string|in:artist,band,choir,group',
             'contact_person' => 'nullable|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:50',
@@ -65,9 +66,17 @@ class AdvertisementController extends Controller
             'message' => 'nullable|string',
         ]);
 
+        $typeLabel = match($request->input('artist_type')) {
+            'band' => 'Music Band',
+            'choir' => 'Gospel Choir',
+            'group' => 'Music Group',
+            default => 'Artist',
+        };
+
         $message = "MUSIC PROMOTION SUBMISSION:\n";
-        $message .= "Artist: {$validated['artist_name']}\n";
-        $message .= "Song: {$validated['song_title']}\n";
+        $message .= "Artist/Entity Name: {$validated['artist_name']}\n";
+        $message .= "Category Type: {$typeLabel}\n";
+        $message .= "Song Title: {$validated['song_title']}\n";
         $message .= "Song Link: {$validated['song_url']}\n";
         $message .= "Package: {$validated['package_type']}\n";
         if (!empty($validated['lyrics_text'])) {

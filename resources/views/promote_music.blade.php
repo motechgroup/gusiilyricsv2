@@ -142,15 +142,25 @@
         <form method="POST" action="{{ route('promote-music.store') }}" class="space-y-4 text-xs">
             @csrf
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                    <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Artist / Band Name *</label>
-                    <input type="text" name="artist_name" required value="{{ old('artist_name') }}" placeholder="e.g. Fenny Kerubo" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-amber-400">
+                    <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Artist / Band / Choir Name *</label>
+                    <input type="text" name="artist_name" required value="{{ old('artist_name') }}" placeholder="e.g. Fenny Kerubo, Nyabite Boys..." class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-amber-400">
+                </div>
+
+                <div>
+                    <label class="block font-bold uppercase tracking-wider text-amber-400 mb-1">Artist Category / Type *</label>
+                    <select name="artist_type" required class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-amber-400 font-bold">
+                        <option value="artist" {{ old('artist_type', 'artist') === 'artist' ? 'selected' : '' }}>🎤 Artist</option>
+                        <option value="band" {{ old('artist_type') === 'band' ? 'selected' : '' }}>🎸 Music Band</option>
+                        <option value="choir" {{ old('artist_type') === 'choir' ? 'selected' : '' }}>🎼 Gospel Choir</option>
+                        <option value="group" {{ old('artist_type') === 'group' ? 'selected' : '' }}>👥 Music Group</option>
+                    </select>
                 </div>
 
                 <div>
                     <label class="block font-bold uppercase tracking-wider text-gray-300 mb-1">Contact Person Name</label>
-                    <input type="text" name="contact_person" value="{{ old('contact_person') }}" placeholder="e.g. Manager / Artist Name" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-amber-400">
+                    <input type="text" name="contact_person" value="{{ old('contact_person') }}" placeholder="e.g. Manager / Representative" class="w-full px-4 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs focus:outline-none focus:border-amber-400">
                 </div>
             </div>
 
