@@ -120,41 +120,52 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
 
-    <!-- Song Lyrics Section: Spotify Card Grid -->
+    <!-- Song Lyrics Section: Clean Tracklist View -->
     <div>
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="text-2xl font-extrabold text-white tracking-tight">All Songs & Discography</h2>
-            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">{{ $allSongs->count() }} Songs & Collaborations</span>
+        <div class="flex items-center justify-between mb-6 pb-2 border-b border-gray-800/80">
+            <h2 class="text-2xl font-extrabold text-white tracking-tight">Songs & Discography</h2>
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider font-mono">{{ $allSongs->count() }} Songs & Collaborations</span>
         </div>
 
         @if($allSongs->count() > 0)
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-                @foreach($allSongs as $song)
-                    <a href="{{ route('songs.show', $song->slug) }}" class="group p-4 rounded-2xl bg-[#121927]/60 hover:bg-[#1c273c] transition duration-300 flex flex-col justify-between border border-transparent hover:border-emerald-500/20 shadow-lg">
-                        <!-- Artwork Container -->
-                        <div class="relative aspect-square w-full rounded-xl overflow-hidden mb-3.5 bg-gray-950 shadow-md">
-                            <img src="{{ $song->cover_art_url }}" alt="{{ $song->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-                            
-                            <!-- Floating Green Play Button -->
-                            <div class="absolute bottom-2 right-2 w-11 h-11 rounded-full bg-emerald-500 text-slate-950 flex items-center justify-center shadow-2xl opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-300">
-                                <svg class="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <div class="divide-y divide-gray-800/60">
+                @foreach($allSongs as $index => $song)
+                    <a href="{{ route('songs.show', $song->slug) }}" class="group py-3.5 px-3 rounded-2xl hover:bg-gray-900/80 transition flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-3.5 sm:gap-4 truncate">
+                            <span class="w-6 text-center font-mono font-bold text-xs text-gray-500 group-hover:text-emerald-400 transition">
+                                {{ sprintf('%02d', $index + 1) }}
+                            </span>
+                            <div class="relative w-12 h-12 rounded-xl overflow-hidden bg-gray-950 shrink-0 border border-gray-800 shadow-md">
+                                <img src="{{ $song->cover_art_url }}" alt="{{ $song->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                <div class="absolute inset-0 bg-emerald-500/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                    <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                            </div>
+                            <div class="truncate">
+                                <h3 class="font-bold text-white text-sm sm:text-base truncate group-hover:text-emerald-400 transition leading-snug">
+                                    {{ $song->title }}
+                                </h3>
+                                <p class="text-xs text-gray-400 truncate">
+                                    {{ $song->display_artist_names }}
+                                </p>
                             </div>
                         </div>
 
-                        <!-- Song Info -->
-                        <div>
-                            <h3 class="font-bold text-white text-sm sm:text-base truncate group-hover:text-emerald-400 transition leading-snug">
-                                {{ $song->title }}
-                            </h3>
-                            <p class="text-xs text-gray-400 truncate mt-1">
-                                {{ $song->display_artist_names }}
-                            </p>
+                        <div class="flex items-center gap-4 shrink-0">
+                            @if($song->genre)
+                                <span class="hidden sm:inline-block px-2.5 py-1 rounded-full bg-gray-900 border border-gray-800 text-[11px] font-semibold text-gray-400">
+                                    {{ $song->genre->name }}
+                                </span>
+                            @endif
+                            <div class="text-right">
+                                <span class="text-xs font-bold text-emerald-400 font-mono">👁️ {{ number_format($song->views_count) }}</span>
+                            </div>
                         </div>
                     </a>
                 @endforeach
             </div>
         @else
-            <div class="glass-panel p-8 rounded-2xl text-center text-gray-400 text-sm">
+            <div class="p-8 rounded-2xl bg-gray-950/60 border border-gray-800/80 text-center text-gray-400 text-sm">
                 No song lyrics indexed for this artist yet.
             </div>
         @endif

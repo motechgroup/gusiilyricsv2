@@ -60,12 +60,12 @@
         </div>
     </div>
 
-    <!-- List Style Container -->
-    <div class="glass-panel rounded-3xl border border-gray-800 p-2 sm:p-4 divide-y divide-gray-800/60 shadow-xl">
+    <!-- List Style Container (Un-enclosed) -->
+    <div class="divide-y divide-gray-800/60">
         @foreach($weeklyLatestSongs->take(5) as $index => $song)
-            <a href="{{ route('songs.show', $song->slug) }}" class="group py-3 px-3 sm:px-4 rounded-2xl hover:bg-gray-900/80 transition flex items-center justify-between gap-4">
-                <div class="flex items-center gap-3 sm:gap-4 truncate">
-                    <span class="w-5 text-center font-mono font-bold text-xs text-gray-500 group-hover:text-emerald-400 transition">
+            <a href="{{ route('songs.show', $song->slug) }}" class="group py-3.5 px-3 sm:px-4 rounded-2xl hover:bg-gray-900/80 transition flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3.5 sm:gap-4 truncate">
+                    <span class="w-6 text-center font-mono font-bold text-xs text-gray-500 group-hover:text-emerald-400 transition">
                         0{{ $index + 1 }}
                     </span>
                     <div class="relative w-12 h-12 rounded-xl overflow-hidden bg-gray-950 shrink-0 border border-gray-800 shadow-md">
