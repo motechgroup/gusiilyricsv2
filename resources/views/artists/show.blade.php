@@ -5,11 +5,11 @@
 
 @section('content')
 
-<!-- Spotify-Style Blended Artist Hero Banner -->
-<div class="relative min-h-[380px] lg:min-h-[440px] flex items-end pb-10 bg-gradient-to-b from-[#1a2e45] via-[#101b2b] to-[#090d16] border-b border-gray-800/60 overflow-hidden">
-    <!-- Blended Backdrop Artwork -->
-    <div class="absolute inset-0 opacity-25 bg-center bg-cover filter blur-xl pointer-events-none transform scale-110" style="background-image: url('{{ $artist->avatar_url }}');"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-[#090d16] via-[#090d16]/60 to-transparent"></div>
+<!-- Spotify-Style Blended Artist Hero Banner (Artist Image as Background Banner) -->
+<div class="relative min-h-[380px] lg:min-h-[440px] flex items-end pb-10 bg-gray-950 border-b border-gray-800/60 overflow-hidden">
+    <!-- Crisp Artist Cover Background Image -->
+    <div class="absolute inset-0 bg-center bg-cover opacity-35 filter blur-md pointer-events-none transform scale-105" style="background-image: url('{{ $artist->avatar_url }}');"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#090d16] via-[#090d16]/70 to-[#090d16]/40"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
         <div class="flex flex-col md:flex-row items-center md:items-end gap-6 sm:gap-8 text-center md:text-left">

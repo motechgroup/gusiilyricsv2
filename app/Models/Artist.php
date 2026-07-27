@@ -58,6 +58,27 @@ class Artist extends Model
             return $this->image;
         }
 
-        return asset(ltrim($this->image, '/'));
+        $clean = ltrim($this->image, '/');
+
+        // Direct public file check
+        if (file_exists(public_path($clean))) {
+            return asset($clean);
+        }
+
+        // Handle /storage/ relative paths
+        if (str_starts_with($this->image, '/storage/') || str_starts_with($this->image, 'storage/')) {
+            $relative = preg_replace('#^/?storage/#', '', $this->image);
+            if (file_exists(public_path($relative))) {
+                return asset($relative);
+            }
+            if (file_exists(public_path('uploads/' . $relative))) {
+                return asset('uploads/' . $relative);
+            }
+            if (file_exists(public_path('storage/' . $relative))) {
+                return asset('storage/' . $relative);
+            }
+        }
+
+        return asset($clean);
     }
 }

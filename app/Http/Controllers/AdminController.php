@@ -538,8 +538,12 @@ class AdminController extends Controller
         ]);
 
         if ($request->hasFile('image_file')) {
-            $path = $request->file('image_file')->store('uploads/artists', 'public');
-            $validated['image'] = '/storage/' . $path;
+            $file = $request->file('image_file');
+            $filename = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/artists'), $filename);
+            @mkdir(storage_path('app/public/uploads/artists'), 0777, true);
+            @copy(public_path('uploads/artists/' . $filename), storage_path('app/public/uploads/artists/' . $filename));
+            $validated['image'] = '/uploads/artists/' . $filename;
         } elseif ($request->filled('image')) {
             $validated['image'] = trim($request->image);
         }
@@ -582,8 +586,12 @@ class AdminController extends Controller
         ]);
 
         if ($request->hasFile('image_file')) {
-            $path = $request->file('image_file')->store('uploads/artists', 'public');
-            $validated['image'] = '/storage/' . $path;
+            $file = $request->file('image_file');
+            $filename = time() . '_' . Str::random(8) . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/artists'), $filename);
+            @mkdir(storage_path('app/public/uploads/artists'), 0777, true);
+            @copy(public_path('uploads/artists/' . $filename), storage_path('app/public/uploads/artists/' . $filename));
+            $validated['image'] = '/uploads/artists/' . $filename;
         } elseif ($request->filled('image')) {
             $validated['image'] = trim($request->image);
         }
