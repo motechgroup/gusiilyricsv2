@@ -347,6 +347,65 @@
         </form>
     </div>
 
+    <!-- 8. Mobile App Downloads & Store Links Settings -->
+    <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-gray-800 space-y-6">
+        <form method="POST" action="{{ route('admin.settings.update') }}" class="space-y-6">
+            @csrf
+            <input type="hidden" name="section_type" value="mobile_app">
+
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+                <h3 class="text-sm font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+                    📱 Mobile App Downloads & Store Links
+                </h3>
+                <span class="text-[10px] text-gray-500 uppercase tracking-widest font-mono">Standalone Save</span>
+            </div>
+
+            <div class="space-y-4 text-xs">
+                <div class="flex items-center gap-3 p-3.5 bg-gray-950 rounded-2xl border border-gray-800">
+                    <input type="checkbox" id="app_download_enabled" name="app_download_enabled" value="1" {{ ($settings['app_download_enabled'] ?? '1') === '1' ? 'checked' : '' }} class="w-4 h-4 rounded bg-gray-900 border-gray-700 text-emerald-500 focus:ring-0">
+                    <label for="app_download_enabled" class="font-bold text-white cursor-pointer select-none">
+                        Enable Mobile App Download Promo Banner on Homepage & Footer
+                    </label>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Banner Main Title</label>
+                        <input type="text" name="app_banner_title" value="{{ $settings['app_banner_title'] ?? 'Take Gusii Lyrics Everywhere! Download Our Mobile App' }}" placeholder="Title..." class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-300 mb-1">Banner Subtitle / Description</label>
+                        <input type="text" name="app_banner_subtitle" value="{{ $settings['app_banner_subtitle'] ?? 'Stream Ekegusii song lyrics, translations, audio previews, and artist profiles offline on Android & iOS.' }}" placeholder="Subtitle..." class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white text-xs">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Google Play Store Link</label>
+                        <input type="text" name="app_play_store_url" value="{{ $settings['app_play_store_url'] ?? '#' }}" placeholder="https://play.google.com/store/apps/details?id=..." class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-xs">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-sky-400 mb-1">Apple App Store Link</label>
+                        <input type="text" name="app_app_store_url" value="{{ $settings['app_app_store_url'] ?? '#' }}" placeholder="https://apps.apple.com/app/..." class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-xs">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">Direct APK Download Link</label>
+                        <input type="text" name="app_direct_apk_url" value="{{ $settings['app_direct_apk_url'] ?? '#' }}" placeholder="https://gusiilyrics.com/downloads/app.apk" class="w-full px-3 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono text-xs">
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button type="submit" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-lg transition">
+                    Save Mobile App Settings
+                </button>
+            </div>
+        </form>
+    </div>
+
     <!-- 7. SMTP Connection Tester Card -->
     <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-emerald-500/30 space-y-4">
         <h3 class="text-sm font-bold text-emerald-400 uppercase tracking-wider">

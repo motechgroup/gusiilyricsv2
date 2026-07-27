@@ -710,6 +710,12 @@ class AdminController extends Controller
             'mail_from_address' => Setting::get('mail_from_address', 'info@gusiilyrics.com'),
             'mail_from_name' => Setting::get('mail_from_name', 'Gusii Lyrics'),
             'footer_description' => Setting::get('footer_description', 'Preserving Gusii music heritage, song lyrics, translations, and official streaming links for Omogusii worldwide.'),
+            'app_download_enabled' => Setting::get('app_download_enabled', '1'),
+            'app_banner_title' => Setting::get('app_banner_title', 'Take Gusii Lyrics Everywhere! Download Our Mobile App'),
+            'app_banner_subtitle' => Setting::get('app_banner_subtitle', 'Stream Ekegusii song lyrics, translations, audio previews, and artist profiles offline on Android & iOS.'),
+            'app_play_store_url' => Setting::get('app_play_store_url', '#'),
+            'app_app_store_url' => Setting::get('app_app_store_url', '#'),
+            'app_direct_apk_url' => Setting::get('app_direct_apk_url', '#'),
         ];
 
         return view('admin.settings.index', compact('settings'));
@@ -801,6 +807,18 @@ class AdminController extends Controller
             if ($request->has('meta_pixel_id')) Setting::set('meta_pixel_id', $request->meta_pixel_id);
 
             return redirect()->back()->with('success', 'SEO & Analytics tracking saved successfully!');
+        }
+
+        // 7. Mobile App Downloads Section
+        if ($section === 'mobile_app') {
+            Setting::set('app_download_enabled', $request->has('app_download_enabled') ? '1' : '0');
+            Setting::set('app_banner_title', $request->input('app_banner_title', 'Take Gusii Lyrics Everywhere! Download Our Mobile App'));
+            Setting::set('app_banner_subtitle', $request->input('app_banner_subtitle', 'Stream Ekegusii song lyrics, translations, audio previews, and artist profiles offline on Android & iOS.'));
+            Setting::set('app_play_store_url', $request->input('app_play_store_url', '#'));
+            Setting::set('app_app_store_url', $request->input('app_app_store_url', '#'));
+            Setting::set('app_direct_apk_url', $request->input('app_direct_apk_url', '#'));
+
+            return redirect()->back()->with('success', 'Mobile App Download settings saved successfully!');
         }
 
         // Fallback for full save

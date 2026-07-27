@@ -217,7 +217,47 @@
 
     <!-- Footer -->
     <footer class="bg-gray-950 border-t border-gray-800/80 py-10 mt-16 text-xs text-gray-400">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            @php
+                $appDownloadEnabledFooter = \App\Models\Setting::get('app_download_enabled', '1');
+                $appPlayStoreUrlFooter = \App\Models\Setting::get('app_play_store_url', '#');
+                $appAppStoreUrlFooter = \App\Models\Setting::get('app_app_store_url', '#');
+                $appDirectApkUrlFooter = \App\Models\Setting::get('app_direct_apk_url', '#');
+            @endphp
+
+            @if($appDownloadEnabledFooter === '1' || $appDownloadEnabledFooter === 'true' || $appDownloadEnabledFooter === true)
+                <div class="flex flex-col sm:flex-row items-center justify-between pb-6 border-b border-gray-800/80 gap-4">
+                    <div class="text-center sm:text-left">
+                        <h4 class="text-sm font-bold text-white uppercase tracking-wider flex items-center justify-center sm:justify-start gap-2">
+                            <span>📱</span>
+                            <span>Download Official Mobile App</span>
+                        </h4>
+                        <p class="text-[11px] text-gray-400 mt-0.5">Stream Ekegusii song lyrics, translations, and artist profiles offline on your phone.</p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-center gap-3">
+                        @if($appPlayStoreUrlFooter && $appPlayStoreUrlFooter !== '#')
+                            <a href="{{ $appPlayStoreUrlFooter }}" target="_blank" class="px-4 py-2 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold border border-gray-800 text-xs transition flex items-center gap-2">
+                                <span class="text-emerald-400">▶</span> Google Play
+                            </a>
+                        @endif
+
+                        @if($appAppStoreUrlFooter && $appAppStoreUrlFooter !== '#')
+                            <a href="{{ $appAppStoreUrlFooter }}" target="_blank" class="px-4 py-2 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold border border-gray-800 text-xs transition flex items-center gap-2">
+                                <span></span> App Store
+                            </a>
+                        @endif
+
+                        @if($appDirectApkUrlFooter && $appDirectApkUrlFooter !== '#')
+                            <a href="{{ $appDirectApkUrlFooter }}" target="_blank" class="px-3.5 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30 text-xs transition flex items-center gap-1.5">
+                                <span>🤖</span> Download APK
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            @endif
+
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <div class="space-y-2 text-center md:text-left max-w-sm">
                 <img src="{{ asset('images/footer_logo.png') }}" alt="{{ $siteName }}" class="h-9 w-auto opacity-90 mx-auto md:mx-0 object-contain">
                 <p class="text-gray-400 text-xs leading-relaxed">{{ $footerDescription }}</p>
