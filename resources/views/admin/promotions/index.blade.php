@@ -178,22 +178,30 @@
                             </td>
 
                             <td class="py-4 px-4 text-right space-y-1">
-                                <form method="POST" action="{{ route('admin.promotions.status', $promo->id) }}" class="inline-flex items-center gap-1">
-                                    @csrf
-                                    <select name="status" onchange="this.form.submit()" class="px-2 py-1 bg-gray-950 border border-gray-800 rounded-lg text-[11px] text-gray-300">
-                                        <option value="pending" {{ $promo->status === 'pending' ? 'selected' : '' }}>Pending</option>
-                                        <option value="active" {{ $promo->status === 'active' ? 'selected' : '' }}>Mark Active</option>
-                                        <option value="paused" {{ $promo->status === 'paused' ? 'selected' : '' }}>Pause</option>
-                                        <option value="completed" {{ $promo->status === 'completed' ? 'selected' : '' }}>Complete</option>
-                                        <option value="rejected" {{ $promo->status === 'rejected' ? 'selected' : '' }}>Reject</option>
-                                    </select>
-                                </form>
+                                <div class="flex items-center justify-end gap-1.5">
+                                    @if(!empty($promo->email))
+                                        <button type="button" onclick="openPromoEmailModal('{{ addslashes($promo->email) }}', '{{ addslashes($promo->artist_name) }}', 'Update regarding your music promotion: {{ addslashes($promo->song_title) }}')" class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 text-[10px] font-bold">
+                                            ✉️ Email
+                                        </button>
+                                    @endif
 
-                                <form method="POST" action="{{ route('admin.promotions.destroy', $promo->id) }}" onsubmit="return confirm('Delete this promotion campaign?')" class="inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="p-1 text-gray-500 hover:text-rose-400 text-xs">🗑️</button>
-                                </form>
+                                    <form method="POST" action="{{ route('admin.promotions.status', $promo->id) }}" class="inline-flex items-center gap-1">
+                                        @csrf
+                                        <select name="status" onchange="this.form.submit()" class="px-2 py-1 bg-gray-950 border border-gray-800 rounded-lg text-[11px] text-gray-300">
+                                            <option value="pending" {{ $promo->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                                            <option value="active" {{ $promo->status === 'active' ? 'selected' : '' }}>Mark Active</option>
+                                            <option value="paused" {{ $promo->status === 'paused' ? 'selected' : '' }}>Pause</option>
+                                            <option value="completed" {{ $promo->status === 'completed' ? 'selected' : '' }}>Complete</option>
+                                            <option value="rejected" {{ $promo->status === 'rejected' ? 'selected' : '' }}>Reject</option>
+                                        </select>
+                                    </form>
+
+                                    <form method="POST" action="{{ route('admin.promotions.destroy', $promo->id) }}" onsubmit="return confirm('Delete this promotion campaign?')" class="inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="p-1 text-gray-500 hover:text-rose-400 text-xs">🗑️</button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
@@ -304,4 +312,56 @@
         </form>
     </div>
 </div>
+
+<!-- Direct Email Composer Modal -->
+<div id="promoEmailModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-lg w-full relative shadow-2xl space-y-4">
+        <button onclick="document.getElementById('promoEmailModal').classList.add('hidden')" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-white text-xl font-bold">
+            &times;
+        </button>
+
+        <div>
+            <h3 class="text-xl font-extrabold text-white">Send Email to Artist / Promoter</h3>
+            <p class="text-xs text-gray-400 mt-1">Dispatches a branded HTML email directly to the release contact.</p>
+        </div>
+
+        <form method="POST" action="{{ route('admin.send-custom-email') }}" class="space-y-4 text-xs">
+            @csrf
+            <input type="hidden" name="recipient_name" id="promoRecipientName" value="">
+
+            <div>
+                <label class="block font-bold text-gray-300 mb-1">Recipient Email *</label>
+                <input type="email" name="recipient_email" id="promoRecipientEmail" required class="w-full px-3.5 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono focus:outline-none focus:border-emerald-500">
+            </div>
+
+            <div>
+                <label class="block font-bold text-gray-300 mb-1">Email Subject *</label>
+                <input type="text" name="subject" id="promoSubject" required class="w-full px-3.5 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white focus:outline-none focus:border-emerald-500">
+            </div>
+
+            <div>
+                <label class="block font-bold text-gray-300 mb-1">Message Content *</label>
+                <textarea name="message_body" rows="5" required placeholder="Type your custom email message to the artist..." class="w-full px-3.5 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white focus:outline-none focus:border-emerald-500"></textarea>
+            </div>
+
+            <div class="pt-2 flex justify-end gap-3">
+                <button type="button" onclick="document.getElementById('promoEmailModal').classList.add('hidden')" class="px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold">
+                    Cancel
+                </button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold shadow">
+                    Send Email &rarr;
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function openPromoEmailModal(email, name, subject) {
+    document.getElementById('promoRecipientEmail').value = email;
+    document.getElementById('promoRecipientName').value = name;
+    document.getElementById('promoSubject').value = subject;
+    document.getElementById('promoEmailModal').classList.remove('hidden');
+}
+</script>
 @endsection

@@ -93,6 +93,11 @@
                         </td>
 
                         <td class="py-4 px-4 text-right space-x-2">
+                            @if(!empty($inq->email))
+                                <button type="button" onclick="openDirectEmailModal('{{ addslashes($inq->email) }}', '{{ addslashes($inq->advertiser_name) }}', 'Re: {{ addslashes($inq->company_name) }}')" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 text-[10px] font-bold">
+                                    ✉️ Email Reply
+                                </button>
+                            @endif
                             <form method="POST" action="{{ route('admin.ad-inquiries.destroy', $inq->id) }}" class="inline" onsubmit="return confirm('Delete this ad inquiry?')">
                                 @csrf
                                 @method('DELETE')
@@ -127,4 +132,56 @@
     @endif
 
 </div>
+
+<!-- Direct Email Composer Modal -->
+<div id="directEmailModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="bg-gray-900 border border-gray-800 rounded-3xl p-6 sm:p-8 max-w-lg w-full relative shadow-2xl space-y-4">
+        <button onclick="document.getElementById('directEmailModal').classList.add('hidden')" class="absolute top-4 right-4 p-2 text-gray-400 hover:text-white text-xl font-bold">
+            &times;
+        </button>
+
+        <div>
+            <h3 class="text-xl font-extrabold text-white">Send Direct Email Response</h3>
+            <p class="text-xs text-gray-400 mt-1">Dispatches a branded HTML email directly to the inquirer.</p>
+        </div>
+
+        <form method="POST" action="{{ route('admin.send-custom-email') }}" class="space-y-4 text-xs">
+            @csrf
+            <input type="hidden" name="recipient_name" id="modalRecipientName" value="">
+
+            <div>
+                <label class="block font-bold text-gray-300 mb-1">Recipient Email *</label>
+                <input type="email" name="recipient_email" id="modalRecipientEmail" required class="w-full px-3.5 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono focus:outline-none focus:border-emerald-500">
+            </div>
+
+            <div>
+                <label class="block font-bold text-gray-300 mb-1">Email Subject *</label>
+                <input type="text" name="subject" id="modalSubject" required class="w-full px-3.5 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white focus:outline-none focus:border-emerald-500">
+            </div>
+
+            <div>
+                <label class="block font-bold text-gray-300 mb-1">Message Content *</label>
+                <textarea name="message_body" rows="5" required placeholder="Type your response to the inquirer here..." class="w-full px-3.5 py-2.5 bg-gray-950 border border-gray-800 rounded-xl text-white focus:outline-none focus:border-emerald-500"></textarea>
+            </div>
+
+            <div class="pt-2 flex justify-end gap-3">
+                <button type="button" onclick="document.getElementById('directEmailModal').classList.add('hidden')" class="px-4 py-2 rounded-xl bg-gray-800 text-gray-300 font-bold">
+                    Cancel
+                </button>
+                <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold shadow">
+                    Send Email &rarr;
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function openDirectEmailModal(email, name, subject) {
+    document.getElementById('modalRecipientEmail').value = email;
+    document.getElementById('modalRecipientName').value = name;
+    document.getElementById('modalSubject').value = subject;
+    document.getElementById('directEmailModal').classList.remove('hidden');
+}
+</script>
 @endsection

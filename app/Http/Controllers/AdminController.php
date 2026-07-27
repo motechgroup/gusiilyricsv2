@@ -686,8 +686,38 @@ class AdminController extends Controller
     public function requestsUpdateStatus(Request $request, $id)
     {
         $req = LyricRequest::findOrFail($id);
+        $oldStatus = $req->status;
         $req->update(['status' => $request->status]);
-        return redirect()->back()->with('success', 'Request status updated.');
+
+        if (!empty($req->visitor_email)) {
+            try {
+                $fromAddress = Setting::get('mail_from_address', 'info@gusiilyrics.com');
+                $fromName = Setting::get('mail_from_name', 'Gusii Lyrics');
+                
+                $heading = $request->status === 'fulfilled' ? '🎵 Requested Song Lyric Is Now Published!' : 'Update on Your Lyric Request';
+                $intro = $request->status === 'fulfilled' 
+                    ? "Mbuya mono! The Ekegusii song lyric '{$req->song_title}' by '{$req->artist_name}' you requested has been transcribed and published on Gusii Lyrics Vault." 
+                    : "Regarding your lyric request for '{$req->song_title}' by '{$req->artist_name}', its status has been updated to {$request->status}.";
+
+                Mail::send('emails.status-update', [
+                    'recipientName' => 'Music Lover',
+                    'heading' => $heading,
+                    'introMessage' => $intro,
+                    'itemTitle' => "{$req->song_title} - {$req->artist_name}",
+                    'newStatus' => strtoupper($request->status),
+                    'actionUrl' => route('songs.index', ['q' => $req->song_title]),
+                    'actionText' => 'Search Lyrics Vault',
+                ], function ($message) use ($req, $fromAddress, $fromName, $heading) {
+                    $message->to($req->visitor_email)
+                        ->from($fromAddress, $fromName)
+                        ->subject($heading . ' - Gusii Lyrics');
+                });
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::error('Failed sending request status email: ' . $e->getMessage());
+            }
+        }
+
+        return redirect()->back()->with('success', 'Lyric request status updated & notification email sent!');
     }
 
     // --- Corrections ---
@@ -701,7 +731,32 @@ class AdminController extends Controller
     {
         $cor = Correction::findOrFail($id);
         $cor->update(['status' => $request->status]);
-        return redirect()->back()->with('success', 'Correction status updated.');
+
+        if (!empty($cor->visitor_email)) {
+            try {
+                $fromAddress = Setting::get('mail_from_address', 'info@gusiilyrics.com');
+                $fromName = Setting::get('mail_from_name', 'Gusii Lyrics');
+                $songTitle = $cor->song->title ?? 'Ekegusii Song';
+
+                Mail::send('emails.status-update', [
+                    'recipientName' => $cor->visitor_name ?? 'Contributor',
+                    'heading' => '🙌 Thank You For Your Lyric Correction!',
+                    'introMessage' => "Mbuya mono! Our editorial team has reviewed your correction report for '{$songTitle}'. Thank you for helping keep Omogusii lyrics accurate!",
+                    'itemTitle' => "Correction Report: {$songTitle}",
+                    'newStatus' => strtoupper($request->status),
+                    'actionUrl' => $cor->song ? route('songs.show', $cor->song->slug) : route('home'),
+                    'actionText' => 'View Updated Song Lyrics',
+                ], function ($message) use ($cor, $fromAddress, $fromName) {
+                    $message->to($cor->visitor_email)
+                        ->from($fromAddress, $fromName)
+                        ->subject('Lyric Correction Reviewed - Gusii Lyrics');
+                });
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::error('Failed sending correction status email: ' . $e->getMessage());
+            }
+        }
+
+        return redirect()->back()->with('success', 'Correction status updated & notification email sent!');
     }
 
     // --- Site Settings ---
@@ -1306,9 +1361,50 @@ EOD;
     public function adInquiriesUpdateStatus(Request $request, $id)
     {
         $inquiry = \App\Models\AdInquiry::findOrFail($id);
-        $inquiry->update(['status' => $request->status]);
+        $newStatus = $request->input('status', 'contacted');
+        $adminNotes = $request->input('admin_notes');
 
-        return redirect()->back()->with('success', 'Ad inquiry status updated.');
+        $inquiry->update(['status' => $newStatus]);
+
+        if (!empty($inquiry->email)) {
+            try {
+                $fromAddress = Setting::get('mail_from_address', 'info@gusiilyrics.com');
+                $fromName = Setting::get('mail_from_name', 'Gusii Lyrics');
+                
+                $heading = match($newStatus) {
+                    'approved' => '✅ Your Inquiry Has Been Approved',
+                    'declined' => 'Update Regarding Your Inquiry',
+                    'contacted' => '💬 Response to Your Inquiry',
+                    default => 'Status Update on Your Inquiry',
+                };
+
+                $introMessage = match($newStatus) {
+                    'approved' => "Mbuya mono! We are pleased to inform you that your advertisement / inquiry '{$inquiry->company_name}' has been APPROVED by the Gusii Lyrics team.",
+                    'declined' => "Thank you for reaching out to Gusii Lyrics. Regarding your inquiry '{$inquiry->company_name}', we are unable to approve or process this request at this time.",
+                    'contacted' => "Mbuya mono! Our team has reviewed your inquiry '{$inquiry->company_name}' and updated its status.",
+                    default => "The status of your inquiry '{$inquiry->company_name}' has been updated to {$newStatus}.",
+                };
+
+                Mail::send('emails.status-update', [
+                    'recipientName' => $inquiry->advertiser_name,
+                    'heading' => $heading,
+                    'introMessage' => $introMessage,
+                    'itemTitle' => $inquiry->company_name ?: $inquiry->placement_spot,
+                    'newStatus' => strtoupper($newStatus),
+                    'adminNotes' => $adminNotes,
+                    'actionUrl' => route('home'),
+                    'actionText' => 'Visit Gusii Lyrics',
+                ], function ($message) use ($inquiry, $fromAddress, $fromName, $heading) {
+                    $message->to($inquiry->email)
+                        ->from($fromAddress, $fromName)
+                        ->subject($heading . ' - Gusii Lyrics');
+                });
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::error('Failed sending inquiry email: ' . $e->getMessage());
+            }
+        }
+
+        return redirect()->back()->with('success', 'Inquiry status updated & notification email dispatched to ' . $inquiry->email);
     }
 
     public function adInquiriesDestroy($id)
@@ -1466,7 +1562,11 @@ EOD;
             'budget_amount' => 'nullable|numeric|min:0',
             'campaign_views' => 'nullable|integer|min:0',
             'campaign_clicks' => 'nullable|integer|min:0',
+            'admin_notes' => 'nullable|string',
         ]);
+
+        $newStatus = $validated['status'];
+        $adminNotes = $request->input('admin_notes');
 
         $promo->update($validated);
 
@@ -1487,7 +1587,48 @@ EOD;
             }
         }
 
-        return redirect()->back()->with('success', 'Music promotion campaign updated successfully!');
+        // Send automatic status email notification to artist
+        if (!empty($promo->email)) {
+            try {
+                $fromAddress = Setting::get('mail_from_address', 'info@gusiilyrics.com');
+                $fromName = Setting::get('mail_from_name', 'Gusii Lyrics');
+                
+                $heading = match($newStatus) {
+                    'active' => '🚀 Your Music Promotion Is Now LIVE!',
+                    'completed' => '🎉 Music Promotion Campaign Completed',
+                    'rejected' => 'Update Regarding Your Music Promotion Request',
+                    default => 'Status Update on Your Music Promotion',
+                };
+
+                $introMessage = match($newStatus) {
+                    'active' => "Mbuya mono! Great news! Your music promotion campaign for '{$promo->song_title}' by '{$promo->artist_name}' is now ACTIVE and featured across Gusii Lyrics Vault!",
+                    'completed' => "Your music promotion campaign for '{$promo->song_title}' has successfully concluded. Thank you for promoting your release with Gusii Lyrics!",
+                    'rejected' => "Thank you for submitting your release. Regrettably, your promotion request for '{$promo->song_title}' could not be activated at this time.",
+                    default => "The status of your music promotion campaign for '{$promo->song_title}' has been updated to {$newStatus}.",
+                };
+
+                $actionUrl = $promo->song_id ? route('songs.show', Song::find($promo->song_id)->slug ?? '') : route('home');
+
+                Mail::send('emails.status-update', [
+                    'recipientName' => $promo->artist_name,
+                    'heading' => $heading,
+                    'introMessage' => $introMessage,
+                    'itemTitle' => "{$promo->song_title} ({$promo->package_type})",
+                    'newStatus' => strtoupper($newStatus),
+                    'adminNotes' => $adminNotes,
+                    'actionUrl' => $actionUrl,
+                    'actionText' => 'View Release On Gusii Lyrics',
+                ], function ($message) use ($promo, $fromAddress, $fromName, $heading) {
+                    $message->to($promo->email)
+                        ->from($fromAddress, $fromName)
+                        ->subject($heading . ' - Gusii Lyrics');
+                });
+            } catch (\Throwable $e) {
+                \Illuminate\Support\Facades\Log::error('Failed sending music promotion status email: ' . $e->getMessage());
+            }
+        }
+
+        return redirect()->back()->with('success', 'Music promotion campaign updated & notification email dispatched!');
     }
 
     public function promotionsDestroy($id)
@@ -1504,5 +1645,39 @@ EOD;
         }
 
         return redirect()->back()->with('success', 'Music promotion campaign deleted.');
+    }
+
+    // --- Direct Email Composer ---
+    public function sendCustomEmail(Request $request)
+    {
+        $validated = $request->validate([
+            'recipient_email' => 'required|email',
+            'recipient_name' => 'nullable|string|max:255',
+            'subject' => 'required|string|max:255',
+            'message_body' => 'required|string|min:5',
+            'action_url' => 'nullable|url|max:500',
+            'action_text' => 'nullable|string|max:100',
+        ]);
+
+        $fromAddress = Setting::get('mail_from_address', 'info@gusiilyrics.com');
+        $fromName = Setting::get('mail_from_name', 'Gusii Lyrics');
+
+        try {
+            Mail::send('emails.custom-message', [
+                'recipientName' => $validated['recipient_name'] ?? '',
+                'subjectText' => $validated['subject'],
+                'messageBody' => $validated['message_body'],
+                'actionUrl' => $validated['action_url'] ?? null,
+                'actionText' => $validated['action_text'] ?? 'View On Gusii Lyrics',
+            ], function ($message) use ($validated, $fromAddress, $fromName) {
+                $message->to($validated['recipient_email'])
+                    ->from($fromAddress, $fromName)
+                    ->subject($validated['subject']);
+            });
+
+            return redirect()->back()->with('success', "Direct email successfully dispatched to {$validated['recipient_email']}!");
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', "Failed sending custom email: " . $e->getMessage());
+        }
     }
 }
