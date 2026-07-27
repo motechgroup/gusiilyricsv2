@@ -72,26 +72,15 @@
     </div>
 
     @if($artists->count() > 0)
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Compact Spotify-Style Clean Artist Cards (Image & Title Only) -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
             @foreach($artists as $artist)
-                <a href="{{ route('artists.show', $artist->slug) }}" class="glass-card rounded-3xl p-6 text-center group flex flex-col items-center justify-between border border-gray-800">
-                    <div>
-                        <div class="relative w-32 h-32 rounded-full overflow-hidden mb-4 mx-auto border-2 border-emerald-500/20 group-hover:border-emerald-400 transition duration-300 shadow-xl">
-                            <img src="{{ $artist->avatar_url }}" alt="{{ $artist->name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                        </div>
-
-                        <h3 class="font-bold text-white text-lg group-hover:text-emerald-400 transition mb-1">{{ $artist->name }}</h3>
-                        <p class="text-xs text-emerald-400/90 font-mono mb-3">{{ $artist->location }}</p>
-                        
-                        <p class="text-xs text-gray-400 line-clamp-3 leading-relaxed">
-                            {{ $artist->bio }}
-                        </p>
+                <a href="{{ route('artists.show', $artist->slug) }}" class="group p-4 rounded-2xl bg-[#121927]/60 hover:bg-[#1c273c] transition duration-300 text-center flex flex-col items-center border border-transparent hover:border-emerald-500/20 shadow-lg">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden mb-3.5 border-2 border-emerald-500/20 group-hover:border-emerald-400 transition duration-300 shadow-xl">
+                        <img src="{{ $artist->avatar_url }}" alt="{{ $artist->name }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                     </div>
-
-                    <div class="w-full mt-6 pt-4 border-t border-gray-800 flex items-center justify-between text-xs text-gray-500 font-mono">
-                        <span>{{ $artist->songs_count }} Lyrics</span>
-                        <span class="text-emerald-400 font-bold group-hover:translate-x-1 transition-transform">Explore &rarr;</span>
-                    </div>
+                    <h3 class="font-bold text-white text-sm group-hover:text-emerald-400 truncate w-full">{{ $artist->name }}</h3>
+                    <p class="text-[11px] text-gray-400 font-mono mt-0.5">Artist</p>
                 </a>
             @endforeach
         </div>
