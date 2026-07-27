@@ -22,9 +22,6 @@
                     <h3 class="font-bold text-white text-base truncate group-hover:text-emerald-400 transition leading-snug">
                         {{ $genre->name }}
                     </h3>
-                    <span class="text-xs text-gray-400 font-mono">
-                        {{ $genre->songs_count }} {{ Str::plural('Song', $genre->songs_count) }}
-                    </span>
                 </div>
             </a>
         @endforeach
