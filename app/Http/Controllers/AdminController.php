@@ -739,6 +739,14 @@ class AdminController extends Controller
             'app_play_store_url' => Setting::get('app_play_store_url', '#'),
             'app_app_store_url' => Setting::get('app_app_store_url', '#'),
             'app_direct_apk_url' => Setting::get('app_direct_apk_url', '#'),
+            'social_stat_web_traffic' => Setting::get('social_stat_web_traffic', '150,000+'),
+            'social_stat_web_label' => Setting::get('social_stat_web_label', 'Monthly Web Traffic'),
+            'social_stat_youtube_subscribers' => Setting::get('social_stat_youtube_subscribers', '25,000+'),
+            'social_stat_youtube_label' => Setting::get('social_stat_youtube_label', 'YouTube Subscribers'),
+            'social_stat_instagram_followers' => Setting::get('social_stat_instagram_followers', '18,500+'),
+            'social_stat_instagram_label' => Setting::get('social_stat_instagram_label', 'Instagram Followers'),
+            'social_stat_tiktok_community' => Setting::get('social_stat_tiktok_community', '32,000+'),
+            'social_stat_tiktok_label' => Setting::get('social_stat_tiktok_label', 'TikTok Community'),
         ];
 
         return view('admin.settings.index', compact('settings'));
@@ -747,6 +755,20 @@ class AdminController extends Controller
     public function settingsUpdate(Request $request)
     {
         $section = $request->input('section_type', 'all');
+
+        // 8. Promote Music Page Social Reach Cards Section
+        if ($section === 'social_stats') {
+            if ($request->has('social_stat_web_traffic')) Setting::set('social_stat_web_traffic', $request->social_stat_web_traffic);
+            if ($request->has('social_stat_web_label')) Setting::set('social_stat_web_label', $request->social_stat_web_label);
+            if ($request->has('social_stat_youtube_subscribers')) Setting::set('social_stat_youtube_subscribers', $request->social_stat_youtube_subscribers);
+            if ($request->has('social_stat_youtube_label')) Setting::set('social_stat_youtube_label', $request->social_stat_youtube_label);
+            if ($request->has('social_stat_instagram_followers')) Setting::set('social_stat_instagram_followers', $request->social_stat_instagram_followers);
+            if ($request->has('social_stat_instagram_label')) Setting::set('social_stat_instagram_label', $request->social_stat_instagram_label);
+            if ($request->has('social_stat_tiktok_community')) Setting::set('social_stat_tiktok_community', $request->social_stat_tiktok_community);
+            if ($request->has('social_stat_tiktok_label')) Setting::set('social_stat_tiktok_label', $request->social_stat_tiktok_label);
+
+            return redirect()->back()->with('success', 'Social reach cards statistics updated successfully!');
+        }
 
         // 1. Site Branding & Donation Presets Section
         if ($section === 'branding' || $request->hasFile('site_logo_file') || $request->hasFile('favicon_file')) {

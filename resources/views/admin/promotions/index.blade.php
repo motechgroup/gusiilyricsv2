@@ -45,7 +45,58 @@
         </div>
     </div>
 
-    <!-- Campaigns List Table (Un-enclosed) -->
+    <!-- Edit Public Social Reach Cards Form -->
+    <div class="p-6 rounded-3xl bg-gray-950/80 border border-gray-800 space-y-4">
+        <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+            <div>
+                <h3 class="text-sm font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                    📊 Manage Public Social Reach & Audience Cards (/promote-music)
+                </h3>
+                <p class="text-xs text-gray-400 mt-0.5">Customize the audience numbers and channel titles shown to artists on the public promotion landing page.</p>
+            </div>
+        </div>
+
+        <form method="POST" action="{{ route('admin.settings.update') }}" class="space-y-4">
+            @csrf
+            <input type="hidden" name="section_type" value="social_stats">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                <!-- Web Traffic -->
+                <div class="p-4 rounded-2xl bg-gray-900/60 border border-emerald-500/30 space-y-2">
+                    <label class="block font-bold text-emerald-400 uppercase">Card 1: Web Traffic</label>
+                    <input type="text" name="social_stat_web_traffic" value="{{ \App\Models\Setting::get('social_stat_web_traffic', '150,000+') }}" placeholder="e.g. 150,000+" class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono">
+                    <input type="text" name="social_stat_web_label" value="{{ \App\Models\Setting::get('social_stat_web_label', 'Monthly Web Traffic') }}" placeholder="Label..." class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-gray-300">
+                </div>
+
+                <!-- YouTube -->
+                <div class="p-4 rounded-2xl bg-gray-900/60 border border-rose-500/30 space-y-2">
+                    <label class="block font-bold text-rose-400 uppercase">Card 2: YouTube</label>
+                    <input type="text" name="social_stat_youtube_subscribers" value="{{ \App\Models\Setting::get('social_stat_youtube_subscribers', '25,000+') }}" placeholder="e.g. 25,000+" class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono">
+                    <input type="text" name="social_stat_youtube_label" value="{{ \App\Models\Setting::get('social_stat_youtube_label', 'YouTube Subscribers') }}" placeholder="Label..." class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-gray-300">
+                </div>
+
+                <!-- Instagram -->
+                <div class="p-4 rounded-2xl bg-gray-900/60 border border-pink-500/30 space-y-2">
+                    <label class="block font-bold text-pink-400 uppercase">Card 3: Instagram</label>
+                    <input type="text" name="social_stat_instagram_followers" value="{{ \App\Models\Setting::get('social_stat_instagram_followers', '18,500+') }}" placeholder="e.g. 18,500+" class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono">
+                    <input type="text" name="social_stat_instagram_label" value="{{ \App\Models\Setting::get('social_stat_instagram_label', 'Instagram Followers') }}" placeholder="Label..." class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-gray-300">
+                </div>
+
+                <!-- TikTok -->
+                <div class="p-4 rounded-2xl bg-gray-900/60 border border-cyan-500/30 space-y-2">
+                    <label class="block font-bold text-cyan-400 uppercase">Card 4: TikTok</label>
+                    <input type="text" name="social_stat_tiktok_community" value="{{ \App\Models\Setting::get('social_stat_tiktok_community', '32,000+') }}" placeholder="e.g. 32,000+" class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-white font-mono">
+                    <input type="text" name="social_stat_tiktok_label" value="{{ \App\Models\Setting::get('social_stat_tiktok_label', 'TikTok Community') }}" placeholder="Label..." class="w-full px-3 py-2 bg-gray-950 border border-gray-800 rounded-xl text-gray-300">
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-1">
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shadow-lg transition">
+                    💾 Save Social Reach Cards
+                </button>
+            </div>
+        </form>
+    </div>
     <div class="space-y-4">
         <div class="pb-2 border-b border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <h3 class="text-sm font-bold text-white uppercase tracking-wider">Promoted Music Campaigns</h3>
