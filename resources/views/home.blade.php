@@ -101,8 +101,8 @@
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
             <!-- Text Info -->
             <div class="space-y-2 text-center md:text-left max-w-xl">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider">
-                    <span>📱 OFFICIAL MOBILE APP</span>
+                <div class="text-xs font-mono font-bold uppercase tracking-wider text-emerald-400">
+                    📱 OFFICIAL MOBILE APP
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
                     {{ $appBannerTitle }}
