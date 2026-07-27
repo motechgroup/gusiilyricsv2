@@ -236,20 +236,16 @@
                     </div>
 
                     <div class="flex flex-wrap items-center justify-center gap-3">
-                        @if($appPlayStoreUrlFooter && $appPlayStoreUrlFooter !== '#')
-                            <a href="{{ $appPlayStoreUrlFooter }}" target="_blank" class="px-4 py-2 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold border border-gray-800 text-xs transition flex items-center gap-2">
-                                <span class="text-emerald-400">▶</span> Google Play
-                            </a>
-                        @endif
+                        <a href="{{ $appPlayStoreUrlFooter ?: '#' }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold border border-gray-800 text-xs transition flex items-center gap-2">
+                            <span class="text-emerald-400">▶</span> Google Play
+                        </a>
 
-                        @if($appAppStoreUrlFooter && $appAppStoreUrlFooter !== '#')
-                            <a href="{{ $appAppStoreUrlFooter }}" target="_blank" class="px-4 py-2 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold border border-gray-800 text-xs transition flex items-center gap-2">
-                                <span></span> App Store
-                            </a>
-                        @endif
+                        <a href="{{ $appAppStoreUrlFooter ?: '#' }}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-gray-900 hover:bg-gray-800 text-white font-bold border border-gray-800 text-xs transition flex items-center gap-2">
+                            <span></span> App Store
+                        </a>
 
                         @if($appDirectApkUrlFooter && $appDirectApkUrlFooter !== '#')
-                            <a href="{{ $appDirectApkUrlFooter }}" target="_blank" class="px-3.5 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30 text-xs transition flex items-center gap-1.5">
+                            <a href="{{ $appDirectApkUrlFooter }}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 font-bold border border-emerald-500/30 text-xs transition flex items-center gap-1.5">
                                 <span>🤖</span> Download APK
                             </a>
                         @endif

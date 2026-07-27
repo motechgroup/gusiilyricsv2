@@ -86,7 +86,7 @@
     </div>
 </div>
 
-<!-- Mobile App Download Banner (Above Popular Artists) -->
+<!-- Mobile App Download Section (Un-enclosed Above Popular Artists) -->
 @php
     $appDownloadEnabled = \App\Models\Setting::get('app_download_enabled', '1');
     $appBannerTitle = \App\Models\Setting::get('app_banner_title', 'Take Gusii Lyrics Everywhere! Download Our Mobile App');
@@ -97,85 +97,55 @@
 @endphp
 
 @if($appDownloadEnabled === '1' || $appDownloadEnabled === 'true' || $appDownloadEnabled === true)
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-8">
-        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#0d1627] via-[#13223f] to-[#090d16] border border-emerald-500/30 p-6 sm:p-10 shadow-2xl">
-            <!-- Background Glow -->
-            <div class="absolute -top-24 -right-24 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-gray-900">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+            <!-- Text Info -->
+            <div class="space-y-2 text-center md:text-left max-w-xl">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider">
+                    <span>📱 OFFICIAL MOBILE APP</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
+                    {{ $appBannerTitle }}
+                </h2>
+                <p class="text-xs sm:text-sm text-gray-400 leading-relaxed">
+                    {{ $appBannerSubtitle }}
+                </p>
+            </div>
 
-            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                <!-- Text Info -->
-                <div class="space-y-3 text-center md:text-left max-w-xl">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold uppercase tracking-wider">
-                        <span>📱 OFFICIAL MOBILE APP</span>
+            <!-- Download Badges & Buttons (Always Clickable Link Buttons) -->
+            <div class="flex flex-wrap items-center justify-center md:justify-end gap-3 shrink-0">
+                <!-- Google Play Store Button -->
+                <a href="{{ $appPlayStoreUrl ?: '#' }}" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-2xl bg-gray-950 hover:bg-gray-900 border border-gray-800 text-white flex items-center gap-3 transition transform hover:scale-105 shadow-xl group">
+                    <svg class="w-7 h-7 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L14.81,13.12L14.81,10.88L16.81,8.88L20.57,11.05C21.14,11.37 21.14,12.63 20.57,12.95L16.81,15.12M4.6,1.4L15.39,12.2L4.6,23L4.6,1.4Z"/>
+                    </svg>
+                    <div class="text-left">
+                        <span class="block text-[9px] uppercase tracking-wider text-gray-400 font-mono font-bold">GET IT ON</span>
+                        <span class="block text-xs font-black text-white group-hover:text-emerald-400 transition">Google Play</span>
                     </div>
-                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight leading-tight">
-                        {{ $appBannerTitle }}
-                    </h2>
-                    <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">
-                        {{ $appBannerSubtitle }}
-                    </p>
-                </div>
+                </a>
 
-                <!-- Download Badges & Buttons -->
-                <div class="flex flex-wrap items-center justify-center md:justify-end gap-3 shrink-0">
-                    <!-- Google Play Store Button -->
-                    @if($appPlayStoreUrl && $appPlayStoreUrl !== '#')
-                        <a href="{{ $appPlayStoreUrl }}" target="_blank" class="px-5 py-3 rounded-2xl bg-gray-950 hover:bg-gray-900 border border-gray-800 text-white flex items-center gap-3 transition transform hover:scale-105 shadow-xl group">
-                            <svg class="w-7 h-7 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L14.81,13.12L14.81,10.88L16.81,8.88L20.57,11.05C21.14,11.37 21.14,12.63 20.57,12.95L16.81,15.12M4.6,1.4L15.39,12.2L4.6,23L4.6,1.4Z"/>
-                            </svg>
-                            <div class="text-left">
-                                <span class="block text-[9px] uppercase tracking-wider text-gray-400 font-mono font-bold">GET IT ON</span>
-                                <span class="block text-xs font-black text-white group-hover:text-emerald-400 transition">Google Play</span>
-                            </div>
-                        </a>
-                    @else
-                        <div class="px-5 py-3 rounded-2xl bg-gray-950/80 border border-gray-800 text-white flex items-center gap-3 shadow-xl opacity-90">
-                            <svg class="w-7 h-7 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L14.81,13.12L14.81,10.88L16.81,8.88L20.57,11.05C21.14,11.37 21.14,12.63 20.57,12.95L16.81,15.12M4.6,1.4L15.39,12.2L4.6,23L4.6,1.4Z"/>
-                            </svg>
-                            <div class="text-left">
-                                <span class="block text-[9px] uppercase tracking-wider text-gray-400 font-mono font-bold">GET IT ON</span>
-                                <span class="block text-xs font-black text-white">Google Play</span>
-                            </div>
+                <!-- Apple App Store Button -->
+                <a href="{{ $appAppStoreUrl ?: '#' }}" target="_blank" rel="noopener noreferrer" class="px-5 py-3 rounded-2xl bg-gray-950 hover:bg-gray-900 border border-gray-800 text-white flex items-center gap-3 transition transform hover:scale-105 shadow-xl group">
+                    <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,21.97C7.79,22 6.87,20.68 6.04,19.47C4.34,17 3.05,12.5 4.81,9.46C5.68,7.96 7.22,7 8.9,6.97C10.2,6.95 11.44,7.85 12.23,7.85C13.02,7.85 14.5,6.75 16.03,6.92C16.68,6.95 18.5,7.18 19.66,8.87C19.57,8.93 17.8,9.96 17.82,12.07C17.85,14.6 20.03,15.44 20.08,15.46C20.04,15.58 19.72,16.71 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
+                    </svg>
+                    <div class="text-left">
+                        <span class="block text-[9px] uppercase tracking-wider text-gray-400 font-mono font-bold">DOWNLOAD ON THE</span>
+                        <span class="block text-xs font-black text-white group-hover:text-emerald-400 transition">App Store</span>
+                    </div>
+                </a>
+
+                <!-- Direct Android APK Button -->
+                @if($appDirectApkUrl && $appDirectApkUrl !== '#')
+                    <a href="{{ $appDirectApkUrl }}" target="_blank" rel="noopener noreferrer" class="px-4 py-3 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 flex items-center gap-2.5 transition transform hover:scale-105 shadow-xl">
+                        <span class="text-lg">🤖</span>
+                        <div class="text-left">
+                            <span class="block text-[9px] uppercase tracking-wider font-mono font-bold">DIRECT LINK</span>
+                            <span class="block text-xs font-bold">Download APK</span>
                         </div>
-                    @endif
-
-                    <!-- Apple App Store Button -->
-                    @if($appAppStoreUrl && $appAppStoreUrl !== '#')
-                        <a href="{{ $appAppStoreUrl }}" target="_blank" class="px-5 py-3 rounded-2xl bg-gray-950 hover:bg-gray-900 border border-gray-800 text-white flex items-center gap-3 transition transform hover:scale-105 shadow-xl group">
-                            <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,21.97C7.79,22 6.87,20.68 6.04,19.47C4.34,17 3.05,12.5 4.81,9.46C5.68,7.96 7.22,7 8.9,6.97C10.2,6.95 11.44,7.85 12.23,7.85C13.02,7.85 14.5,6.75 16.03,6.92C16.68,6.95 18.5,7.18 19.66,8.87C19.57,8.93 17.8,9.96 17.82,12.07C17.85,14.6 20.03,15.44 20.08,15.46C20.04,15.58 19.72,16.71 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
-                            </svg>
-                            <div class="text-left">
-                                <span class="block text-[9px] uppercase tracking-wider text-gray-400 font-mono font-bold">DOWNLOAD ON THE</span>
-                                <span class="block text-xs font-black text-white group-hover:text-emerald-400 transition">App Store</span>
-                            </div>
-                        </a>
-                    @else
-                        <div class="px-5 py-3 rounded-2xl bg-gray-950/80 border border-gray-800 text-white flex items-center gap-3 shadow-xl opacity-90">
-                            <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,21.97C7.79,22 6.87,20.68 6.04,19.47C4.34,17 3.05,12.5 4.81,9.46C5.68,7.96 7.22,7 8.9,6.97C10.2,6.95 11.44,7.85 12.23,7.85C13.02,7.85 14.5,6.75 16.03,6.92C16.68,6.95 18.5,7.18 19.66,8.87C19.57,8.93 17.8,9.96 17.82,12.07C17.85,14.6 20.03,15.44 20.08,15.46C20.04,15.58 19.72,16.71 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
-                            </svg>
-                            <div class="text-left">
-                                <span class="block text-[9px] uppercase tracking-wider text-gray-400 font-mono font-bold">DOWNLOAD ON THE</span>
-                                <span class="block text-xs font-black text-white">App Store</span>
-                            </div>
-                        </div>
-                    @endif
-
-                    <!-- Direct Android APK Button -->
-                    @if($appDirectApkUrl && $appDirectApkUrl !== '#')
-                        <a href="{{ $appDirectApkUrl }}" target="_blank" class="px-4 py-3 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 flex items-center gap-2.5 transition transform hover:scale-105 shadow-xl">
-                            <span class="text-lg">🤖</span>
-                            <div class="text-left">
-                                <span class="block text-[9px] uppercase tracking-wider font-mono font-bold">DIRECT LINK</span>
-                                <span class="block text-xs font-bold">Download APK</span>
-                            </div>
-                        </a>
-                    @endif
-                </div>
+                    </a>
+                @endif
             </div>
         </div>
     </div>
