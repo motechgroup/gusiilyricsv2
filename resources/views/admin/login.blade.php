@@ -5,10 +5,13 @@
 @section('content')
 <div class="max-w-md mx-auto px-4 py-20">
     <div class="glass-panel p-8 rounded-3xl border border-emerald-500/30 shadow-2xl space-y-6">
-        <div class="text-center space-y-2">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-slate-950 font-black flex items-center justify-center mx-auto text-xl shadow-lg">G</div>
-            <h1 class="text-2xl font-extrabold text-white">Staff Management Portal</h1>
-            <p class="text-xs text-gray-400">Sign in to manage lyrics, artists, requests, and site content.</p>
+        @php
+            $siteLogo = \App\Models\Setting::get('site_logo', asset('images/logo.png'));
+            $siteName = \App\Models\Setting::get('site_name', 'Gusii Lyrics');
+        @endphp
+        <div class="text-center space-y-3">
+            <img src="{{ $siteLogo }}" alt="{{ $siteName }}" class="h-12 w-auto mx-auto object-contain">
+            <h1 class="text-2xl font-extrabold text-white">Login</h1>
         </div>
 
         @if(session('error'))
