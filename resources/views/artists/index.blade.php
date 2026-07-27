@@ -19,7 +19,7 @@
             🌟 All Categories
         </a>
         <a href="{{ request()->fullUrlWithQuery(['type' => 'artist']) }}" class="px-4 py-2 rounded-2xl text-xs font-extrabold transition border {{ $selectedType === 'artist' ? 'bg-gradient-to-r from-emerald-500 to-amber-400 text-slate-950 border-emerald-400 shadow-lg' : 'bg-gray-900 text-gray-300 hover:bg-gray-800 border-gray-800' }}">
-            🎤 Solo Artists
+            🎤 Artists
         </a>
         <a href="{{ request()->fullUrlWithQuery(['type' => 'band']) }}" class="px-4 py-2 rounded-2xl text-xs font-extrabold transition border {{ $selectedType === 'band' ? 'bg-gradient-to-r from-emerald-500 to-amber-400 text-slate-950 border-emerald-400 shadow-lg' : 'bg-gray-900 text-gray-300 hover:bg-gray-800 border-gray-800' }}">
             🎸 Music Bands

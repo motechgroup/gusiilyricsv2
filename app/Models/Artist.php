@@ -38,7 +38,7 @@ class Artist extends Model
             'band' => 'Music Band',
             'choir' => 'Gospel Choir',
             'group' => 'Music Group',
-            default => 'Solo Artist',
+            default => 'Artist',
         };
     }
 
@@ -48,7 +48,7 @@ class Artist extends Model
             'band' => '🎸 Band',
             'choir' => '🎼 Choir',
             'group' => '👥 Group',
-            default => '🎤 Solo Artist',
+            default => '🎤 Artist',
         };
     }
 

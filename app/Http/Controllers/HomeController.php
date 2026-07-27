@@ -49,6 +49,28 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
+        $topBands = Artist::where('type', 'band')
+            ->withCount('songs')
+            ->withSum('songs', 'views_count')
+            ->orderBy('songs_sum_views_count', 'desc')
+            ->take(6)
+            ->get();
+
+        if ($topBands->isEmpty()) {
+            $topBands = Artist::where('type', 'band')->latest()->take(6)->get();
+        }
+
+        $topChoirs = Artist::where('type', 'choir')
+            ->withCount('songs')
+            ->withSum('songs', 'views_count')
+            ->orderBy('songs_sum_views_count', 'desc')
+            ->take(6)
+            ->get();
+
+        if ($topChoirs->isEmpty()) {
+            $topChoirs = Artist::where('type', 'choir')->latest()->take(6)->get();
+        }
+
         $genres = Genre::withCount('songs')->get();
 
         $stats = [
@@ -65,6 +87,8 @@ class HomeController extends Controller
             'recentSongs',
             'weeklyLatestSongs',
             'topCharts',
+            'topBands',
+            'topChoirs',
             'genres',
             'stats'
         ));

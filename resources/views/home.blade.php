@@ -218,16 +218,74 @@
 
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
         @foreach($featuredArtists as $artist)
-            <a href="{{ route('artists.show', $artist->slug) }}" class="group p-4 rounded-2xl bg-[#121927]/60 hover:bg-[#1c273c] transition duration-300 text-center flex flex-col items-center">
+            <a href="{{ route('artists.show', $artist->slug) }}" class="group p-4 rounded-2xl bg-[#121927]/60 hover:bg-[#1c273c] transition duration-300 text-center flex flex-col items-center border border-transparent hover:border-emerald-500/20 shadow-lg">
                 <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden mb-3.5 border-2 border-emerald-500/20 group-hover:border-emerald-400 transition duration-300 shadow-xl">
                     <img src="{{ $artist->avatar_url }}" alt="{{ $artist->name }}" class="w-full h-full object-cover">
                 </div>
                 <h3 class="font-bold text-white text-sm group-hover:text-emerald-400 truncate w-full">{{ $artist->name }}</h3>
-                <p class="text-[11px] text-gray-400 font-mono mt-0.5">Artist</p>
+                <p class="text-[11px] text-emerald-400 font-mono mt-0.5">{{ $artist->type_badge }}</p>
             </a>
         @endforeach
     </div>
 </div>
+
+<!-- Top Gusii Bands (Homepage Section) -->
+@if($topBands->count() > 0)
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-gray-900">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+                    <span>🎸</span> Top Music Bands
+                </h2>
+                <p class="text-xs text-gray-400 mt-1">Leading Ekegusii live bands and instrumental ensembles.</p>
+            </div>
+            <a href="{{ route('artists.index', ['type' => 'band']) }}" class="text-xs font-bold text-emerald-400 hover:text-emerald-300 uppercase tracking-wider">
+                Explore Bands &rarr;
+            </a>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+            @foreach($topBands as $band)
+                <a href="{{ route('artists.show', $band->slug) }}" class="group p-4 rounded-2xl bg-[#121927]/60 hover:bg-[#1c273c] transition duration-300 text-center flex flex-col items-center border border-transparent hover:border-emerald-500/20 shadow-lg">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden mb-3.5 border-2 border-emerald-500/20 group-hover:border-emerald-400 transition duration-300 shadow-xl">
+                        <img src="{{ $band->avatar_url }}" alt="{{ $band->name }}" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="font-bold text-white text-sm group-hover:text-emerald-400 truncate w-full">{{ $band->name }}</h3>
+                    <p class="text-[11px] text-emerald-400 font-mono mt-0.5">🎸 Band</p>
+                </a>
+            @endforeach
+        </div>
+    </div>
+@endif
+
+<!-- Top Gospel Choirs (Homepage Section) -->
+@if($topChoirs->count() > 0)
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-gray-900">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+                    <span>🎼</span> Top Gospel Choirs
+                </h2>
+                <p class="text-xs text-gray-400 mt-1">Renowned Ekegusii church choirs and praise ministries.</p>
+            </div>
+            <a href="{{ route('artists.index', ['type' => 'choir']) }}" class="text-xs font-bold text-emerald-400 hover:text-emerald-300 uppercase tracking-wider">
+                Explore Choirs &rarr;
+            </a>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+            @foreach($topChoirs as $choir)
+                <a href="{{ route('artists.show', $choir->slug) }}" class="group p-4 rounded-2xl bg-[#121927]/60 hover:bg-[#1c273c] transition duration-300 text-center flex flex-col items-center border border-transparent hover:border-emerald-500/20 shadow-lg">
+                    <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden mb-3.5 border-2 border-emerald-500/20 group-hover:border-emerald-400 transition duration-300 shadow-xl">
+                        <img src="{{ $choir->avatar_url }}" alt="{{ $choir->name }}" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="font-bold text-white text-sm group-hover:text-emerald-400 truncate w-full">{{ $choir->name }}</h3>
+                    <p class="text-[11px] text-emerald-400 font-mono mt-0.5">🎼 Choir</p>
+                </a>
+            @endforeach
+        </div>
+    </div>
+@endif
 
 <!-- Homepage Middle Ad Banner Spot -->
 @php
