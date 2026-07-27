@@ -105,7 +105,7 @@
                             {{ $song->title }}
                         </h3>
                         <p class="text-xs text-gray-400 truncate mt-1">
-                            {{ $song->artist->name }}
+                            {{ $song->display_artist_names }}
                         </p>
                     </div>
                 </a>

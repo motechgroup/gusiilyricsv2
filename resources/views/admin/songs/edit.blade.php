@@ -44,6 +44,25 @@
             </div>
         </div>
 
+        @php
+            $currentCollaboratorIds = $song->artists->pluck('id')->toArray();
+        @endphp
+        <!-- Collaborating Artists (Multi-Select) -->
+        <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-amber-400 mb-1">
+                Collaborating / Featured Artists (Optional - Multi-Select)
+            </label>
+            <p class="text-[11px] text-gray-400 mb-2">Select any featured or collaborating artists. This lyric will automatically show under all selected artists' profiles.</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 max-h-40 overflow-y-auto p-3 bg-gray-950 rounded-xl border border-gray-800">
+                @foreach($artists as $artist)
+                    <label class="flex items-center gap-2 text-xs text-gray-300 hover:text-white cursor-pointer select-none">
+                        <input type="checkbox" name="collaborator_ids[]" value="{{ $artist->id }}" {{ in_array($artist->id, $currentCollaboratorIds) ? 'checked' : '' }} class="w-4 h-4 rounded bg-gray-900 border-gray-700 text-emerald-500 focus:ring-0">
+                        <span>{{ $artist->name }}</span>
+                    </label>
+                @endforeach
+            </div>
+        </div>
+
         <!-- Upload Cover File -->
         <div>
             <label class="block text-xs font-bold uppercase tracking-wider text-emerald-400 mb-1">Upload New Song Cover Artwork File</label>

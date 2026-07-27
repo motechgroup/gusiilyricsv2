@@ -36,7 +36,7 @@
             </div>
 
             <button type="submit" class="w-full py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition">
-                Sign In to Staff Panel
+                Sign In
             </button>
         </form>
     </div>

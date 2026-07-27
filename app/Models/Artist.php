@@ -38,6 +38,11 @@ class Artist extends Model
         return $this->hasMany(Song::class);
     }
 
+    public function songsAsCollaborator(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Song::class)->withTimestamps();
+    }
+
     public function albums(): HasMany
     {
         return $this->hasMany(Album::class);

@@ -49,12 +49,20 @@ class ArtistController extends Controller
 
     public function show($slug)
     {
-        $artist = Artist::with(['songs' => function ($q) {
-            $q->orderBy('views_count', 'desc');
-        }, 'albums.songs'])
+        $artist = Artist::with(['albums.songs'])
             ->where('slug', $slug)
             ->firstOrFail();
 
-        return view('artists.show', compact('artist'));
+        $allSongs = Song::with(['artist', 'artists', 'genre'])
+            ->where(function ($query) use ($artist) {
+                $query->where('artist_id', $artist->id)
+                    ->orWhereHas('artists', function ($q) use ($artist) {
+                        $q->where('artists.id', $artist->id);
+                    });
+            })
+            ->orderBy('views_count', 'desc')
+            ->get();
+
+        return view('artists.show', compact('artist', 'allSongs'));
     }
 }

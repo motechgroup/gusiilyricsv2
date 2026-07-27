@@ -421,6 +421,8 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'artist_id' => 'required|exists:artists,id',
+            'collaborator_ids' => 'nullable|array',
+            'collaborator_ids.*' => 'exists:artists,id',
             'title' => 'required|string|max:255',
             'genre_id' => 'nullable|exists:genres,id',
             'lyrics_raw' => 'required|string',
@@ -442,14 +444,18 @@ class AdminController extends Controller
         $validated['is_featured'] = $request->has('is_featured');
         $validated['is_trending'] = $request->has('is_trending');
 
-        Song::create($validated);
+        $song = Song::create($validated);
+
+        if ($request->has('collaborator_ids')) {
+            $song->artists()->sync($request->collaborator_ids);
+        }
 
         return redirect()->route('admin.songs.index')->with('success', 'Song lyrics created successfully!');
     }
 
     public function songsEdit($id)
     {
-        $song = Song::findOrFail($id);
+        $song = Song::with('artists')->findOrFail($id);
         $artists = Artist::orderBy('name')->get();
         $genres = Genre::orderBy('name')->get();
         return view('admin.songs.edit', compact('song', 'artists', 'genres'));
@@ -461,6 +467,8 @@ class AdminController extends Controller
 
         $validated = $request->validate([
             'artist_id' => 'required|exists:artists,id',
+            'collaborator_ids' => 'nullable|array',
+            'collaborator_ids.*' => 'exists:artists,id',
             'title' => 'required|string|max:255',
             'genre_id' => 'nullable|exists:genres,id',
             'lyrics_raw' => 'required|string',
@@ -482,6 +490,9 @@ class AdminController extends Controller
         $validated['is_trending'] = $request->has('is_trending');
 
         $song->update($validated);
+
+        $collaboratorIds = $request->input('collaborator_ids', []);
+        $song->artists()->sync($collaboratorIds);
 
         return redirect()->route('admin.songs.index')->with('success', 'Song lyrics updated successfully!');
     }

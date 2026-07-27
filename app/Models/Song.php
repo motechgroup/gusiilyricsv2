@@ -52,6 +52,39 @@ class Song extends Model
         return $this->belongsTo(Artist::class);
     }
 
+    public function artists(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Artist::class)->withTimestamps();
+    }
+
+    public function getAllArtistsAttribute()
+    {
+        $primary = $this->artist;
+        $collaborators = $this->artists;
+        
+        $all = collect();
+        if ($primary) {
+            $all->push($primary);
+        }
+        foreach ($collaborators as $c) {
+            if (!$primary || $c->id !== $primary->id) {
+                $all->push($c);
+            }
+        }
+        return $all->unique('id')->values();
+    }
+
+    public function getDisplayArtistNamesAttribute(): string
+    {
+        $primaryName = $this->artist ? $this->artist->name : 'Unknown Artist';
+        $collabNames = $this->artists->reject(fn($a) => $this->artist && $a->id === $this->artist->id)->pluck('name');
+        
+        if ($collabNames->isEmpty()) {
+            return $primaryName;
+        }
+        return $primaryName . ' ft. ' . $collabNames->implode(', ');
+    }
+
     public function album(): BelongsTo
     {
         return $this->belongsTo(Album::class);

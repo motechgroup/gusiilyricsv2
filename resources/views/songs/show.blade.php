@@ -98,14 +98,19 @@
                     {{ $song->title }}
                 </h1>
 
-                <!-- Artist Avatar Line & Metrics -->
-                <div class="flex items-center justify-center sm:justify-start gap-2.5 text-xs sm:text-sm text-gray-300">
-                    <img src="{{ $song->artist->avatar_url }}" alt="{{ $song->artist->name }}" class="w-7 h-7 rounded-full object-cover border border-emerald-500/40 shrink-0">
-                    <a href="{{ route('artists.show', $song->artist->slug) }}" class="font-bold text-white hover:text-emerald-400 hover:underline">
-                        {{ $song->artist->name }}
-                    </a>
+                <!-- Artist Avatar Line & Metrics (Includes Collaborators) -->
+                <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 text-xs sm:text-sm text-gray-300">
+                    @foreach($song->all_artists as $index => $art)
+                        <div class="inline-flex items-center gap-1.5">
+                            @if($index > 0)<span class="text-amber-400 font-bold">ft.</span>@endif
+                            <img src="{{ $art->avatar_url }}" alt="{{ $art->name }}" class="w-7 h-7 rounded-full object-cover border border-emerald-500/40 shrink-0">
+                            <a href="{{ route('artists.show', $art->slug) }}" class="font-bold text-white hover:text-emerald-400 hover:underline">
+                                {{ $art->name }}
+                            </a>
+                        </div>
+                    @endforeach
                     <span>•</span>
-                    <span class="text-gray-400">2026</span>
+                    <span class="text-gray-400">{{ $song->release_year ?: '2026' }}</span>
                     <span>•</span>
                     <span class="font-mono text-emerald-400">👁️ {{ number_format($song->views_count) }} views</span>
                 </div>

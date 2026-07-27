@@ -38,7 +38,7 @@
                     <span>•</span>
                     <span>🏷️ Label: <strong class="text-white">{{ $artist->label ?: 'Independent / Gusii Music' }}</strong></span>
                     <span>•</span>
-                    <span>🎶 <strong class="text-emerald-400">{{ $artist->songs->count() }} Songs Indexed</strong></span>
+                    <span>🎶 <strong class="text-emerald-400">{{ $allSongs->count() }} Songs & Collaborations</strong></span>
                 </div>
 
                 <!-- Artist Official Social Media & Streaming Links -->
@@ -105,13 +105,13 @@
     <div>
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-extrabold text-white tracking-tight">Popular Songs & Lyrics</h2>
-            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">{{ $artist->songs->count() }} Songs</span>
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">{{ $allSongs->count() }} Songs & Collaborations</span>
         </div>
 
-        @if($artist->songs->count() > 0)
+        @if($allSongs->count() > 0)
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-                @foreach($artist->songs as $song)
-                    <a href="{{ $song->seo_url }}" class="group p-4 rounded-2xl bg-[#121927]/60 hover:bg-[#1c273c] transition duration-300 flex flex-col justify-between border border-transparent hover:border-emerald-500/20 shadow-lg">
+                @foreach($allSongs as $song)
+                    <a href="{{ route('songs.show', $song->slug) }}" class="group p-4 rounded-2xl bg-[#121927]/60 hover:bg-[#1c273c] transition duration-300 flex flex-col justify-between border border-transparent hover:border-emerald-500/20 shadow-lg">
                         <!-- Artwork Container -->
                         <div class="relative aspect-square w-full rounded-xl overflow-hidden mb-3.5 bg-gray-950 shadow-md">
                             <img src="{{ $song->cover_art_url }}" alt="{{ $song->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
@@ -128,7 +128,7 @@
                                 {{ $song->title }}
                             </h3>
                             <p class="text-xs text-gray-400 truncate mt-1">
-                                {{ $artist->name }}
+                                {{ $song->display_artist_names }}
                             </p>
                         </div>
                     </a>
