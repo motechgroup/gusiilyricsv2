@@ -1089,14 +1089,23 @@ EOD;
     {
         $query = \App\Models\AdInquiry::latest();
 
+        if ($request->spot) {
+            if ($request->spot === 'contact_us') {
+                $query->whereIn('placement_spot', ['contact_us', 'contact_form']);
+            } else {
+                $query->where('placement_spot', $request->spot);
+            }
+        }
+
         if ($request->status) {
             $query->where('status', $request->status);
         }
 
-        $inquiries = $query->paginate(10);
+        $inquiries = $query->paginate(15);
         $pendingCount = \App\Models\AdInquiry::where('status', 'pending')->count();
+        $contactMessagesCount = \App\Models\AdInquiry::whereIn('placement_spot', ['contact_us', 'contact_form'])->count();
 
-        return view('admin.ad_inquiries.index', compact('inquiries', 'pendingCount'));
+        return view('admin.ad_inquiries.index', compact('inquiries', 'pendingCount', 'contactMessagesCount'));
     }
 
     public function adInquiriesUpdateStatus(Request $request, $id)

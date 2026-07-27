@@ -22,8 +22,14 @@ class AdvertisementController extends Controller
             'placement_spot' => 'required|string|in:header_banner,in_lyrics,sidebar,footer',
             'budget_range' => 'nullable|string|max:100',
             'banner_file' => 'nullable|image|max:10240',
-            'message' => 'nullable|string',
+            'message' => 'nullable|string|max:3000',
         ]);
+
+        foreach ($validated as $key => $val) {
+            if (is_string($val) && $key !== 'banner_file') {
+                $validated[$key] = trim(strip_tags($val));
+            }
+        }
 
         if ($request->hasFile('banner_file')) {
             $path = $request->file('banner_file')->store('uploads/ads', 'public');
@@ -62,9 +68,15 @@ class AdvertisementController extends Controller
             'song_title' => 'required|string|max:255',
             'song_url' => 'required|url|max:500',
             'package_type' => 'required|string|max:100',
-            'lyrics_text' => 'nullable|string',
-            'message' => 'nullable|string',
+            'lyrics_text' => 'nullable|string|max:10000',
+            'message' => 'nullable|string|max:3000',
         ]);
+
+        foreach ($validated as $key => $val) {
+            if (is_string($val)) {
+                $validated[$key] = trim(strip_tags($val));
+            }
+        }
 
         $typeLabel = match($request->input('artist_type')) {
             'band' => 'Music Band',
@@ -120,8 +132,14 @@ class AdvertisementController extends Controller
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:50',
             'subject' => 'required|string|max:255',
-            'message' => 'required|string|min:10',
+            'message' => 'required|string|min:10|max:3000',
         ]);
+
+        foreach ($validated as $key => $val) {
+            if (is_string($val)) {
+                $validated[$key] = trim(strip_tags($val));
+            }
+        }
 
         $fullMessage = "GENERAL CONTACT FORM SUBMISSION:\n";
         $fullMessage .= "Subject: {$validated['subject']}\n";

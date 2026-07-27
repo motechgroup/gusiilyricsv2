@@ -6,6 +6,7 @@ use App\Models\Artist;
 use App\Models\Genre;
 use App\Models\Song;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -87,14 +88,14 @@ class HomeController extends Controller
             ->take(10)
             ->get();
 
-        $genres = Genre::withCount('songs')->get();
+        $genres = Cache::remember('home_genres', 3600, fn() => Genre::withCount('songs')->get());
 
-        $stats = [
+        $stats = Cache::remember('home_stats', 600, fn() => [
             'total_songs' => Song::count(),
             'total_artists' => Artist::count(),
             'total_genres' => Genre::count(),
             'total_views' => Song::sum('views_count'),
-        ];
+        ]);
 
         return view('home', compact(
             'featuredSongs',

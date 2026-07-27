@@ -60,30 +60,30 @@ Route::middleware(\App\Http\Middleware\TrackVisitor::class)->group(function () {
 
     // Dedicated Public Legal & About Pages
     Route::get('/about', [LegalPageController::class, 'about'])->name('about');
-    Route::post('/contact', [AdvertisementController::class, 'submitContactForm'])->name('contact.store');
+    Route::post('/contact', [AdvertisementController::class, 'submitContactForm'])->middleware('throttle:5,1')->name('contact.store');
     Route::get('/terms', [LegalPageController::class, 'terms'])->name('pages.terms');
     Route::get('/privacy', [LegalPageController::class, 'privacy'])->name('pages.privacy');
 
     // Dedicated Public Advertise With Us Page
     Route::get('/advertise', [AdvertisementController::class, 'showPublicAdvertise'])->name('advertise');
-    Route::post('/advertise', [AdvertisementController::class, 'submitInquiry'])->name('advertise.store');
+    Route::post('/advertise', [AdvertisementController::class, 'submitInquiry'])->middleware('throttle:5,1')->name('advertise.store');
 
     // Dedicated Promote Your Music Page
     Route::get('/promote-music', [AdvertisementController::class, 'showPromoteMusic'])->name('promote-music');
-    Route::post('/promote-music', [AdvertisementController::class, 'submitMusicPromotion'])->name('promote-music.store');
+    Route::post('/promote-music', [AdvertisementController::class, 'submitMusicPromotion'])->middleware('throttle:5,1')->name('promote-music.store');
 
     // Dedicated Public Donation / Support Page
     Route::get('/donate', [DonationController::class, 'showPublicDonate'])->name('donate');
-    Route::post('/donate', [DonationController::class, 'storePublicDonation'])->name('donate.store');
-    Route::post('/api/mpesa/stkpush', [MpesaController::class, 'stkPush'])->name('api.mpesa.stkpush');
-    Route::post('/donate/stk-push', [MpesaController::class, 'stkPush'])->name('donate.stk-push');
+    Route::post('/donate', [DonationController::class, 'storePublicDonation'])->middleware('throttle:10,1')->name('donate.store');
+    Route::post('/api/mpesa/stkpush', [MpesaController::class, 'stkPush'])->middleware('throttle:6,1')->name('api.mpesa.stkpush');
+    Route::post('/donate/stk-push', [MpesaController::class, 'stkPush'])->middleware('throttle:6,1')->name('donate.stk-push');
 
     // Visitor Actions
-    Route::post('/actions/request-lyric', [VisitorActionController::class, 'requestLyric'])->name('actions.request-lyric');
-    Route::post('/actions/submit-correction', [VisitorActionController::class, 'submitCorrection'])->name('actions.submit-correction');
-    Route::post('/api/songs/{id}/like', [SongController::class, 'like'])->name('songs.like');
+    Route::post('/actions/request-lyric', [VisitorActionController::class, 'requestLyric'])->middleware('throttle:5,1')->name('actions.request-lyric');
+    Route::post('/actions/submit-correction', [VisitorActionController::class, 'submitCorrection'])->middleware('throttle:5,1')->name('actions.submit-correction');
+    Route::post('/api/songs/{id}/like', [SongController::class, 'like'])->middleware('throttle:30,1')->name('songs.like');
     Route::post('/api/songs/{id}/track-click', [SongController::class, 'trackClick'])->name('songs.track-click');
-    Route::get('/api/search', [SongController::class, 'searchApi'])->name('api.search');
+    Route::get('/api/search', [SongController::class, 'searchApi'])->middleware('throttle:60,1')->name('api.search');
 });
 
 // Staff Auth & Password Reset Routes (Custom Portal: /mkuu)

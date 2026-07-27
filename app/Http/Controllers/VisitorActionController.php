@@ -17,7 +17,9 @@ class VisitorActionController extends Controller
             'notes' => 'nullable|string',
         ]);
 
-        LyricRequest::create($validated);
+        $sanitized = array_map(fn($v) => is_string($v) ? trim(strip_tags($v)) : $v, $validated);
+
+        LyricRequest::create($sanitized);
 
         return redirect()->back()->with('success', 'Ebaora! Your lyric request has been received. Our team will add it soon.');
     }
@@ -28,11 +30,13 @@ class VisitorActionController extends Controller
             'song_id' => 'required|exists:songs,id',
             'visitor_name' => 'nullable|string|max:255',
             'visitor_email' => 'nullable|email|max:255',
-            'correction_type' => 'required|string',
-            'details' => 'required|string|min:10',
+            'correction_type' => 'required|string|max:100',
+            'details' => 'required|string|min:10|max:3000',
         ]);
 
-        Correction::create($validated);
+        $sanitized = array_map(fn($v) => is_string($v) ? trim(strip_tags($v)) : $v, $validated);
+
+        Correction::create($sanitized);
 
         return redirect()->back()->with('success', 'Thank you! Your lyric correction report has been submitted for review.');
     }

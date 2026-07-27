@@ -7,14 +7,30 @@
 
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-gray-800">
         <div>
-            <h1 class="text-2xl font-extrabold text-white">📢 Ad Booking Inquiries</h1>
-            <p class="text-xs text-gray-400 mt-1">Review advertiser proposals, banner artwork uploads, and campaign bookings.</p>
+            <h1 class="text-2xl font-extrabold text-white">✉️ Contact & Ad Inquiries</h1>
+            <p class="text-xs text-gray-400 mt-1">Review contact us form submissions, advertiser proposals, and music promotion inquiries.</p>
         </div>
         <div class="flex items-center gap-2 text-xs">
             <span class="px-3 py-1.5 rounded-xl bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">
-                Pending Requests: {{ $pendingCount }}
+                Pending: {{ $pendingCount }}
+            </span>
+            <span class="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 font-bold border border-emerald-500/30">
+                Contact Form Messages: {{ $contactMessagesCount }}
             </span>
         </div>
+    </div>
+
+    <!-- Category Filter Tabs Bar -->
+    <div class="flex flex-wrap items-center gap-2 text-xs pb-2 border-b border-gray-800">
+        <a href="{{ route('admin.ad-inquiries.index') }}" class="px-3 py-1.5 rounded-xl font-bold transition {{ !request('spot') ? 'bg-emerald-500 text-slate-950' : 'bg-gray-900 text-gray-400 hover:text-white' }}">
+            All Messages
+        </a>
+        <a href="{{ route('admin.ad-inquiries.index', ['spot' => 'contact_us']) }}" class="px-3 py-1.5 rounded-xl font-bold transition {{ request('spot') === 'contact_us' ? 'bg-emerald-500 text-slate-950' : 'bg-gray-900 text-gray-400 hover:text-white' }}">
+            ✉️ Contact Us Submissions
+        </a>
+        <a href="{{ route('admin.ad-inquiries.index', ['spot' => 'music_promotion']) }}" class="px-3 py-1.5 rounded-xl font-bold transition {{ request('spot') === 'music_promotion' ? 'bg-emerald-500 text-slate-950' : 'bg-gray-900 text-gray-400 hover:text-white' }}">
+            🚀 Music Promotions
+        </a>
     </div>
 
     <!-- Inquiries Table (Completely Un-enclosed) -->
