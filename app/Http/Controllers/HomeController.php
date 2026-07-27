@@ -71,6 +71,22 @@ class HomeController extends Controller
             $topChoirs = Artist::where('type', 'choir')->latest()->take(6)->get();
         }
 
+        $topBandSongs = Song::with(['artist', 'genre'])
+            ->whereHas('artist', function ($q) {
+                $q->where('type', 'band');
+            })
+            ->orderBy('views_count', 'desc')
+            ->take(10)
+            ->get();
+
+        $topChoirSongs = Song::with(['artist', 'genre'])
+            ->whereHas('artist', function ($q) {
+                $q->where('type', 'choir');
+            })
+            ->orderBy('views_count', 'desc')
+            ->take(10)
+            ->get();
+
         $genres = Genre::withCount('songs')->get();
 
         $stats = [
@@ -89,6 +105,8 @@ class HomeController extends Controller
             'topCharts',
             'topBands',
             'topChoirs',
+            'topBandSongs',
+            'topChoirSongs',
             'genres',
             'stats'
         ));

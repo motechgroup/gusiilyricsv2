@@ -255,6 +255,49 @@
                 </a>
             @endforeach
         </div>
+
+        <!-- Top 10 Most Viewed Band Songs & Lyrics -->
+        @if($topBandSongs->count() > 0)
+            <div class="mt-8 pt-6 border-t border-gray-800/80 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xs font-extrabold text-gray-300 uppercase tracking-wider flex items-center gap-2">
+                        <span>🔥</span> Top 10 Most Viewed Band Songs & Lyrics
+                    </h3>
+                </div>
+
+                <div class="divide-y divide-gray-800/60">
+                    @foreach($topBandSongs->take(10) as $index => $song)
+                        <a href="{{ route('songs.show', $song->slug) }}" class="group py-3 px-3 rounded-2xl hover:bg-gray-900/80 transition flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3.5 sm:gap-4 truncate">
+                                <span class="w-6 text-center font-mono font-bold text-xs text-amber-400 group-hover:text-emerald-400 transition">
+                                    {{ sprintf('%02d', $index + 1) }}
+                                </span>
+                                <div class="relative w-11 h-11 rounded-xl overflow-hidden bg-gray-950 shrink-0 border border-gray-800 shadow-md">
+                                    <img src="{{ $song->cover_art_url }}" alt="{{ $song->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                </div>
+                                <div class="truncate">
+                                    <h4 class="font-bold text-white text-sm truncate group-hover:text-emerald-400 transition leading-snug">
+                                        {{ $song->title }}
+                                    </h4>
+                                    <p class="text-xs text-gray-400 truncate">
+                                        {{ $song->artist ? $song->artist->name : 'Gusii Band' }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 shrink-0">
+                                <span class="hidden sm:inline-block px-2.5 py-1 rounded-full bg-gray-900 border border-gray-800 text-[11px] font-semibold text-gray-400">
+                                    {{ $song->genre ? $song->genre->name : 'Gusii Benga' }}
+                                </span>
+                                <div class="text-right">
+                                    <span class="text-xs font-bold text-emerald-400 font-mono">👁️ {{ number_format($song->views_count) }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
 @endif
 
@@ -284,6 +327,49 @@
                 </a>
             @endforeach
         </div>
+
+        <!-- Top 10 Most Viewed Choir Songs & Lyrics -->
+        @if($topChoirSongs->count() > 0)
+            <div class="mt-8 pt-6 border-t border-gray-800/80 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h3 class="text-xs font-extrabold text-gray-300 uppercase tracking-wider flex items-center gap-2">
+                        <span>🔥</span> Top 10 Most Viewed Gospel Choir Songs & Lyrics
+                    </h3>
+                </div>
+
+                <div class="divide-y divide-gray-800/60">
+                    @foreach($topChoirSongs->take(10) as $index => $song)
+                        <a href="{{ route('songs.show', $song->slug) }}" class="group py-3 px-3 rounded-2xl hover:bg-gray-900/80 transition flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3.5 sm:gap-4 truncate">
+                                <span class="w-6 text-center font-mono font-bold text-xs text-amber-400 group-hover:text-emerald-400 transition">
+                                    {{ sprintf('%02d', $index + 1) }}
+                                </span>
+                                <div class="relative w-11 h-11 rounded-xl overflow-hidden bg-gray-950 shrink-0 border border-gray-800 shadow-md">
+                                    <img src="{{ $song->cover_art_url }}" alt="{{ $song->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                                </div>
+                                <div class="truncate">
+                                    <h4 class="font-bold text-white text-sm truncate group-hover:text-emerald-400 transition leading-snug">
+                                        {{ $song->title }}
+                                    </h4>
+                                    <p class="text-xs text-gray-400 truncate">
+                                        {{ $song->artist ? $song->artist->name : 'Ekegusii Choir' }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4 shrink-0">
+                                <span class="hidden sm:inline-block px-2.5 py-1 rounded-full bg-gray-900 border border-gray-800 text-[11px] font-semibold text-gray-400">
+                                    {{ $song->genre ? $song->genre->name : 'Gospel' }}
+                                </span>
+                                <div class="text-right">
+                                    <span class="text-xs font-bold text-emerald-400 font-mono">👁️ {{ number_format($song->views_count) }}</span>
+                                </div>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
 @endif
 
