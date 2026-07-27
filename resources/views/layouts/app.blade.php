@@ -171,8 +171,8 @@
             $footerAd = \App\Models\SiteAd::getAdForSpot('footer');
         @endphp
 
-        <!-- Header Top Ad Banner Spot -->
-        @if($headerAd)
+        <!-- Header Top Ad Banner Spot (Excluded on Login Page) -->
+        @if($headerAd && !request()->routeIs('admin.login*') && !request()->is('mkuu*') && !request()->is('login*'))
             <div class="max-w-7xl mx-auto px-4 mt-4 text-center">
                 @if(($headerAd->type === 'custom' || $headerAd->type === 'image') && $headerAd->image_path)
                     <a href="{{ $headerAd->target_url ?? '#' }}" target="_blank" rel="noopener" class="inline-block w-full max-w-4xl mx-auto transition transform hover:scale-[1.01]">
@@ -197,11 +197,11 @@
         @yield('content')
     </main>
 
-    <!-- Footer Ad Banner Spot -->
+    <!-- Footer Ad Banner Spot (Excluded on Login Page) -->
     @php
         $footerAd = \App\Models\SiteAd::getAdForSpot('footer');
     @endphp
-    @if($footerAd)
+    @if($footerAd && !request()->routeIs('admin.login*') && !request()->is('mkuu*') && !request()->is('login*'))
         <div class="max-w-7xl mx-auto px-4 mt-8 text-center">
             @if($footerAd->type === 'image' && $footerAd->image_path)
                 <a href="{{ $footerAd->target_url ?? '#' }}" target="_blank" rel="noopener" class="inline-block max-w-full">
