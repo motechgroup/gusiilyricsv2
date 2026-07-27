@@ -1,24 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <style>
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #090d16; color: #f3f4f6; margin: 0; padding: 40px 20px; }
-        .card { max-width: 550px; margin: 0 auto; background-color: #111827; border: 1px solid #10b981; border-radius: 20px; padding: 32px; text-align: center; }
-        h2 { color: #10b981; margin-top: 0; font-size: 22px; font-weight: 800; }
-        p { color: #9ca3af; font-size: 14px; line-height: 1.6; }
-        .footer { margin-top: 24px; font-size: 12px; color: #6b7280; border-top: 1px solid #1f2937; padding-top: 16px; }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <h2>✅ SMTP Connection Successful!</h2>
-        <p>This is a test email sent from <strong>Gusii Lyrics</strong>.</p>
-        <p>If you are reading this email at <code>{{ $recipient }}</code>, your server's SMTP mail configurations are set up and functioning properly!</p>
+@extends('emails.layout')
 
-        <div class="footer">
-            &copy; {{ date('Y') }} Gusii Lyrics. All rights reserved.
-        </div>
+@section('content')
+    <h2 style="color: #10b981; font-size: 22px;">✅ SMTP Connection Test Successful!</h2>
+    <p>Mbuya mono!</p>
+    <p>This is an official test email dispatched from <strong>{{ \App\Models\Setting::get('site_name', 'Gusii Lyrics') }}</strong> to confirm that your outbound mail dispatch system is working perfectly.</p>
+
+    <div class="info-box">
+        <strong>Dispatch Details:</strong><br>
+        • Recipient: {{ $recipient ?? 'admin@gusiilyrics.com' }}<br>
+        • SMTP Host: {{ $host ?? '127.0.0.1' }}<br>
+        • Port: {{ $port ?? '587' }}<br>
+        • Timestamp: {{ now()->toDayDateTimeString() }}
     </div>
-</body>
-</html>
+
+    <p style="color: #9ca3af; font-size: 13px;">If you received this message, all outgoing email services (password resets, visitor inquiry notifications, and music promotions) are ready to deliver notifications seamlessly.</p>
+@endsection

@@ -848,6 +848,7 @@ class AdminController extends Controller
             if ($request->has('mail_encryption')) Setting::set('mail_encryption', $request->mail_encryption);
             if ($request->has('mail_from_address')) Setting::set('mail_from_address', $request->mail_from_address);
             if ($request->has('mail_from_name')) Setting::set('mail_from_name', $request->mail_from_name);
+            if ($request->has('email_footer_text')) Setting::set('email_footer_text', $request->email_footer_text);
 
             return redirect()->back()->with('success', 'SMTP Mail Server configuration saved successfully!');
         }
@@ -954,15 +955,201 @@ class AdminController extends Controller
         ]);
 
         try {
-            Mail::raw("Mbuya Mono!\n\nThis is an official SMTP test email sent from Gusii Lyrics Vault.\n\nSMTP Host: {$host}\nSMTP Port: {$port}\nSender Address: {$fromAddress}\nTimestamp: " . now()->toDateTimeString() . "\n\nIf you received this message, your SMTP email dispatcher is operating perfectly!", function ($message) use ($recipient, $fromAddress, $fromName) {
+            Mail::send('emails.test-smtp', [
+                'recipient' => $recipient,
+                'host' => $host,
+                'port' => $port,
+                'subject' => 'Gusii Lyrics - SMTP Connection Verification'
+            ], function ($message) use ($recipient, $fromAddress, $fromName) {
                 $message->to($recipient)
                     ->from($fromAddress, $fromName)
-                    ->subject('Gusii Lyrics - SMTP Test Email Connection');
+                    ->subject('Gusii Lyrics - SMTP Connection Verification');
             });
 
-            return redirect()->back()->with('success', "SMTP Test Successful! Test email dispatched to {$recipient}.");
+            return redirect()->back()->with('success', "SMTP Test Successful! Branded test email dispatched to {$recipient}.");
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', "SMTP Connection Failed: " . $e->getMessage());
+        }
+    }
+
+    // --- Mail Templates Management ---
+    public function mailTemplatesIndex()
+    {
+        $templates = [
+            [
+                'id' => 'test-smtp',
+                'name' => 'SMTP Connection Test Email',
+                'description' => 'Dispatched when validating SMTP server connectivity and mail settings.',
+                'subject' => 'Gusii Lyrics - SMTP Connection Verification',
+                'view' => 'emails.test-smtp',
+            ],
+            [
+                'id' => 'password-reset',
+                'name' => 'Staff Password Reset Email',
+                'description' => 'Sent to staff members requesting password reset links for the admin portal.',
+                'subject' => 'Gusii Lyrics Staff Password Reset Request',
+                'view' => 'emails.password-reset',
+            ],
+            [
+                'id' => 'contact-notification',
+                'name' => 'Visitor Contact Inquiry Notification',
+                'description' => 'Alert email sent to site administration when a visitor submits a contact message.',
+                'subject' => '✉️ New Visitor Contact Inquiry',
+                'view' => 'emails.contact-notification',
+            ],
+            [
+                'id' => 'music-promotion-notification',
+                'name' => 'Music Promotion Submission Notification',
+                'description' => 'Alert email sent to administration when an artist submits a song for promotion.',
+                'subject' => '🚀 New Music Promotion Request',
+                'view' => 'emails.music-promotion-notification',
+            ],
+        ];
+
+        $settings = [
+            'mail_from_name' => Setting::get('mail_from_name', 'Gusii Lyrics'),
+            'mail_from_address' => Setting::get('mail_from_address', 'info@gusiilyrics.com'),
+            'email_footer_text' => Setting::get('email_footer_text', 'Preserving Gusii music heritage, song lyrics, translations, and official streaming links for Omogusii worldwide.'),
+        ];
+
+        return view('admin.mail_templates.index', compact('templates', 'settings'));
+    }
+
+    public function mailTemplatesPreview($template)
+    {
+        $mockUser = (object)[
+            'name' => 'Super Admin',
+            'email' => 'admin@gusiilyrics.com',
+        ];
+
+        $data = match ($template) {
+            'password-reset' => [
+                'user' => $mockUser,
+                'resetUrl' => route('admin.password.reset', ['token' => 'sample-token-12345', 'email' => 'admin@gusiilyrics.com']),
+                'subject' => 'Gusii Lyrics Staff Password Reset Request',
+            ],
+            'contact-notification' => [
+                'senderName' => 'Kwamboka Mokaya',
+                'senderEmail' => 'kwamboka@example.com',
+                'senderPhone' => '+254 712 345 678',
+                'subject' => 'Inquiry regarding song lyrics submission',
+                'messageText' => "Mbuya mono! I would like to know how I can submit new traditional Ekegusii lyrics to your platform.",
+            ],
+            'music-promotion-notification' => [
+                'artistName' => 'Embarambamba',
+                'artistType' => 'Gospel Choir / Solo Artist',
+                'songTitle' => 'Bendera ya Yesu',
+                'packageType' => 'Featured Homepage Banner + Social Blast',
+                'senderEmail' => 'artist@gusiilyrics.com',
+                'senderPhone' => '+254 700 112 233',
+                'songUrl' => 'https://youtube.com/watch?v=demo123',
+            ],
+            default => [
+                'recipient' => 'admin@gusiilyrics.com',
+                'host' => Setting::get('mail_host', 'smtp.gusiilyrics.com'),
+                'port' => Setting::get('mail_port', '587'),
+                'subject' => 'Gusii Lyrics - SMTP Connection Verification',
+            ],
+        };
+
+        $viewName = match ($template) {
+            'password-reset' => 'emails.password-reset',
+            'contact-notification' => 'emails.contact-notification',
+            'music-promotion-notification' => 'emails.music-promotion-notification',
+            default => 'emails.test-smtp',
+        };
+
+        return view($viewName, $data);
+    }
+
+    public function mailTemplatesSendTest(Request $request)
+    {
+        $request->validate([
+            'template' => 'required|string',
+            'recipient' => 'required|email',
+        ]);
+
+        $recipient = trim($request->recipient);
+        $template = $request->template;
+
+        $mailer = Setting::get('mail_mailer', 'smtp');
+        $host = Setting::get('mail_host', '127.0.0.1');
+        $port = Setting::get('mail_port', '587');
+        $username = Setting::get('mail_username', '');
+        $password = Setting::get('mail_password', '');
+        $encryption = Setting::get('mail_encryption', 'tls');
+        $fromAddress = Setting::get('mail_from_address', 'info@gusiilyrics.com');
+        $fromName = Setting::get('mail_from_name', 'Gusii Lyrics');
+
+        $encLower = strtolower(trim((string)$encryption));
+        $scheme = null;
+        if (in_array($encLower, ['ssl', 'smtps']) || (int)$port === 465) {
+            $scheme = 'smtps';
+        } elseif (in_array($encLower, ['tls', 'smtp']) || (int)$port === 587) {
+            $scheme = 'smtp';
+        }
+
+        config([
+            'mail.default' => $mailer,
+            'mail.mailers.smtp.transport' => 'smtp',
+            'mail.mailers.smtp.host' => $host,
+            'mail.mailers.smtp.port' => (int)$port,
+            'mail.mailers.smtp.username' => $username,
+            'mail.mailers.smtp.password' => $password,
+            'mail.mailers.smtp.scheme' => $scheme,
+            'mail.from.address' => $fromAddress,
+            'mail.from.name' => $fromName,
+        ]);
+
+        $mockUser = (object)['name' => 'Staff Member', 'email' => $recipient];
+
+        $data = match ($template) {
+            'password-reset' => [
+                'user' => $mockUser,
+                'resetUrl' => route('admin.password.reset', ['token' => 'test-token', 'email' => $recipient]),
+                'subject' => '[Test] Staff Password Reset Request',
+            ],
+            'contact-notification' => [
+                'senderName' => 'Test Visitor',
+                'senderEmail' => 'testvisitor@example.com',
+                'senderPhone' => '+254 700 000 000',
+                'subject' => '[Test] General Visitor Inquiry',
+                'messageText' => 'This is a sample test notification demonstrating the branded contact email layout.',
+            ],
+            'music-promotion-notification' => [
+                'artistName' => 'Sample Gusii Artist',
+                'artistType' => 'Music Band',
+                'songTitle' => 'Ekerubo Ekemia',
+                'packageType' => 'Standard Package',
+                'senderEmail' => $recipient,
+                'senderPhone' => '+254 700 000 000',
+                'songUrl' => 'https://gusiilyrics.com',
+            ],
+            default => [
+                'recipient' => $recipient,
+                'host' => $host,
+                'port' => $port,
+                'subject' => '[Test] Gusii Lyrics SMTP Verification',
+            ],
+        };
+
+        $viewName = match ($template) {
+            'password-reset' => 'emails.password-reset',
+            'contact-notification' => 'emails.contact-notification',
+            'music-promotion-notification' => 'emails.music-promotion-notification',
+            default => 'emails.test-smtp',
+        };
+
+        try {
+            Mail::send($viewName, $data, function ($message) use ($recipient, $fromAddress, $fromName, $data) {
+                $message->to($recipient)
+                    ->from($fromAddress, $fromName)
+                    ->subject($data['subject'] ?? 'Gusii Lyrics Mail Notification Test');
+            });
+
+            return redirect()->back()->with('success', "Test email for template '{$template}' dispatched successfully to {$recipient}!");
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', "Failed to dispatch test email: " . $e->getMessage());
         }
     }
 

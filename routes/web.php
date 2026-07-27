@@ -178,6 +178,10 @@ Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->name(
         Route::post('/settings', [AdminController::class, 'settingsUpdate'])->name('settings.update');
         Route::post('/settings/test-email', [AdminController::class, 'testSmtp'])->name('settings.test-email');
 
+        Route::get('/mail-templates', [AdminController::class, 'mailTemplatesIndex'])->name('mail-templates.index');
+        Route::get('/mail-templates/{template}/preview', [AdminController::class, 'mailTemplatesPreview'])->name('mail-templates.preview');
+        Route::post('/mail-templates/send-test', [AdminController::class, 'mailTemplatesSendTest'])->name('mail-templates.send-test');
+
         Route::get('/docs', [AdminController::class, 'docsIndex'])->name('docs.index');
     });
 });
