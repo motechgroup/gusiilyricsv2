@@ -197,30 +197,6 @@
         </div>
     @endif
 
-    <!-- Frequently Asked Questions (FAQs) -->
-    <div class="glass-panel p-8 rounded-3xl border border-gray-800 space-y-6">
-        <h2 class="text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
-            <span>❓ Frequently Asked Questions about {{ $artist->name }}</span>
-        </h2>
-
-        <div class="space-y-4 text-xs sm:text-sm">
-            <div class="p-4 rounded-2xl bg-gray-950/60 border border-gray-800/80 space-y-1">
-                <h3 class="font-bold text-white">Who is {{ $artist->name }}?</h3>
-                <p class="text-gray-300 leading-relaxed">{{ $artist->name }} is an accomplished Ekegusii recording artist based in {{ $artist->origin ?: $artist->location }}, known for contributing to Gusii music heritage.</p>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-gray-950/60 border border-gray-800/80 space-y-1">
-                <h3 class="font-bold text-white">Where can I read official lyrics for {{ $artist->name }}'s songs?</h3>
-                <p class="text-gray-300 leading-relaxed">You can read official, word-for-word Ekegusii lyrics, English translations, and song meanings right here on GusiiLyrics.com.</p>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-gray-950/60 border border-gray-800/80 space-y-1">
-                <h3 class="font-bold text-white">How many songs by {{ $artist->name }} are indexed?</h3>
-                <p class="text-gray-300 leading-relaxed">Currently, {{ $artist->songs->count() }} official songs by {{ $artist->name }} are cataloged in our music library.</p>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <!-- JSON-LD Structured Data Schema -->
@@ -233,27 +209,6 @@
   "image": "{{ $artist->avatar_url }}",
   "url": "{{ url()->current() }}",
   "genre": "Ekegusii Music"
-}
-</script>
-<script type="application/ld+json">
-{
-  "{{ '@context' }}": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [{
-    "@type": "Question",
-    "name": "Who is {{ $artist->name }}?",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "{{ addslashes($artist->name . ' is an accomplished Ekegusii recording artist based in ' . ($artist->origin ?: $artist->location)) }}"
-    }
-  }, {
-    "@type": "Question",
-    "name": "Where can I read official lyrics for {{ $artist->name }}?",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "You can read official Ekegusii lyrics and translations on GusiiLyrics.com."
-    }
-  }]
 }
 </script>
 

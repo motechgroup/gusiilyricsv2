@@ -217,6 +217,62 @@
         </div>
     @endif
 
+    <!-- Site Frequently Asked Questions (FAQ Section Above Footer) -->
+    @if(!request()->routeIs('admin.login*') && !request()->is('mkuu*') && !request()->is('login*'))
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 my-6 border-t border-gray-900">
+            <div class="text-center max-w-3xl mx-auto mb-10 space-y-2">
+                <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center justify-center gap-2">
+                    <span>❓</span> Frequently Asked Questions (FAQ)
+                </h2>
+                <p class="text-gray-400 text-xs sm:text-sm">Everything you need to know about Gusii Lyrics, Ekegusii song translations, artist profiles, and music promotion.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto">
+                <div class="p-5 rounded-2xl bg-[#121927]/80 border border-gray-800/80 space-y-2">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        <span class="text-emerald-400">Q.</span> What is Gusii Lyrics?
+                    </h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">Gusii Lyrics is the ultimate digital music archive dedicated to indexing, translating, and preserving Ekegusii song lyrics, Gospel praise anthems, and classic Benga compositions from Kisii & Nyamira counties.</p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-[#121927]/80 border border-gray-800/80 space-y-2">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        <span class="text-emerald-400">Q.</span> How can I find lyrics for a specific Gusii song?
+                    </h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">You can search for any song title, artist name, or word snippet using our header search bar, browse through our A-Z alphabetical index, or filter by music genre (Gospel, Benga, Obokano).</p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-[#121927]/80 border border-gray-800/80 space-y-2">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        <span class="text-emerald-400">Q.</span> How do I follow my favorite Gusii artist, choir, or band?
+                    </h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">Simply navigate to any artist's profile page and click the <strong>+ Follow Artist</strong> button. The system saves your preference so you stay updated without needing an account.</p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-[#121927]/80 border border-gray-800/80 space-y-2">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        <span class="text-emerald-400">Q.</span> Are song translations provided on Gusii Lyrics?
+                    </h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">Yes! Our verified song pages feature word-for-word Ekegusii lyrics alongside English and Swahili translations so fans worldwide can understand the message behind the music.</p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-[#121927]/80 border border-gray-800/80 space-y-2">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        <span class="text-emerald-400">Q.</span> How can artists or music producers submit lyrics?
+                    </h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">Artists, gospel choirs, and bands can submit new lyrics, correct existing song text, or request verification through our public lyric submission portal or by contacting our team.</p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-[#121927]/80 border border-gray-800/80 space-y-2">
+                    <h3 class="font-bold text-white text-sm flex items-center gap-2">
+                        <span class="text-emerald-400">Q.</span> How do I promote my music or banner ad on the site?
+                    </h3>
+                    <p class="text-xs text-gray-300 leading-relaxed">Visit our <strong>Promote Music</strong> page to view our advertising packages, reach over 150K+ monthly Gusii music fans, and submit your promotional request.</p>
+                </div>
+            </div>
+        </section>
+    @endif
+
     <!-- Footer -->
     <footer class="bg-gray-950 border-t border-gray-800/80 py-10 mt-16 text-xs text-gray-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
