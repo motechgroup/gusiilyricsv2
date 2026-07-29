@@ -40,15 +40,59 @@ $action = $_REQUEST['action'] ?? '';
 $outputLog = [];
 $projectRoot = realpath(__DIR__ . '/..');
 
-function runCmd($cmd, $cwd) {
+function execCommand($cmd, $cwd) {
     $command = "cd " . escapeshellarg($cwd) . " && " . $cmd . " 2>&1";
-    $output = shell_exec($command);
-    return trim($output ?? 'No output returned or command execution disabled by server.');
+    $output = '';
+
+    if (function_exists('exec')) {
+        $lines = [];
+        @exec($command, $lines);
+        $output = implode("\n", $lines);
+    } elseif (function_exists('shell_exec')) {
+        $output = @shell_exec($command);
+    } elseif (function_exists('system')) {
+        ob_start();
+        @system($command);
+        $output = ob_get_clean();
+    } elseif (function_exists('passthru')) {
+        ob_start();
+        @passthru($command);
+        $output = ob_get_clean();
+    } elseif (function_exists('proc_open')) {
+        $descriptorspec = [
+            0 => ["pipe", "r"],
+            1 => ["pipe", "w"],
+            2 => ["pipe", "w"]
+        ];
+        $process = @proc_open($command, $descriptorspec, $pipes, $cwd);
+        if (is_resource($process)) {
+            fclose($pipes[0]);
+            $output = stream_get_contents($pipes[1]) . stream_get_contents($pipes[2]);
+            fclose($pipes[1]);
+            fclose($pipes[2]);
+            proc_close($process);
+        }
+    } elseif (function_exists('popen')) {
+        $handle = @popen($command, 'r');
+        if ($handle) {
+            while (!feof($handle)) {
+                $output .= fread($handle, 2096);
+            }
+            pclose($handle);
+        }
+    }
+
+    if (empty($output)) {
+        $disabledFuncs = ini_get('disable_functions') ?: 'None reported';
+        return "⚠️ Command execution functions (exec, shell_exec, system, passthru, proc_open, popen) are restricted or disabled in php.ini by your web host.\n\nDisabled functions list: " . $disabledFuncs . "\n\n💡 Tip: Please contact your web host to enable exec() or shell_exec() in cPanel/php.ini so Git commands can run directly in browser.";
+    }
+
+    return trim($output);
 }
 
 if ($action === 'pull') {
     $outputLog[] = "🔄 Running: git pull origin main";
-    $outputLog[] = runCmd('git pull origin main', $projectRoot);
+    $outputLog[] = execCommand('git pull origin main', $projectRoot);
 
     if (class_exists('Illuminate\Support\Facades\Artisan')) {
         try {
@@ -60,7 +104,7 @@ if ($action === 'pull') {
     }
 } elseif ($action === 'full_update') {
     $outputLog[] = "🔄 Running: git pull origin main";
-    $outputLog[] = runCmd('git pull origin main', $projectRoot);
+    $outputLog[] = execCommand('git pull origin main', $projectRoot);
 
     if (class_exists('Illuminate\Support\Facades\Artisan')) {
         try {
@@ -75,12 +119,12 @@ if ($action === 'pull') {
     }
 } elseif ($action === 'status') {
     $outputLog[] = "📊 Running: git status";
-    $outputLog[] = runCmd('git status', $projectRoot);
+    $outputLog[] = execCommand('git status', $projectRoot);
     $outputLog[] = "📜 Running: git log -n 5 --oneline";
-    $outputLog[] = runCmd('git log -n 5 --oneline', $projectRoot);
+    $outputLog[] = execCommand('git log -n 5 --oneline', $projectRoot);
 } elseif ($action === 'hard_reset') {
     $outputLog[] = "⚠️ Running: git fetch origin main && git reset --hard origin/main";
-    $outputLog[] = runCmd('git fetch origin main && git reset --hard origin/main', $projectRoot);
+    $outputLog[] = execCommand('git fetch origin main && git reset --hard origin/main', $projectRoot);
 }
 ?>
 <!DOCTYPE html>
