@@ -511,9 +511,25 @@ class AdminController extends Controller
     }
 
     // --- Artist CRUD ---
-    public function artistsIndex()
+    public function artistsIndex(Request $request)
     {
-        $artists = Artist::withCount('songs')->with('genre')->orderBy('name')->paginate(15)->withQueryString();
+        $query = Artist::withCount(['songs', 'songsAsCollaborator'])->with('genre');
+
+        if ($request->filled('q')) {
+            $term = '%' . trim($request->q) . '%';
+            $query->where(function ($q) use ($term) {
+                $q->where('name', 'like', $term)
+                  ->orWhere('location', 'like', $term)
+                  ->orWhere('origin', 'like', $term)
+                  ->orWhere('label', 'like', $term);
+            });
+        }
+
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        $artists = $query->orderBy('name')->paginate(15)->withQueryString();
         return view('admin.artists.index', compact('artists'));
     }
 
