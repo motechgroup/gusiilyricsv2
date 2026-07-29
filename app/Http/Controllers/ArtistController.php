@@ -10,7 +10,7 @@ class ArtistController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Artist::withCount('songs');
+        $query = Artist::withCount(['songs', 'songsAsCollaborator']);
 
         if ($request->has('q') && $request->q) {
             $searchTerm = '%' . $request->q . '%';

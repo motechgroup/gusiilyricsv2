@@ -72,6 +72,24 @@ class Artist extends Model
         return $this->belongsToMany(Song::class)->withTimestamps();
     }
 
+    public function getTotalSongsCountAttribute(): int
+    {
+        if (isset($this->attributes['songs_count']) && isset($this->attributes['songs_as_collaborator_count'])) {
+            return (int) $this->attributes['songs_count'] + (int) $this->attributes['songs_as_collaborator_count'];
+        }
+
+        try {
+            if (\Illuminate\Support\Facades\Schema::hasTable('artist_song')) {
+                return Song::where('artist_id', $this->id)
+                    ->orWhereHas('artists', function ($q) {
+                        $q->where('artists.id', $this->id);
+                    })->count();
+            }
+        } catch (\Throwable $e) {}
+
+        return $this->songs()->count();
+    }
+
     public function albums(): HasMany
     {
         return $this->hasMany(Album::class);

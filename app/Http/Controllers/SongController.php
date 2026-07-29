@@ -26,6 +26,9 @@ class SongController extends Controller
                     ->orWhere('lyrics_raw', 'like', $searchTerm)
                     ->orWhereHas('artist', function ($artQ) use ($searchTerm) {
                         $artQ->where('name', 'like', $searchTerm);
+                    })
+                    ->orWhereHas('artists', function ($artQ) use ($searchTerm) {
+                        $artQ->where('name', 'like', $searchTerm);
                     });
             });
         }
@@ -147,10 +150,13 @@ class SongController extends Controller
 
         $searchTerm = '%' . $term . '%';
 
-        $songs = Song::with('artist')
+        $songs = Song::with(['artist', 'artists'])
             ->where('title', 'like', $searchTerm)
             ->orWhere('lyrics_raw', 'like', $searchTerm)
             ->orWhereHas('artist', function ($q) use ($searchTerm) {
+                $q->where('name', 'like', $searchTerm);
+            })
+            ->orWhereHas('artists', function ($q) use ($searchTerm) {
                 $q->where('name', 'like', $searchTerm);
             })
             ->take(8)
@@ -159,7 +165,7 @@ class SongController extends Controller
                 return [
                     'id' => $song->id,
                     'title' => $song->title,
-                    'artist' => $song->artist->name,
+                    'artist' => $song->display_artist_names,
                     'slug' => $song->slug,
                     'cover' => $song->cover_art_url,
                     'url' => route('songs.show', $song->slug),
