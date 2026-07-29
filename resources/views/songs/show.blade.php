@@ -231,9 +231,9 @@
     @endif
 
     <!-- Lyrics Text Flow Broken Into Structured Song Blocks With Section Badges -->
-    <div class="space-y-6">
+    <div class="space-y-8 sm:space-y-10">
         @foreach($parsedBlocks as $index => $block)
-            <div class="lyrics-content no-copy unselectable text-base sm:text-xl text-gray-100 font-medium leading-relaxed select-none font-sans bg-gray-950/60 p-5 sm:p-7 rounded-3xl border border-gray-800/80 shadow-xl space-y-3">
+            <div class="lyrics-content no-copy unselectable text-base sm:text-xl text-gray-100 font-medium leading-relaxed select-none font-sans space-y-3 py-1">
                 @if(!empty($block['header']))
                     @php
                         $h = strtolower($block['header']);
