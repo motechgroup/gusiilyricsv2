@@ -1,7 +1,19 @@
 @extends('layouts.app')
 
-@section('title', $song->title . ' Lyrics - ' . $song->artist->name)
-@section('meta_description', 'Read full lyrics for ' . $song->title . ' by ' . $song->artist->name . '. Official stream links on Spotify & YouTube.')
+@section('title', $song->title . ' Lyrics - ' . $song->display_artist_names . ' | GusiiLyrics')
+@section('meta_description', 'Read the full lyrics of ' . $song->title . ' by ' . $song->display_artist_names . ', discover related songs, artist biography, latest releases and trending Kisii music.')
+@section('meta_keywords', implode(', ', [
+    $song->title,
+    $song->title . ' Lyrics',
+    $song->display_artist_names,
+    $song->display_artist_names . ' Lyrics',
+    $song->display_artist_names . ' Songs',
+    'Latest ' . $song->display_artist_names . ' Songs',
+    'Ekegusii Lyrics',
+    'Kisii Song Lyrics',
+    'Kenyan Lyrics',
+    'African Lyrics'
+]))
 
 @section('content')
 

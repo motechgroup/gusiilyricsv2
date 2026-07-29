@@ -15,13 +15,19 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\CategoryController;
 
-// SEO Crawlability Routes (Multi-file XML Sitemaps & Robots.txt)
+// SEO Crawlability Routes (Multi-file XML Sitemaps, RSS & Robots.txt)
 Route::get('/sitemap.xml', [SeoController::class, 'indexSitemap'])->name('seo.sitemap');
 Route::get('/sitemap-pages.xml', [SeoController::class, 'pagesSitemap'])->name('seo.sitemap.pages');
 Route::get('/sitemap-categories.xml', [SeoController::class, 'categoriesSitemap'])->name('seo.sitemap.categories');
 Route::get('/sitemap-artists.xml', [SeoController::class, 'artistsSitemap'])->name('seo.sitemap.artists');
 Route::get('/sitemap-albums.xml', [SeoController::class, 'albumsSitemap'])->name('seo.sitemap.albums');
 Route::get('/sitemap-songs.xml', [SeoController::class, 'songsSitemap'])->name('seo.sitemap.songs');
+Route::get('/sitemap-images.xml', [SeoController::class, 'imagesSitemap'])->name('seo.sitemap.images');
+Route::get('/sitemap-videos.xml', [SeoController::class, 'videosSitemap'])->name('seo.sitemap.videos');
+Route::get('/rss.xml', [SeoController::class, 'rssFeed'])->name('seo.rss');
+Route::get('/feed', [SeoController::class, 'rssFeed']);
+Route::get('/gusiilyrics2026indexnowkey.txt', [SeoController::class, 'indexNowTxt']);
+Route::get('/api/indexnow', [SeoController::class, 'pingIndexNow'])->name('seo.indexnow');
 Route::get('/robots.txt', [SeoController::class, 'robots'])->name('seo.robots');
 
 // M-Pesa Callback Endpoint (Exempt from CSRF)
@@ -39,6 +45,7 @@ Route::middleware(\App\Http\Middleware\TrackVisitor::class)->group(function () {
 
     Route::get('/artists', [ArtistController::class, 'index'])->name('artists.index');
     Route::get('/artists/{slug}', [ArtistController::class, 'show'])->name('artists.show');
+    Route::get('/artist/{slug}', [ArtistController::class, 'show']); // Alias URL
     Route::post('/artists/{id}/follow', [ArtistController::class, 'follow'])->name('artists.follow');
 
     Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
@@ -47,15 +54,33 @@ Route::middleware(\App\Http\Middleware\TrackVisitor::class)->group(function () {
     Route::get('/genres', [CategoryController::class, 'genresIndex'])->name('genres.index');
     Route::get('/genres/{slug}', [CategoryController::class, 'genreShow'])->name('categories.genre');
 
-    // PRD SEO Landing Categories
+    // High-Ranking SEO Landing Categories
     Route::get('/top-gusii-songs', [CategoryController::class, 'topGusiiSongs'])->name('categories.top-100');
     Route::get('/latest-songs', [CategoryController::class, 'latestSongs'])->name('categories.latest');
+    Route::get('/trending-songs', [CategoryController::class, 'trendingSongs'])->name('categories.trending');
+    Route::get('/top-songs', [CategoryController::class, 'topGusiiSongs']);
+    Route::get('/most-viewed-songs', [CategoryController::class, 'mostViewed'])->name('categories.most-viewed');
+    Route::get('/most-viewed-lyrics', [CategoryController::class, 'mostViewed']);
+    Route::get('/recently-added', [CategoryController::class, 'latestSongs']);
     Route::get('/gospel', [CategoryController::class, 'gospel'])->name('categories.gospel');
+    Route::get('/top-gospel-songs', [CategoryController::class, 'gospel']);
+    Route::get('/secular', [CategoryController::class, 'secularSongs']);
+    Route::get('/top-secular-songs', [CategoryController::class, 'secularSongs']);
     Route::get('/love-songs', [CategoryController::class, 'loveSongs'])->name('categories.love-songs');
+    Route::get('/top-love-songs', [CategoryController::class, 'loveSongs']);
     Route::get('/traditional', [CategoryController::class, 'traditional'])->name('categories.traditional');
     Route::get('/wedding-songs', [CategoryController::class, 'weddingSongs'])->name('categories.wedding');
-    Route::get('/most-viewed-songs', [CategoryController::class, 'mostViewed'])->name('categories.most-viewed');
+    Route::get('/top-wedding-songs', [CategoryController::class, 'weddingSongs']);
+    Route::get('/worship', [CategoryController::class, 'worshipSongs']);
+    Route::get('/top-worship-songs', [CategoryController::class, 'worshipSongs']);
+    Route::get('/urban', [CategoryController::class, 'urbanSongs']);
+    Route::get('/top-urban-songs', [CategoryController::class, 'urbanSongs']);
+    Route::get('/top-collaborations', [CategoryController::class, 'topCollaborations'])->name('categories.top-collaborations');
     Route::get('/trending-artists', [CategoryController::class, 'trendingArtists'])->name('categories.trending-artists');
+    Route::get('/top-artists', [CategoryController::class, 'trendingArtists']);
+    Route::get('/artist-rankings', [CategoryController::class, 'trendingArtists']);
+    Route::get('/top-lyrics-today', [CategoryController::class, 'topGusiiSongs']);
+    Route::get('/most-searched-lyrics', [CategoryController::class, 'mostViewed']);
     Route::get('/new-releases', [CategoryController::class, 'latestSongs'])->name('categories.new-releases');
 
     // Dedicated Public Legal & About Pages

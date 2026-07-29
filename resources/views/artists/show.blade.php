@@ -1,7 +1,24 @@
 @extends('layouts.app')
 
-@section('title', $artist->name . ' Lyrics, Songs, Albums & Biography | GusiiLyrics')
-@section('meta_description', 'Read all ' . $artist->name . ' lyrics, discover albums, popular songs, biography, latest releases and official YouTube videos on GusiiLyrics.com.')
+@section('title', $artist->name . ' Songs, Lyrics, Albums, Videos & Biography | GusiiLyrics')
+@section('meta_description', 'Read all ' . $artist->name . ' song lyrics, latest songs, albums, videos, collaborations, biography and trending music only on GusiiLyrics.')
+@section('meta_keywords', implode(', ', [
+    $artist->name,
+    $artist->name . ' Lyrics',
+    $artist->name . ' Songs',
+    'Latest ' . $artist->name . ' Songs',
+    'New ' . $artist->name . ' Music',
+    $artist->name . ' Album',
+    $artist->name . ' Videos',
+    $artist->name . ' Biography',
+    'Best ' . $artist->name . ' Songs',
+    'Trending ' . $artist->name . ' Songs',
+    'Popular ' . $artist->name . ' Songs',
+    $artist->name . ' mp3',
+    $artist->name . ' lyrics download',
+    'Ekegusii Lyrics',
+    'Kisii Songs'
+]))
 
 @section('content')
 

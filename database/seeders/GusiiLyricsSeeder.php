@@ -68,22 +68,37 @@ class GusiiLyricsSeeder extends Seeder
                 'active_years' => '2012 - Present',
                 'label' => 'Kerubo Music Ministries',
                 'bio' => 'Renowned Gusii gospel vocalist known for soul-stirring hits like Makeba, Baba Mwenye Nyumba, and Ebiogo.',
-                'image' => 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop&q=80',
+                'image' => '/images/logo.png',
                 'is_featured' => true,
             ]
         );
 
-        $douglas = Artist::firstOrCreate(
-            ['slug' => 'douglas-otiso'],
+        $sparrow = Artist::firstOrCreate(
+            ['slug' => 'sparrow-otondi'],
             [
-                'name' => 'Douglas Otiso',
+                'name' => 'Sparrow Otondi',
                 'type' => 'artist',
-                'location' => 'Nyamira County, Kenya',
-                'origin' => 'Borabu, Nyamira County',
-                'active_years' => '2015 - Present',
-                'label' => 'Otiso Gospel Records',
-                'bio' => 'Celebrated Ekegusii praise singer whose energetic worship music resonates across East Africa.',
-                'image' => 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80',
+                'location' => 'Kisii County, Kenya',
+                'origin' => 'Kisii, Kenya',
+                'active_years' => '2017 - Present',
+                'label' => 'Sparrow Music Entertainment',
+                'bio' => 'SPARROW ONTONDI is a promising brand, home of creative art and commitment towards greatness. Famous for hits like Uwii, Ninchu Ngotiti, and Chitoro.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $jimnizzo = Artist::firstOrCreate(
+            ['slug' => 'jimnizzo'],
+            [
+                'name' => 'Jimnizzo',
+                'type' => 'artist',
+                'location' => 'Kisii County, Kenya',
+                'origin' => 'Kitutu Chache, Kisii',
+                'active_years' => '2016 - Present',
+                'label' => 'Jimnizzo Muzik',
+                'bio' => 'Celebrated Ekegusii secular and Benga artist delivering poetic love songs and energetic performance tracks.',
+                'image' => '/images/logo.png',
                 'is_featured' => true,
             ]
         );
@@ -98,7 +113,7 @@ class GusiiLyricsSeeder extends Seeder
                 'active_years' => '2018 - Present',
                 'label' => 'Embara Gospel Studio',
                 'bio' => 'Dynamic and famous Ekegusii gospel entertainer known for energetic praise dances and theatrical music videos.',
-                'image' => 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80',
+                'image' => '/images/logo.png',
                 'is_featured' => true,
             ]
         );
@@ -113,7 +128,7 @@ class GusiiLyricsSeeder extends Seeder
                 'active_years' => '1970 - 2013',
                 'label' => 'Nyabite Boys Band',
                 'bio' => 'The legendary king of Gusii Benga music and founder of Nyabite Boys Band whose timeless acoustic Benga songs anchored Gusii music history.',
-                'image' => 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&auto=format&fit=crop&q=80',
+                'image' => '/images/logo.png',
                 'is_featured' => true,
             ]
         );
@@ -128,7 +143,260 @@ class GusiiLyricsSeeder extends Seeder
                 'active_years' => '1985 - 2018',
                 'label' => 'Mugirango Traditional Records',
                 'bio' => 'Master Obokano harpist and cultural storyteller who recorded landmark traditional Ekegusii folklore.',
-                'image' => 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $douglas = Artist::firstOrCreate(
+            ['slug' => 'douglas-otiso'],
+            [
+                'name' => 'Douglas Otiso',
+                'type' => 'artist',
+                'location' => 'Nyamira County, Kenya',
+                'origin' => 'Borabu, Nyamira County',
+                'active_years' => '2015 - Present',
+                'label' => 'Otiso Gospel Records',
+                'bio' => 'Celebrated Ekegusii praise singer whose energetic worship music resonates across East Africa.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $mcMiggy = Artist::firstOrCreate(
+            ['slug' => 'mc-miggy'],
+            [
+                'name' => 'MC Miggy',
+                'type' => 'artist',
+                'location' => 'Kisii, Kenya',
+                'active_years' => '2015 - Present',
+                'label' => 'Miggy Nation',
+                'bio' => 'Iconic Kisii urban Benga performer and master of ceremonies blending modern beats with traditional melodies.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $miggy = Artist::firstOrCreate(
+            ['slug' => 'miggy'],
+            [
+                'name' => 'Miggy',
+                'type' => 'artist',
+                'location' => 'Kisii, Kenya',
+                'active_years' => '2016 - Present',
+                'label' => 'Miggy Music',
+                'bio' => 'Popular Ekegusii vocalist and performer behind viral Kisii club and radio anthems.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $babuGee = Artist::firstOrCreate(
+            ['slug' => 'babu-gee'],
+            [
+                'name' => 'Babu Gee',
+                'type' => 'artist',
+                'location' => 'Kisii County, Kenya',
+                'active_years' => '2018 - Present',
+                'label' => 'Babu Gee Records',
+                'bio' => 'Hitmaker and Ekegusii pop sensation delivering top-charting dance tracks.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $babuGeeOmosayansi = Artist::firstOrCreate(
+            ['slug' => 'babu-gee-omosayansi'],
+            [
+                'name' => 'Babu Gee Omosayansi',
+                'type' => 'artist',
+                'location' => 'Kisii County, Kenya',
+                'active_years' => '2019 - Present',
+                'label' => 'Omosayansi Empire',
+                'bio' => 'Known as Omosayansi (The Scientist), famed for scientific beat craft and witty Ekegusii lyrics.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $yazeed = Artist::firstOrCreate(
+            ['slug' => 'yazeed-classic'],
+            [
+                'name' => 'Yazeed Classic',
+                'type' => 'artist',
+                'location' => 'Nyamira, Kenya',
+                'active_years' => '2020 - Present',
+                'label' => 'Yazeed Records',
+                'bio' => 'Rising Ekegusii classic singer crafting smooth romantic ballads and Benga tunes.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $vickyYoung = Artist::firstOrCreate(
+            ['slug' => 'vicky-young'],
+            [
+                'name' => 'Vicky Young',
+                'type' => 'artist',
+                'location' => 'Kisii, Kenya',
+                'active_years' => '2019 - Present',
+                'label' => 'Vicky Young Music',
+                'bio' => 'Fresh Kisii musical talent taking East Africa by storm with soulful vocals.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $foreverYoung = Artist::firstOrCreate(
+            ['slug' => 'forever-young'],
+            [
+                'name' => 'Forever Young',
+                'type' => 'artist',
+                'location' => 'Kisii, Kenya',
+                'active_years' => '2020 - Present',
+                'label' => 'Forever Young Entertainment',
+                'bio' => 'Modern Gusii musical star delivering high vibe party anthems and social narratives.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $faithStan = Artist::firstOrCreate(
+            ['slug' => 'faith-stan'],
+            [
+                'name' => 'Faith Stan',
+                'type' => 'artist',
+                'location' => 'Nyamira County, Kenya',
+                'active_years' => '2018 - Present',
+                'label' => 'Faith Stan Ministries',
+                'bio' => 'Anointed Kisii gospel songstress inspiring praise and worship through angelic vocals.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $manSango = Artist::firstOrCreate(
+            ['slug' => 'man-sango'],
+            [
+                'name' => 'Man Sango',
+                'type' => 'artist',
+                'location' => 'Kisii County, Kenya',
+                'active_years' => '2017 - Present',
+                'label' => 'Sango Muzik',
+                'bio' => 'Dynamic performer and Benga vocalist bringing authentic Kisii heritage rhythms to life.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $omoisiBwokioma = Artist::firstOrCreate(
+            ['slug' => 'omoisi-bwokioma'],
+            [
+                'name' => 'Omoisi Bwokioma',
+                'type' => 'artist',
+                'location' => 'Kisii County, Kenya',
+                'active_years' => '2016 - Present',
+                'label' => 'Bwokioma Records',
+                'bio' => 'Cultural vocalist and hitmaker celebrated across Gusii land for storytelling compositions.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $caljVinka = Artist::firstOrCreate(
+            ['slug' => 'calj-vinka'],
+            [
+                'name' => 'Calj Vinka',
+                'type' => 'artist',
+                'location' => 'Kisii, Kenya',
+                'active_years' => '2021 - Present',
+                'label' => 'Vinka Music',
+                'bio' => 'Contemporary Ekegusii urban and pop artist bringing fresh grooves to Kisii music.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $zarroClassic = Artist::firstOrCreate(
+            ['slug' => 'zarro-classic'],
+            [
+                'name' => 'Zarro Classic',
+                'type' => 'artist',
+                'location' => 'Nyamira, Kenya',
+                'active_years' => '2019 - Present',
+                'label' => 'Zarro Classic Nation',
+                'bio' => 'Popular Benga and acoustic guitar virtuoso from Nyamira county.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $vekta = Artist::firstOrCreate(
+            ['slug' => 'vekta'],
+            [
+                'name' => 'Vekta',
+                'type' => 'artist',
+                'location' => 'Kisii, Kenya',
+                'active_years' => '2018 - Present',
+                'label' => 'Vekta Muzik',
+                'bio' => 'Versatile Ekegusii producer and recording artist crafting top charts hits.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $dennohMpole = Artist::firstOrCreate(
+            ['slug' => 'dennoh-mpole'],
+            [
+                'name' => 'Dennoh Mpole',
+                'type' => 'artist',
+                'location' => 'Kisii County, Kenya',
+                'active_years' => '2020 - Present',
+                'label' => 'Mpole Music',
+                'bio' => 'Melodic Kisii artist known for heartwarming lyrics and gentle acoustic melodies.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $rodgersMosoti = Artist::firstOrCreate(
+            ['slug' => 'rodgers-mosoti'],
+            [
+                'name' => 'Rodgers Mosoti',
+                'type' => 'artist',
+                'location' => 'Kisii County, Kenya',
+                'active_years' => '2016 - Present',
+                'label' => 'Mosoti Gospel Studio',
+                'bio' => 'Worship leader and composer of timeless Ekegusii christian hymns.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $sagero = Artist::firstOrCreate(
+            ['slug' => 'sagero'],
+            [
+                'name' => 'Sagero',
+                'type' => 'artist',
+                'location' => 'Kisii County, Kenya',
+                'active_years' => '2015 - Present',
+                'label' => 'Sagero Sound',
+                'bio' => 'Ekegusii Benga pioneer known for classic dance hits across Nyanza region.',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $brotherDennis = Artist::firstOrCreate(
+            ['slug' => 'brother-dennis-onyamo'],
+            [
+                'name' => 'Brother Dennis Onyamo',
+                'type' => 'artist',
+                'location' => 'Nyamira County, Kenya',
+                'active_years' => '2014 - Present',
+                'label' => 'Onyamo Gospel Ministries',
+                'bio' => 'Prominent SDA and gospel choir leader delivering powerful message of faith.',
+                'image' => '/images/logo.png',
                 'is_featured' => true,
             ]
         );
@@ -143,7 +411,7 @@ class GusiiLyricsSeeder extends Seeder
                 'active_years' => '2016 - Present',
                 'label' => 'Kudu Muzik',
                 'bio' => 'Contemporary Ekegusii urban benga and rap fusion artist delivering social commentary.',
-                'image' => 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80',
+                'image' => '/images/logo.png',
                 'is_featured' => true,
             ]
         );
@@ -157,7 +425,7 @@ class GusiiLyricsSeeder extends Seeder
                 'active_years' => '1975 - Present',
                 'label' => 'Gusii Benga Records',
                 'bio' => 'Pioneer Gusii Benga music band famous across Kenya for timeless Benga guitar dance rhythms.',
-                'image' => 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80',
+                'image' => '/images/logo.png',
                 'is_featured' => true,
             ]
         );
@@ -171,7 +439,7 @@ class GusiiLyricsSeeder extends Seeder
                 'active_years' => '2005 - Present',
                 'label' => 'Suneka Sound Productions',
                 'bio' => 'High-energy Gusii Benga guitar band performing classic and modern dance compositions.',
-                'image' => 'https://images.unsplash.com/photo-1465847899084-d164df4dedc6?w=600&auto=format&fit=crop&q=80',
+                'image' => '/images/logo.png',
                 'is_featured' => true,
             ]
         );
@@ -185,7 +453,21 @@ class GusiiLyricsSeeder extends Seeder
                 'active_years' => '1990 - Present',
                 'label' => 'Nyanchwa Choir Ministries',
                 'bio' => 'Acclaimed Seventh-day Adventist choir known for heavenly Ekegusii acapella and orchestral gospel hymns.',
-                'image' => 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=600&auto=format&fit=crop&q=80',
+                'image' => '/images/logo.png',
+                'is_featured' => true,
+            ]
+        );
+
+        $cathedralChoir = Artist::firstOrCreate(
+            ['slug' => 'catholics-nyamira-choir'],
+            [
+                'name' => 'Catholics Nyamira Choir',
+                'type' => 'choir',
+                'location' => 'Nyamira County, Kenya',
+                'active_years' => '1995 - Present',
+                'label' => 'Nyamira Sacred Sound',
+                'bio' => 'Venerated Catholic cathedral choir performing liturgical worship hymns.',
+                'image' => '/images/logo.png',
                 'is_featured' => true,
             ]
         );

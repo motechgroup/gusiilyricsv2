@@ -38,6 +38,22 @@ class CategoryController extends Controller
         return view('categories.landing', compact('title', 'metaDescription', 'badge', 'seoContent', 'songs'));
     }
 
+    public function trendingSongs()
+    {
+        $title = "Trending Kisii Songs & Viral Ekegusii Music Lyrics";
+        $metaDescription = "Discover the most viral and trending Ekegusii song lyrics this week. Stream top Kisii Benga and gospel hits on GusiiLyrics.com.";
+        $badge = "📈 Trending Hits";
+        $seoContent = "Stay ahead of the curve with the official Trending Ekegusii Music Leaderboard on GusiiLyrics.com. Tracks featured here represent the fastest-growing Kisii songs across social media, Radio Citizen, Egesa FM, YouTube, and local streaming charts. Explore accurate word-for-word Ekegusii lyrics, English translations, and official music videos.";
+
+        $songs = Song::with(['artist', 'genre', 'album'])
+            ->where('is_trending', true)
+            ->orWhere('views_count', '>', 500)
+            ->orderBy('views_count', 'desc')
+            ->paginate(15);
+
+        return view('categories.landing', compact('title', 'metaDescription', 'badge', 'seoContent', 'songs'));
+    }
+
     public function gospel()
     {
         $title = "Gusii Gospel Songs - Ekegusii Praise & Worship Lyrics";
@@ -51,6 +67,41 @@ class CategoryController extends Controller
             ->orWhere('title', 'like', '%nyasae%')
             ->orWhere('title', 'like', '%yesu%')
             ->orWhere('lyrics_raw', 'like', '%nyasae%')
+            ->orderBy('views_count', 'desc')
+            ->paginate(15);
+
+        return view('categories.landing', compact('title', 'metaDescription', 'badge', 'seoContent', 'songs'));
+    }
+
+    public function worshipSongs()
+    {
+        $title = "Top Ekegusii Worship Songs & Spiritual Hymns Lyrics";
+        $metaDescription = "Deep Christian worship and prayer songs in Ekegusii. Complete lyric transcriptions and choir hymns on GusiiLyrics.com.";
+        $badge = "🙏 Worship & Hymns";
+        $seoContent = "Deep spiritual worship songs and sanctuary hymns in Ekegusii language. Featuring Seventh-day Adventist choirs, Catholic cathedral recordings, and acoustic worship ministers.";
+
+        $songs = Song::with(['artist', 'genre', 'album'])
+            ->where('lyrics_raw', 'like', '%nyasae%')
+            ->orWhere('lyrics_raw', 'like', '%yesu%')
+            ->orWhere('lyrics_raw', 'like', '%tata%')
+            ->orderBy('views_count', 'desc')
+            ->paginate(15);
+
+        return view('categories.landing', compact('title', 'metaDescription', 'badge', 'seoContent', 'songs'));
+    }
+
+    public function secularSongs()
+    {
+        $title = "Top Gusii Benga & Secular Songs Lyrics";
+        $metaDescription = "Listen to and read lyrics for classic Gusii Benga guitar bands, dance tracks, and secular classics on GusiiLyrics.com.";
+        $badge = "🎸 Gusii Benga & Secular";
+        $seoContent = "Explore classic and modern Gusii Benga band compositions, fast guitar rhythms, and cultural dance anthems by Christopher Monyoncho, Nyabite Boys, Suneka Band, and MC Kudu.";
+
+        $genre = Genre::where('slug', 'benga')->first();
+        $songs = Song::with(['artist', 'genre', 'album'])
+            ->where('genre_id', $genre ? $genre->id : 0)
+            ->orWhere('lyrics_raw', 'like', '%benga%')
+            ->orWhere('lyrics_raw', 'like', '%gitari%')
             ->orderBy('views_count', 'desc')
             ->paginate(15);
 
@@ -105,6 +156,38 @@ class CategoryController extends Controller
             ->orWhere('title', 'like', '%enyangi%')
             ->orWhere('lyrics_raw', 'like', '%enyangi%')
             ->orWhere('lyrics_raw', 'like', '%omonwa%')
+            ->orderBy('views_count', 'desc')
+            ->paginate(15);
+
+        return view('categories.landing', compact('title', 'metaDescription', 'badge', 'seoContent', 'songs'));
+    }
+
+    public function urbanSongs()
+    {
+        $title = "Ekegusii Urban, Rap & Fusion Songs Lyrics";
+        $metaDescription = "Discover modern Kisii urban pop, rap fusion, and contemporary Ekegusii hits on GusiiLyrics.com.";
+        $badge = "🔥 Ekegusii Urban & Fusion";
+        $seoContent = "Contemporary Ekegusii urban rap, Afro-pop, and club dance hits from the next generation of Kisii recording artists.";
+
+        $songs = Song::with(['artist', 'genre', 'album'])
+            ->where('title', 'like', '%kudu%')
+            ->orWhere('title', 'like', '%town%')
+            ->orWhere('lyrics_raw', 'like', '%town%')
+            ->orderBy('views_count', 'desc')
+            ->paginate(15);
+
+        return view('categories.landing', compact('title', 'metaDescription', 'badge', 'seoContent', 'songs'));
+    }
+
+    public function topCollaborations()
+    {
+        $title = "Top Gusii Music Collaborations & Featured Songs";
+        $metaDescription = "Explore the best Ekegusii collaboration songs featuring joint tracks between top Kisii recording artists on GusiiLyrics.com.";
+        $badge = "🤝 Top Collaborations";
+        $seoContent = "Discover collaborative tracks featuring multiple Kisii vocalists, band partnerships, and joint gospel praise releases.";
+
+        $songs = Song::with(['artist', 'artists', 'genre', 'album'])
+            ->whereHas('artists')
             ->orderBy('views_count', 'desc')
             ->paginate(15);
 

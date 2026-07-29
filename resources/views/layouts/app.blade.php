@@ -26,7 +26,7 @@
 
     <title>@yield('title', $defaultSeoTitle)</title>
     <meta name="description" content="@yield('meta_description', $defaultSeoDesc)">
-    <meta name="keywords" content="{{ $defaultKeywords }}">
+    <meta name="keywords" content="@yield('meta_keywords', $defaultKeywords)">
     <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- OpenGraph SEO Tags -->
