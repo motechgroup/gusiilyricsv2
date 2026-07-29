@@ -147,9 +147,18 @@
                                 <h3 class="font-bold text-white text-sm sm:text-base truncate group-hover:text-emerald-400 transition leading-snug">
                                     {{ $song->title }}
                                 </h3>
-                                <p class="text-xs text-gray-400 truncate">
-                                    {{ $song->display_artist_names }}
-                                </p>
+                                @php
+                                    $otherArtists = $song->all_artists->reject(fn($a) => $a->id === $artist->id)->pluck('name');
+                                @endphp
+                                @if($otherArtists->isNotEmpty())
+                                    <p class="text-xs text-emerald-400 font-medium truncate">
+                                        <span class="text-amber-400 font-bold">ft.</span> {{ $otherArtists->implode(', ') }}
+                                    </p>
+                                @else
+                                    <p class="text-xs text-gray-400 truncate">
+                                        {{ $song->genre->name ?? 'Single' }} • {{ $song->release_year ?: 'Official Release' }}
+                                    </p>
+                                @endif
                             </div>
                         </div>
 

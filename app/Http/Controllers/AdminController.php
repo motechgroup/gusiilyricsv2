@@ -440,7 +440,13 @@ class AdminController extends Controller
             $validated['cover_image'] = '/storage/' . $path;
         }
 
-        $validated['slug'] = Str::slug($validated['title']) . '-' . Str::random(5);
+        $baseSlug = Str::slug($validated['title']);
+        $slug = $baseSlug;
+        $c = 1;
+        while (Song::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . (++$c);
+        }
+        $validated['slug'] = $slug;
         $validated['is_featured'] = $request->has('is_featured');
         $validated['is_trending'] = $request->has('is_trending');
 
@@ -555,7 +561,13 @@ class AdminController extends Controller
             $validated['image'] = trim($request->image);
         }
 
-        $validated['slug'] = Str::slug($validated['name']) . '-' . Str::random(4);
+        $baseSlug = Str::slug($validated['name']);
+        $slug = $baseSlug;
+        $c = 1;
+        while (Artist::where('slug', $slug)->exists()) {
+            $slug = $baseSlug . '-' . (++$c);
+        }
+        $validated['slug'] = $slug;
         $validated['is_featured'] = $request->has('is_featured');
 
         Artist::create($validated);

@@ -62,7 +62,18 @@ class ArtistController extends Controller
     {
         $artist = Artist::with(['albums.songs'])
             ->where('slug', $slug)
-            ->firstOrFail();
+            ->first();
+
+        if (!$artist) {
+            $cleanSlug = preg_replace('/-[a-zA-Z0-9]{4,5}$/', '', $slug);
+            $artist = Artist::where('slug', $cleanSlug)->first();
+
+            if (!$artist) {
+                $artist = Artist::where('slug', 'like', $cleanSlug . '%')->firstOrFail();
+            }
+
+            return redirect()->route('artists.show', $artist->slug, [], 301);
+        }
 
         try {
             if (\Illuminate\Support\Facades\Schema::hasTable('artist_song')) {
