@@ -129,6 +129,7 @@ Route::get('/admin/login', function() {
 // Staff Panel (Accessible by Super Admin and Editors)
 Route::middleware(\App\Http\Middleware\AdminAuth::class)->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/seo', [AdminController::class, 'seoDashboard'])->name('seo.dashboard');
 
     // Song Lyrics Management (Editors & Admin)
     Route::get('/songs', [AdminController::class, 'songsIndex'])->name('songs.index');

@@ -31,6 +31,17 @@ class AdminController extends Controller
         return view('admin.login');
     }
 
+    public function seoDashboard()
+    {
+        $healthChecker = new \App\Services\SeoHealthChecker();
+        $auditReport = $healthChecker->runFullAudit();
+        $sitemapUrl = url('/sitemap.xml');
+        $rssUrl = url('/rss.xml');
+        $indexNowUrl = url('/api/indexnow');
+
+        return view('admin.seo.dashboard', compact('auditReport', 'sitemapUrl', 'rssUrl', 'indexNowUrl'));
+    }
+
     public function login(Request $request)
     {
         $request->validate([

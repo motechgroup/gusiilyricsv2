@@ -51,5 +51,8 @@ class AppServiceProvider extends ServiceProvider
                 ]);
             }
         } catch (\Throwable $e) {}
+
+        \App\Models\Song::observe(\App\Observers\SongObserver::class);
+        \App\Models\Artist::observe(\App\Observers\ArtistObserver::class);
     }
 }
