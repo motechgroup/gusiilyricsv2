@@ -90,6 +90,19 @@ class Artist extends Model
         return $this->songs()->count();
     }
 
+    public function getSongsCountAttribute()
+    {
+        if (array_key_exists('songs_count', $this->attributes)) {
+            $count = (int) $this->attributes['songs_count'];
+            if (array_key_exists('songs_as_collaborator_count', $this->attributes)) {
+                $count += (int) $this->attributes['songs_as_collaborator_count'];
+            }
+            return $count;
+        }
+
+        return $this->total_songs_count;
+    }
+
     public function albums(): HasMany
     {
         return $this->hasMany(Album::class);

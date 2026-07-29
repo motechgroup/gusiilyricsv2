@@ -130,7 +130,7 @@ class CategoryController extends Controller
         $title = "Trending Gusii Artists & Top Vocalists Directory";
         $metaDescription = "Discover trending Ekegusii recording artists, vocalists, and musical bands. Read biographies, discographies, and top song lyrics on GusiiLyrics.com.";
 
-        $artists = Artist::withCount('songs')
+        $artists = Artist::withCount(['songs', 'songsAsCollaborator'])
             ->orderBy('is_featured', 'desc')
             ->orderBy('songs_count', 'desc')
             ->paginate(16);

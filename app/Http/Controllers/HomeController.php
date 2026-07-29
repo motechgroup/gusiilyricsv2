@@ -23,7 +23,7 @@ class HomeController extends Controller
             ->get();
 
         $featuredArtists = Artist::where('is_featured', true)
-            ->withCount('songs')
+            ->withCount(['songs', 'songsAsCollaborator'])
             ->take(6)
             ->get();
 
@@ -51,7 +51,7 @@ class HomeController extends Controller
             ->get();
 
         $topBands = Artist::where('type', 'band')
-            ->withCount('songs')
+            ->withCount(['songs', 'songsAsCollaborator'])
             ->withSum('songs', 'views_count')
             ->orderBy('songs_sum_views_count', 'desc')
             ->take(6)
@@ -62,7 +62,7 @@ class HomeController extends Controller
         }
 
         $topChoirs = Artist::where('type', 'choir')
-            ->withCount('songs')
+            ->withCount(['songs', 'songsAsCollaborator'])
             ->withSum('songs', 'views_count')
             ->orderBy('songs_sum_views_count', 'desc')
             ->take(6)
