@@ -134,25 +134,34 @@ class Song extends Model
 
     public function getCoverArtUrlAttribute(): string
     {
+        $siteLogo = Setting::get('site_logo', '/images/logo.png');
+        $fallbackUrl = str_starts_with($siteLogo, 'http') ? $siteLogo : asset(ltrim($siteLogo, '/'));
+
         if ($this->cover_image) {
             if (str_starts_with($this->cover_image, 'http://') || str_starts_with($this->cover_image, 'https://')) {
                 return $this->cover_image;
             }
-            return asset(ltrim($this->cover_image, '/'));
+            $clean = ltrim($this->cover_image, '/');
+            if (file_exists(public_path($clean))) {
+                return asset($clean);
+            }
         }
 
         if ($this->album && $this->album->cover_image) {
             if (str_starts_with($this->album->cover_image, 'http://') || str_starts_with($this->album->cover_image, 'https://')) {
                 return $this->album->cover_image;
             }
-            return asset(ltrim($this->album->cover_image, '/'));
+            $cleanAlbum = ltrim($this->album->cover_image, '/');
+            if (file_exists(public_path($cleanAlbum))) {
+                return asset($cleanAlbum);
+            }
         }
 
-        if ($this->artist && $this->artist->image) {
+        if ($this->artist && !empty($this->artist->image)) {
             return $this->artist->avatar_url;
         }
 
-        return 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80';
+        return $fallbackUrl;
     }
 
     public function getSeoUrlAttribute(): string

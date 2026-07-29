@@ -30,9 +30,23 @@ class Album extends Model
 
     public function getCoverArtUrlAttribute(): string
     {
+        $siteLogo = Setting::get('site_logo', '/images/logo.png');
+        $fallbackUrl = str_starts_with($siteLogo, 'http') ? $siteLogo : asset(ltrim($siteLogo, '/'));
+
         if ($this->cover_image) {
-            return asset($this->cover_image);
+            if (str_starts_with($this->cover_image, 'http://') || str_starts_with($this->cover_image, 'https://')) {
+                return $this->cover_image;
+            }
+            $clean = ltrim($this->cover_image, '/');
+            if (file_exists(public_path($clean))) {
+                return asset($clean);
+            }
         }
-        return 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=600&q=80';
+
+        if ($this->artist && !empty($this->artist->image)) {
+            return $this->artist->avatar_url;
+        }
+
+        return $fallbackUrl;
     }
 }

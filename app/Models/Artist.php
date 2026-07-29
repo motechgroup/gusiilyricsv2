@@ -97,8 +97,11 @@ class Artist extends Model
 
     public function getAvatarUrlAttribute(): string
     {
+        $siteLogo = Setting::get('site_logo', '/images/logo.png');
+        $fallbackUrl = str_starts_with($siteLogo, 'http') ? $siteLogo : asset(ltrim($siteLogo, '/'));
+
         if (empty($this->image)) {
-            return 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80';
+            return $fallbackUrl;
         }
 
         if (str_starts_with($this->image, 'http://') || str_starts_with($this->image, 'https://')) {
@@ -126,7 +129,7 @@ class Artist extends Model
             }
         }
 
-        return asset($clean);
+        return $fallbackUrl;
     }
 
     public function getFormattedFollowersAttribute(): string
