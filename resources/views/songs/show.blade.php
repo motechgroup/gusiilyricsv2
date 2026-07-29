@@ -258,7 +258,7 @@
 
             <!-- Insert AdSense / Custom Banner in-between stanzas (after 1st and 3rd blocks) -->
             @if(($index === 0 || $index === 2) && $index < count($parsedBlocks) - 1)
-                <div class="my-6 py-4 text-center border-y border-gray-800/60 bg-gray-950/60 rounded-2xl p-4 space-y-2">
+                <div class="my-6 py-4 text-center space-y-2">
                     <span class="text-[9px] uppercase tracking-widest text-gray-500 font-mono block">Advertisement</span>
                     @if($inLyricsAd)
                         @if(($inLyricsAd->type === 'custom' || $inLyricsAd->type === 'image') && $inLyricsAd->image_path)
