@@ -81,6 +81,38 @@
         </form>
     </div>
 
+    <!-- Content Display & Visibility Settings -->
+    <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-gray-800 space-y-6">
+        <form method="POST" action="{{ route('admin.settings.update') }}" class="space-y-6">
+            @csrf
+            <input type="hidden" name="section_type" value="display">
+
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+                <h3 class="text-sm font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-2">
+                    👁️ Content Display & Public Views Toggle
+                </h3>
+                <span class="text-[10px] text-gray-500 uppercase tracking-widest font-mono">Standalone Save</span>
+            </div>
+
+            <div class="flex items-center justify-between p-4 rounded-2xl bg-gray-950 border border-gray-800">
+                <div>
+                    <h4 class="text-xs font-bold text-white">Show Song View Counts to Public</h4>
+                    <p class="text-[11px] text-gray-400 mt-0.5">When enabled, song view numbers (👁️) are displayed to public visitors across the website. When disabled, views are hidden from public, but remain visible to admins in the backend.</p>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer shrink-0 ml-4">
+                    <input type="checkbox" name="show_song_views_public" value="1" {{ ($settings['show_song_views_public'] ?? '1') === '1' ? 'checked' : '' }} class="sr-only peer">
+                    <div class="w-11 h-6 bg-gray-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                </label>
+            </div>
+
+            <div class="flex justify-end pt-2">
+                <button type="submit" class="px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-lg transition">
+                    Save Display Settings
+                </button>
+            </div>
+        </form>
+    </div>
+
     <!-- 2. M-Pesa API Credentials & STK Push Configuration -->
     <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-gray-800 space-y-6">
         <form method="POST" action="{{ route('admin.settings.update') }}" class="space-y-6">

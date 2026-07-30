@@ -845,6 +845,7 @@ class AdminController extends Controller
             'app_play_store_url' => Setting::get('app_play_store_url', '#'),
             'app_app_store_url' => Setting::get('app_app_store_url', '#'),
             'app_direct_apk_url' => Setting::get('app_direct_apk_url', '#'),
+            'show_song_views_public' => Setting::get('show_song_views_public', '1'),
             'social_stat_web_traffic' => Setting::get('social_stat_web_traffic', '150,000+'),
             'social_stat_web_label' => Setting::get('social_stat_web_label', 'Monthly Web Traffic'),
             'social_stat_youtube_subscribers' => Setting::get('social_stat_youtube_subscribers', '25,000+'),
@@ -975,7 +976,15 @@ class AdminController extends Controller
             return redirect()->back()->with('success', 'Mobile App Download settings saved successfully!');
         }
 
+        // 9. Content Display & Visibility Section
+        if ($section === 'display') {
+            Setting::set('show_song_views_public', $request->has('show_song_views_public') ? '1' : '0');
+
+            return redirect()->back()->with('success', 'Content display & visibility settings saved successfully!');
+        }
+
         // Fallback for full save
+        Setting::set('show_song_views_public', $request->has('show_song_views_public') ? '1' : '0');
         Setting::set('site_name', $request->site_name);
         Setting::set('seo_title', $request->seo_title);
         Setting::set('seo_description', $request->seo_description);

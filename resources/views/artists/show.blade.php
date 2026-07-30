@@ -185,9 +185,11 @@
                                     {{ $song->genre->name }}
                                 </span>
                             @endif
-                            <div class="text-right">
-                                <span class="text-xs font-bold text-emerald-400 font-mono">👁️ {{ number_format($song->views_count) }}</span>
-                            </div>
+                            @if((\App\Models\Setting::get('show_song_views_public', '1') !== '0') || \Illuminate\Support\Facades\Auth::check())
+                                <div class="text-right">
+                                    <span class="text-xs font-bold text-emerald-400 font-mono">👁️ {{ number_format($song->views_count) }}</span>
+                                </div>
+                            @endif
                         </div>
                     </a>
                 @endforeach

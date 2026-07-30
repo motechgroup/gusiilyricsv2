@@ -123,8 +123,10 @@
                     @endforeach
                     <span>•</span>
                     <span class="text-gray-400">{{ $song->release_year ?: '2026' }}</span>
-                    <span>•</span>
-                    <span class="font-mono text-emerald-400">👁️ {{ number_format($song->views_count) }} views</span>
+                    @if((\App\Models\Setting::get('show_song_views_public', '1') !== '0') || \Illuminate\Support\Facades\Auth::check())
+                        <span>•</span>
+                        <span class="font-mono text-emerald-400">👁️ {{ number_format($song->views_count) }} views</span>
+                    @endif
                 </div>
             </div>
 

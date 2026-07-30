@@ -53,7 +53,9 @@
                     </div>
 
                     <div class="flex items-center gap-4 text-xs text-gray-400 font-mono">
-                        <span>👁️ {{ number_format($song->views_count) }}</span>
+                        @if((\App\Models\Setting::get('show_song_views_public', '1') !== '0') || \Illuminate\Support\Facades\Auth::check())
+                            <span>👁️ {{ number_format($song->views_count) }}</span>
+                        @endif
                         <span class="px-3 py-1 rounded-xl bg-emerald-500/10 text-emerald-400 font-bold group-hover:bg-emerald-500 group-hover:text-slate-950 transition">Read Lyrics &rarr;</span>
                     </div>
                 </a>
